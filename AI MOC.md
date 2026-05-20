@@ -4,6 +4,9 @@ status: active
 public_safe: true
 created: 2026-05-20
 ---
+> Legacy MOC. Current authoritative MOC: [[10_Maps_Of_Content/Projects_MOC]]
+
+
 
 ![[Recording 20260520194001.m4a]]
 
