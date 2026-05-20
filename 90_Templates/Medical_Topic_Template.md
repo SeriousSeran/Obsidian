@@ -1,43 +1,27 @@
 ---
 type: medical-topic
+domain: medicine
+domains:
+  - medicine
 status: draft
 review_needed: true
+topic:
+system:
+created: "{{date}}"
 ---
+# Medical Topic
 
-# {{title}}
+## Core Concept
 
-## Clinical picture
+## Clinical Pattern
 
-Who is the patient? What is the bedside problem?
+## OSCE/Viva Hooks
 
-## Normal physiology
+## Differentials
 
-What should normally happen?
+## Red Flags
 
-## Pathology
+## Questions
 
-What fails, and why?
+## Review
 
-## Clinical signs
-
-What do I see, feel, hear, or elicit — and why?
-
-## Diagnosis
-
-How do I recognize it?
-
-## Investigations
-
-What confirms it, grades severity, and finds complications?
-
-## Management
-
-Immediate → definitive → prevention → follow-up.
-
-## Viva traps
-
-- 
-
-## Flashcard opportunities
-
-- 

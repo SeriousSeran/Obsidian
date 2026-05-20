@@ -1,29 +1,33 @@
-# Obsidian Life OS
+# SeriousSeran Obsidian Life OS
 
-This repository is designed as a GitHub-backed Obsidian vault.
+This vault is designed to feel like a calm personal command center, not a file dump.
 
-Core idea:
+It uses Obsidian as the interface, GitHub as the source of truth, Markdown as memory, Python as the processing layer, and safe GitHub Actions as scheduled maintenance.
 
-- Obsidian is the human interface.
-- GitHub is the source of truth and version history.
-- GitHub Actions are the scheduled automation layer.
-- Jules or other repo agents should work through issues and pull requests.
+## Start Here
 
-Safety rule: raw notes are preserved, generated changes should be reviewed through pull requests, and automation should not delete personal knowledge.
+- [[10_Maps_Of_Content/Life_OS_Home]]
+- [[10_Maps_Of_Content/Task_Dashboard]]
+- [[10_Maps_Of_Content/Life_OS_Command_Center.canvas]]
+- [[99_System/Obsidian_Plugin_Setup]]
+- [[99_System/LIFE_OS_SPEC]]
 
-## First workflow
+## Core Loop
 
-1. Capture raw thoughts in `00_Inbox/`.
-2. Run inbox and link-health workflows.
-3. Review generated reports in `99_System/reports/`.
-4. Process specific items through GitHub Issues or agent pull requests.
-5. Merge only after review.
+Raw input -> processed insight -> linked notes -> tasks -> projects -> reviews -> direction.
 
-## Main dashboards
+## Commands
 
-- [[10_Maps_Of_Content/Life_OS_Home|Life OS Home]]
-- [[10_Maps_Of_Content/Medicine_MOC|Medicine]]
-- [[10_Maps_Of_Content/Money_MOC|Money]]
-- [[10_Maps_Of_Content/Mind_MOC|Mind]]
-- [[10_Maps_Of_Content/Content_MOC|Content]]
-- [[10_Maps_Of_Content/Projects_MOC|Projects]]
+```bash
+python 99_System/scripts/life_os.py inbox-report
+python 99_System/scripts/life_os.py link-health
+python 99_System/scripts/life_os.py root-triage
+python 99_System/scripts/life_os.py create-daily-note
+python 99_System/scripts/life_os.py create-weekly-review
+python 99_System/scripts/life_os.py process-voice-dumps
+python 99_System/scripts/life_os.py validate-notes
+python 99_System/scripts/life_os.py refresh-dashboards
+```
+
+Enable the CSS snippet at `.obsidian/snippets/life-os.css` for the intended dashboard polish.
+

@@ -1,0 +1,18 @@
+{
+  "note": "Proposed QuickAdd choices. Verify against your installed QuickAdd version before importing.",
+  "choices": [
+    {"name": "Capture: Raw Idea", "type": "capture", "targetFolder": "00_Inbox/Ideas", "fileNameFormat": "{{DATE}} {{VALUE}}"},
+    {"name": "Capture: Voice Dump Transcript", "type": "capture", "targetFolder": "00_Inbox/Voice_Dumps", "fileNameFormat": "Voice Dump {{DATE}} {{TIME}}", "template": "90_Templates/Voice_Dump_Template.md"},
+    {"name": "Capture: Quick Task", "type": "capture", "targetFolder": "00_Inbox", "fileNameFormat": "Quick Tasks"},
+    {"name": "Template: New Medical Topic", "type": "template", "targetFolder": "02_Medicine/Topics", "template": "90_Templates/Medical_Topic_Template.md"},
+    {"name": "Template: New Clinical Case", "type": "template", "targetFolder": "02_Medicine/Clinical_Cases", "template": "90_Templates/Clinical_Case_Template.md"},
+    {"name": "Template: New Financial Idea", "type": "template", "targetFolder": "03_Money/Business_Ideas", "template": "90_Templates/Financial_Idea_Template.md"},
+    {"name": "Template: New Project", "type": "template", "targetFolder": "07_Projects/Active", "template": "90_Templates/Project_Template.md"},
+    {"name": "Template: New Content Idea", "type": "template", "targetFolder": "06_Content/Ideas", "template": "90_Templates/Content_Idea_Template.md"},
+    {"name": "Template: New Reflection", "type": "template", "targetFolder": "04_Mind/Reflections", "template": "90_Templates/Reflection_Template.md"},
+    {"name": "Template: New Book Note", "type": "template", "targetFolder": "09_Bucket_List", "template": "90_Templates/Book_Note_Template.md"},
+    {"name": "Multi: Daily Capture Menu", "type": "multi", "choices": ["Capture: Raw Idea", "Capture: Voice Dump Transcript", "Capture: Quick Task"]},
+    {"name": "Multi: Life OS Command Menu", "type": "multi", "choices": ["Template: New Project", "Template: New Medical Topic", "Template: New Reflection"]}
+  ]
+}
+

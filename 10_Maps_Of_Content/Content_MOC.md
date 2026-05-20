@@ -1,23 +1,52 @@
 ---
 type: moc
 domain: content
+status: active
+review_needed: false
 ---
-
 # Content MOC
 
-## Key notes
+## Purpose
 
-- [[06_Content/Scripts]]
-- Medical teaching content
-- Reels and short-form ideas
-- Long-form scripts
-- Publishing calendar
+Turn ideas into useful writing, scripts, posts, and publishing experiments.
 
-## Rule
+## Key Dashboard
 
-Capture raw ideas first. Later convert into scripts, hooks, outlines, and publishable assets.
+- [[06_Content/Content_Dashboard]]
 
-## Recently added or moved
+## Key Folders
 
-- [[Content Brand System.md|Content Brand System]]
-- [[Sales Without Lying.md|Sales Without Lying]]
+- [[06_Content]]
+- [[06_Content/Ideas]]
+
+## Important Notes
+
+- [[06_Content/Content_Dashboard]]
+- [[99_System/schemas/content_idea.schema]]
+
+## Active Questions
+
+- What audience is this for?
+- What should be shipped this week?
+- Which ideas are strongest after review?
+
+## Templates
+
+- [[99_System/schemas/content_idea.schema]]
+
+## Reports
+
+- [[99_System/reports/inbox_report]]
+
+## Review Rhythm
+
+Review weekly and before publishing sessions.
+
+## Notes Needing Review
+
+```dataview
+TABLE type, status, file.mtime AS "Updated"
+FROM "06_Content"
+WHERE review_needed = true
+SORT file.mtime DESC
+```

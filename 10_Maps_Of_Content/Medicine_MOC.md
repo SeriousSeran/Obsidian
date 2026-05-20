@@ -1,33 +1,56 @@
 ---
 type: moc
 domain: medicine
+status: active
+review_needed: false
 ---
-
 # Medicine MOC
 
-## Key notes
+## Purpose
 
-- [[02_Medicine/Clinical_Knowledge]]
-- [[02_Medicine/OSCE_Viva]]
-- [[02_Medicine/Patients_Deidentified]]
+Turn medical learning into reviewable concepts, clinical cases, OSCE practice, and viva readiness.
 
-## Medical note style
+## Key Dashboard
 
-Use the pathway:
+- [[02_Medicine/Medicine_Dashboard]]
 
-Patient → Physiology → Pathology → Clinical Signs → Diagnosis → Investigations → Management.
+## Key Folders
 
-## Safety
+- [[02_Medicine]]
+- [[02_Medicine/Topics]]
+- [[02_Medicine/Clinical_Cases]]
 
-Patient-related notes must be deidentified. Management notes must be clinically reviewed before use.
+## Important Notes
 
-## Recently added or moved
+- [[02_Medicine/Medicine_Dashboard]]
+- [[99_System/schemas/medical_topic.schema]]
+- [[99_System/schemas/clinical_case.schema]]
 
-- [[Healthcare AI and Devices Roadmap.md|Healthcare AI and Devices Roadmap]]
-- [[Learning Roadmap - Medicine Commerce AI.md|Learning Roadmap - Medicine Commerce AI]]
-- [[Health and Physique MOC.md|Health and Physique MOC]]
+## Active Questions
 
-## Needs review
+- What topics need spaced review?
+- What clinical patterns are weak?
+- Which notes need deidentification review?
 
-- [[Clinical Exam and Viva System.md|Clinical Exam and Viva System]]
-- [[Medicine MOC.md|Medicine MOC]]
+## Templates
+
+- [[99_System/schemas/medical_topic.schema]]
+- [[99_System/schemas/clinical_case.schema]]
+
+## Reports
+
+- [[99_System/reports/life_os_validation_report]]
+- [[99_System/reports/link_health]]
+
+## Review Rhythm
+
+Review this MOC weekly and before exam-focused study blocks.
+
+## Notes Needing Review
+
+```dataview
+TABLE type, status, file.mtime AS "Updated"
+FROM "02_Medicine"
+WHERE review_needed = true
+SORT file.mtime DESC
+```

@@ -1,29 +1,53 @@
 ---
 type: moc
 domain: projects
+status: active
+review_needed: false
 ---
-
 # Projects MOC
 
-## Key notes
+## Purpose
 
+Track active projects, project decisions, next actions, and review status.
+
+## Key Dashboard
+
+- [[07_Projects/Project_Dashboards/Active_Project_Dashboard]]
+
+## Key Folders
+
+- [[07_Projects]]
 - [[07_Projects/Active]]
+- [[07_Projects/Project_Dashboards]]
 
-## Project rule
+## Important Notes
 
-Every active project should have: purpose, next action, current blocker, review date, and success definition.
+- [[07_Projects/Project_Dashboards/Active_Project_Dashboard]]
+- [[99_System/schemas/project.schema]]
 
-## Recently added or moved
+## Active Questions
 
-- [[Medical Education Product Engine.md|Medical Education Product Engine]]
-- [[Emergency Medicine Viva Flashcard Product.md|Emergency Medicine Viva Flashcard Product]]
-- [[OSCE Image Recognition Product.md|OSCE Image Recognition Product]]
-- [[AI Prompt Pack for Medical Students.md|AI Prompt Pack for Medical Students]]
-- [[Project Index.md|Project Index]]
-- [[Product Ideas MOC.md|Product Ideas MOC]]
+- What is active now?
+- What has a next action?
+- What should be paused or archived?
 
-## Needs review
+## Templates
 
-- [[OSCE Examiner Simulator Idea.md|OSCE Examiner Simulator Idea]]
-- [[Medical Concept Note Template.md|Medical Concept Note Template]]
-- [[Product Idea Template.md|Product Idea Template]]
+- [[99_System/schemas/project.schema]]
+
+## Reports
+
+- [[99_System/reports/life_os_validation_report]]
+
+## Review Rhythm
+
+Review active projects weekly.
+
+## Notes Needing Review
+
+```dataview
+TABLE type, status, file.mtime AS "Updated"
+FROM "07_Projects"
+WHERE review_needed = true
+SORT file.mtime DESC
+```

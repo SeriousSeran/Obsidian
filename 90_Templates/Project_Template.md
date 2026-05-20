@@ -1,29 +1,28 @@
 ---
 type: project
 status: active
-created: {{date}}
-review: {{date}}
-domain: 
+domain:
+domains:
+review_needed: false
+created: "{{date}}"
+review:
+next_action:
 ---
+# Project
 
-# Project — {{title}}
+## Outcome
 
-## Purpose
+## Why It Matters
 
-
-## Success definition
-
-
-## Current state
-
-
-## Next action
+## Next Actions
 
 - [ ] 
 
-## Blockers
+## Milestones
 
+## Decisions
 
-## Related notes
+## Risks
 
-- [[10_Maps_Of_Content/Projects_MOC]]
+## Review
+

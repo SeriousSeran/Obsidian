@@ -1,43 +1,39 @@
 ---
 type: daily-note
-date: {{date}}
 status: active
+domain: daily
+domains:
+  - daily
+date: {{date}}
+created: "{{date}}"
+review_needed: false
 ---
+# {{date}}
 
-# Daily Note — {{date}}
+> Daily capture, direction, and close-down.
 
 ## Capture
 
-- 
-
-## Medicine
-
-- 
-
-## Money
-
-- 
-
-## Mind
-
-- 
-
-## Body
-
-- 
-
-## Content
-
-- 
+## Priorities
 
 ## Actions
 
 - [ ] 
 
-## End-of-day reflection
+## Medicine
 
-What happened?
+## Money
 
-What repeated?
+## Body
 
-What is one small correction for tomorrow?
+## Notes Needing Review
+
+```dataview
+TABLE type, status, file.link AS Note
+FROM ""
+WHERE review_needed = true
+SORT file.mtime DESC
+LIMIT 10
+```
+
+## End of Day Review

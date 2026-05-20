@@ -1,36 +1,23 @@
 ---
 type: voice-dump
-date: {{date}}
 status: raw
-domains: []
-source: voice
+domain: mind
+domains:
+  - mind
+source:
+needs_transcription: false
+review_needed: true
+created: "{{date}}"
 ---
+# Voice Dump {{date}}
 
-# Voice Dump — {{date}}
+## Context
 
-## Raw transcript
+## Raw Transcript
 
-Paste transcript here.
+## Immediate Signals
 
-## What I was really talking about
+## Follow-Up Tasks
 
+- [ ] Process this voice dump.
 
-## Domains detected
-
-- 
-
-## Action items
-
-- [ ] 
-
-## Questions to explore
-
-- 
-
-## Notes to create
-
-- [[ ]]
-
-## Links
-
-- [[10_Maps_Of_Content/Life_OS_Home]]
