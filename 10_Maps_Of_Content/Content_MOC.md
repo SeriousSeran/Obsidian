@@ -18,10 +18,12 @@ Turn ideas into useful writing, scripts, posts, and publishing experiments.
 
 - [[06_Content]]
 - [[06_Content/Ideas]]
+- [[06_Content/Learning]]
 
 ## Important Notes
 
 - [[06_Content/Content_Dashboard]]
+- [[06_Content/Learning/Content_Learning_Library]]
 - [[99_System/schemas/content_idea.schema]]
 
 ## Active Questions
@@ -33,6 +35,7 @@ Turn ideas into useful writing, scripts, posts, and publishing experiments.
 ## Templates
 
 - [[99_System/schemas/content_idea.schema]]
+- [[90_Templates/Content_Idea_Template]]
 
 ## Reports
 

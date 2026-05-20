@@ -19,10 +19,12 @@ Track money, cash flow, assets, business ideas, experiments, and financial assum
 - [[03_Money]]
 - [[03_Money/Financial_Map]]
 - [[03_Money/Business_Ideas]]
+- [[03_Money/Learning]]
 
 ## Important Notes
 
 - [[03_Money/Money_Dashboard]]
+- [[03_Money/Learning/Money_Learning_Library]]
 - [[99_System/schemas/financial_idea.schema]]
 
 ## Active Questions
@@ -34,6 +36,7 @@ Track money, cash flow, assets, business ideas, experiments, and financial assum
 ## Templates
 
 - [[99_System/schemas/financial_idea.schema]]
+- [[90_Templates/Financial_Idea_Template]]
 
 ## Reports
 

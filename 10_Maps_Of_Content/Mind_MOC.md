@@ -18,10 +18,12 @@ Hold reflections, decisions, values, emotional patterns, and personal meaning wi
 
 - [[04_Mind]]
 - [[04_Mind/Reflections]]
+- [[04_Mind/Learning]]
 
 ## Important Notes
 
 - [[04_Mind/Mind_Dashboard]]
+- [[04_Mind/Learning/Mind_Learning_Library]]
 - [[99_System/schemas/reflection.schema]]
 
 ## Active Questions
@@ -33,6 +35,7 @@ Hold reflections, decisions, values, emotional patterns, and personal meaning wi
 ## Templates
 
 - [[99_System/schemas/reflection.schema]]
+- [[90_Templates/Reflection_Template]]
 
 ## Reports
 

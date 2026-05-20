@@ -41,6 +41,7 @@
 - `reflection`
 - `book-note`
 - `person-note`
+- `learning-library`
 - `dashboard`
 - `moc`
 - `report`

@@ -8,6 +8,7 @@ It uses Obsidian as the interface, GitHub as the source of truth, Markdown as me
 
 - [[10_Maps_Of_Content/Life_OS_Home]]
 - [[10_Maps_Of_Content/Task_Dashboard]]
+- [[10_Maps_Of_Content/Learning_Resource_Hub]]
 - [[10_Maps_Of_Content/Life_OS_Command_Center.canvas]]
 - [[99_System/Obsidian_Plugin_Setup]]
 - [[99_System/LIFE_OS_SPEC]]
@@ -30,4 +31,6 @@ python 99_System/scripts/life_os.py refresh-dashboards
 ```
 
 Enable the CSS snippet at `.obsidian/snippets/life-os.css` for the intended dashboard polish.
+
+Learning resources use official, open, library, or publisher links only. See [[99_System/learning_resources/Legal_Resource_Policy]].
 

@@ -15,6 +15,7 @@ review_needed: false
 - [[00_Inbox|Inbox]]
 - [[10_Maps_Of_Content/Task_Dashboard|Task Dashboard]]
 - [[07_Projects/Project_Dashboards/Active_Project_Dashboard|Active Projects]]
+- [[10_Maps_Of_Content/Learning_Resource_Hub|Learning Resource Hub]]
 - [[99_System/reports/inbox_report|Inbox Report]]
 - [[99_System/reports/life_os_validation_report|System Health]]
 - [[10_Maps_Of_Content/Life_OS_Command_Center.canvas|Canvas Command Center]]
@@ -29,6 +30,17 @@ review_needed: false
 | Body | [[05_Body/Body_Dashboard]] | Sleep, energy, health |
 | Content | [[06_Content/Content_Dashboard]] | Scripts, brand, publishing |
 | Projects | [[07_Projects/Project_Dashboards/Active_Project_Dashboard]] | Active builds and product ideas |
+
+## Learning Libraries
+
+| Domain | Library |
+|---|---|
+| Medicine | [[02_Medicine/Learning/Medicine_Learning_Library]] |
+| Money | [[03_Money/Learning/Money_Learning_Library]] |
+| Mind | [[04_Mind/Learning/Mind_Learning_Library]] |
+| Body | [[05_Body/Learning/Body_Learning_Library]] |
+| Content | [[06_Content/Learning/Content_Learning_Library]] |
+| Projects | [[07_Projects/Learning/Projects_Learning_Library]] |
 
 ## Live Review Queue
 
@@ -82,6 +94,6 @@ LIMIT 20
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T04:35:19+05:30
+- Last refresh: 2026-05-21T05:08:12+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

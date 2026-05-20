@@ -19,10 +19,12 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 - [[02_Medicine]]
 - [[02_Medicine/Topics]]
 - [[02_Medicine/Clinical_Cases]]
+- [[02_Medicine/Learning]]
 
 ## Important Notes
 
 - [[02_Medicine/Medicine_Dashboard]]
+- [[02_Medicine/Learning/Medicine_Learning_Library]]
 - [[99_System/schemas/medical_topic.schema]]
 - [[99_System/schemas/clinical_case.schema]]
 
@@ -36,6 +38,8 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 
 - [[99_System/schemas/medical_topic.schema]]
 - [[99_System/schemas/clinical_case.schema]]
+- [[90_Templates/Medical_Topic_Template]]
+- [[90_Templates/Clinical_Case_Template]]
 
 ## Reports
 

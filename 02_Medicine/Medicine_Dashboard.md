@@ -11,6 +11,7 @@ review_needed: true
 ## Start Here
 
 - [[10_Maps_Of_Content/Medicine_MOC]]
+- [[02_Medicine/Learning/Medicine_Learning_Library]]
 - [[02_Medicine/Kanban/Medicine_Study_Pipeline]]
 - [[90_Templates/Medical_Topic_Template]]
 - [[90_Templates/Clinical_Case_Template]]
@@ -19,6 +20,7 @@ review_needed: true
 
 - [[02_Medicine/Topics]]
 - [[02_Medicine/Clinical_Cases]]
+- [[02_Medicine/Learning]]
 
 ## Current Focus
 
@@ -57,6 +59,11 @@ LIMIT 15
 - [[90_Templates/Medical_Topic_Template]]
 - [[90_Templates/Clinical_Case_Template]]
 
+## Learning Resources
+
+- [[02_Medicine/Learning/Medicine_Learning_Library]]
+- [[10_Maps_Of_Content/Learning_Resource_Hub]]
+
 ## Related Reports
 
 - [[99_System/reports/life_os_validation_report]]
@@ -70,6 +77,6 @@ LIMIT 15
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T04:35:19+05:30
+- Last refresh: 2026-05-21T05:08:12+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

@@ -19,6 +19,7 @@ class LifeOSTests(unittest.TestCase):
     def test_required_folders_list_is_available(self):
         self.assertIn("00_Inbox", life_os.REQUIRED_FOLDERS)
         self.assertIn("08_Relationships", life_os.REQUIRED_FOLDERS)
+        self.assertIn("02_Medicine/Learning", life_os.REQUIRED_FOLDERS)
         self.assertIn("99_System/reports", life_os.REQUIRED_FOLDERS)
 
     def test_required_dashboards_exist(self):
@@ -30,6 +31,10 @@ class LifeOSTests(unittest.TestCase):
             self.assertTrue((ROOT / "90_Templates" / template).exists(), template)
         for schema in life_os.SCHEMA_FILES:
             self.assertTrue((ROOT / "99_System" / "schemas" / schema).exists(), schema)
+
+    def test_learning_resources_exist(self):
+        for resource in life_os.REQUIRED_LEARNING_RESOURCES:
+            self.assertTrue((ROOT / resource).exists(), resource)
 
     def test_obsidian_link_parser_detects_links(self):
         text = "See [[10_Maps_Of_Content/Life_OS_Home|home]] and ![[image.png]]."

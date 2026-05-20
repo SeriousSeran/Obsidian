@@ -19,10 +19,12 @@ Track active projects, project decisions, next actions, and review status.
 - [[07_Projects]]
 - [[07_Projects/Active]]
 - [[07_Projects/Project_Dashboards]]
+- [[07_Projects/Learning]]
 
 ## Important Notes
 
 - [[07_Projects/Project_Dashboards/Active_Project_Dashboard]]
+- [[07_Projects/Learning/Projects_Learning_Library]]
 - [[99_System/schemas/project.schema]]
 
 ## Active Questions
@@ -34,6 +36,7 @@ Track active projects, project decisions, next actions, and review status.
 ## Templates
 
 - [[99_System/schemas/project.schema]]
+- [[90_Templates/Project_Template]]
 
 ## Reports
 

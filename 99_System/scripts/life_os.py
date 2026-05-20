@@ -46,18 +46,24 @@ REQUIRED_FOLDERS = [
     "02_Medicine/Topics",
     "02_Medicine/Clinical_Cases",
     "02_Medicine/Kanban",
+    "02_Medicine/Learning",
     "03_Money",
     "03_Money/Financial_Map",
     "03_Money/Business_Ideas",
+    "03_Money/Learning",
     "04_Mind",
     "04_Mind/Reflections",
+    "04_Mind/Learning",
     "05_Body",
+    "05_Body/Learning",
     "06_Content",
     "06_Content/Ideas",
     "06_Content/Kanban",
+    "06_Content/Learning",
     "07_Projects",
     "07_Projects/Active",
     "07_Projects/Kanban",
+    "07_Projects/Learning",
     "07_Projects/Project_Dashboards",
     "08_Relationships",
     "08_Relationships/People",
@@ -68,6 +74,7 @@ REQUIRED_FOLDERS = [
     "99_System/design",
     "99_System/git",
     "99_System/homepage",
+    "99_System/learning_resources",
     "99_System/periodic_notes",
     "99_System/quickadd",
     "99_System/reports",
@@ -80,6 +87,7 @@ REQUIRED_FOLDERS = [
 REQUIRED_DASHBOARDS = [
     "10_Maps_Of_Content/Life_OS_Home.md",
     "10_Maps_Of_Content/Task_Dashboard.md",
+    "10_Maps_Of_Content/Learning_Resource_Hub.md",
     "10_Maps_Of_Content/Life_OS_Command_Center.canvas",
     "02_Medicine/Medicine_Dashboard.md",
     "03_Money/Money_Dashboard.md",
@@ -136,6 +144,16 @@ REPORT_FILES = [
     "voice_dump_processing_report.md",
     "life_os_validation_report.md",
     "dashboard_refresh_report.md",
+]
+
+REQUIRED_LEARNING_RESOURCES = [
+    "02_Medicine/Learning/Medicine_Learning_Library.md",
+    "03_Money/Learning/Money_Learning_Library.md",
+    "04_Mind/Learning/Mind_Learning_Library.md",
+    "05_Body/Learning/Body_Learning_Library.md",
+    "06_Content/Learning/Content_Learning_Library.md",
+    "07_Projects/Learning/Projects_Learning_Library.md",
+    "99_System/learning_resources/Legal_Resource_Policy.md",
 ]
 
 OBSIDIAN_LINK_RE = re.compile(r"!?\[\[([^\]#|]+)(?:[#|][^\]]*)?\]\]")
@@ -335,6 +353,7 @@ def link_health(_args: argparse.Namespace) -> Path:
         "99_System/design/",
         "99_System/git/",
         "99_System/homepage/",
+        "99_System/learning_resources/",
         "99_System/periodic_notes/",
         "99_System/quickadd/",
         "99_System/schemas/",
@@ -435,6 +454,7 @@ def validate_notes(_args: argparse.Namespace) -> Path:
     missing_mocs = [item for item in REQUIRED_MOCS if not (ROOT / item).is_file()]
     missing_schemas = [item for item in SCHEMA_FILES if not (ROOT / "99_System" / "schemas" / item).is_file()]
     missing_templates = [item for item in TEMPLATE_FILES if not (ROOT / "90_Templates" / item).is_file()]
+    missing_learning = [item for item in REQUIRED_LEARNING_RESOURCES if not (ROOT / item).is_file()]
     missing_reports = [item for item in REPORT_FILES if not (ROOT / "99_System" / "reports" / item).is_file()]
     root_clutter = [
         p.name
@@ -453,8 +473,8 @@ def validate_notes(_args: argparse.Namespace) -> Path:
         "life_os_validation_report.md",
         "Life OS Validation Report",
         [
-            ("Summary", [f"- Missing folders: {len(missing_folders)}", f"- Missing dashboards: {len(missing_dashboards)}", f"- Missing templates: {len(missing_templates)}"]),
-            ("What needs attention", [*(f"- {item}" for item in missing_folders), *(f"- {item}" for item in missing_dashboards), *(f"- {item}" for item in missing_mocs), *(f"- {item}" for item in missing_schemas), *(f"- {item}" for item in missing_templates), *(f"- {item}" for item in missing_reports)] or ["- System structure is complete."]),
+            ("Summary", [f"- Missing folders: {len(missing_folders)}", f"- Missing dashboards: {len(missing_dashboards)}", f"- Missing templates: {len(missing_templates)}", f"- Missing learning resources: {len(missing_learning)}"]),
+            ("What needs attention", [*(f"- {item}" for item in missing_folders), *(f"- {item}" for item in missing_dashboards), *(f"- {item}" for item in missing_mocs), *(f"- {item}" for item in missing_schemas), *(f"- {item}" for item in missing_templates), *(f"- {item}" for item in missing_learning), *(f"- {item}" for item in missing_reports)] or ["- System structure is complete."]),
             ("Safe changes made", ["- Created missing required folders.", "- Ensured report files exist."]),
             ("Human review needed", [*(f"- Root clutter: {item}" for item in root_clutter), *review_flags] or ["- No obvious review blockers."]),
             ("Suggested next actions", ["- Open [[10_Maps_Of_Content/Life_OS_Home]].", "- Enable the Life OS CSS snippet.", "- Configure QuickAdd and Periodic Notes."]),

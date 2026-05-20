@@ -26,6 +26,10 @@ Reports are written to `99_System/reports/`. They are safe to regenerate and sho
 
 Start with [[10_Maps_Of_Content/Life_OS_Home]]. Plugin-powered dashboards use Dataview and Tasks, but they also include static links for graceful fallback.
 
+## Learning Resources
+
+The legal learning layer starts at [[10_Maps_Of_Content/Learning_Resource_Hub]]. It links to official/open resources and avoids pirated textbook mirrors. Policy: [[99_System/learning_resources/Legal_Resource_Policy]].
+
 ## Plugins
 
 Setup docs live in:
