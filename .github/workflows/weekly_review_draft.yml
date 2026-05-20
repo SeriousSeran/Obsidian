@@ -1,0 +1,28 @@
+name: Weekly Review Draft
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Every Sunday at midnight
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Draft
+        run: |
+          mkdir -p 01_Daily/Weekly_Reviews
+          DATE=$(date +%Y-%m-%d)
+          echo "# Weekly Review $DATE" > 01_Daily/Weekly_Reviews/$DATE.md
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: Create Weekly Review Draft"
+          title: "Create Weekly Review Draft"
+          body: "Automated Weekly Review Draft."
+          branch: automation/weekly-review-draft
+          delete-branch: true

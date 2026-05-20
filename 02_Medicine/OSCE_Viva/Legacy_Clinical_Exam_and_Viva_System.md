@@ -1,4 +1,6 @@
 ---
+review_needed: true
+domain: medicine
 type: system-note
 status: active
 private_vault: true

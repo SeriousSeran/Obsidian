@@ -1,4 +1,6 @@
 ---
+review_needed: true
+domain: medicine
 type: medical-topic
 status: draft
 review_needed: true

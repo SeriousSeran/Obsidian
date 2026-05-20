@@ -20,3 +20,11 @@ Patient → Physiology → Pathology → Clinical Signs → Diagnosis → Invest
 ## Safety
 
 Patient-related notes must be deidentified. Management notes must be clinically reviewed before use.
+
+## OSCE/Viva
+- [[02_Medicine/OSCE_Viva/Clinical_Exam_and_Viva_System|Clinical Exam and Viva System]]
+- [[02_Medicine/OSCE_Viva/Legacy_Clinical_Exam_and_Viva_System|Legacy Clinical Exam and Viva System]]
+
+## Medical Templates
+- [[90_Templates/Clinical_Case_Note_Template_Deidentified|Clinical Case Note Template - Deidentified]]
+- [[90_Templates/Legacy_Medical_Concept_Note_Template|Legacy Medical Concept Note Template]]

@@ -1,4 +1,6 @@
 ---
+review_needed: true
+domain: medicine
 type: template
 status: active
 public_safe: true

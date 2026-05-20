@@ -1,0 +1,28 @@
+name: Daily Note Draft
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create Draft
+        run: |
+          mkdir -p 01_Daily/Daily_Notes
+          DATE=$(date +%Y-%m-%d)
+          cp 90_Templates/Daily_Review_Template.md 01_Daily/Daily_Notes/$DATE.md || echo "# Daily Note $DATE" > 01_Daily/Daily_Notes/$DATE.md
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: Create Daily Note Draft"
+          title: "Create Daily Note Draft"
+          body: "Automated Daily Note Draft."
+          branch: automation/daily-note-draft
+          delete-branch: true
