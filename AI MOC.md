@@ -5,7 +5,7 @@ public_safe: true
 created: 2026-05-20
 ---
 
-[Recording 20260520194001.m4a](Recording%2020260520194001.m4a)
+![[Recording 20260520194001.m4a]]
 
 # AI MOC
 
