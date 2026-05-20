@@ -5,7 +5,7 @@ domain: content
 
 # Content MOC
 
-## Areas
+## Key notes
 
 - [[06_Content/Scripts]]
 - Medical teaching content
@@ -16,3 +16,8 @@ domain: content
 ## Rule
 
 Capture raw ideas first. Later convert into scripts, hooks, outlines, and publishable assets.
+
+## Recently added or moved
+
+- [[Content Brand System.md|Content Brand System]]
+- [[Sales Without Lying.md|Sales Without Lying]]

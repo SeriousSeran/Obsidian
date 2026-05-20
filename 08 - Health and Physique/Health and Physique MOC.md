@@ -4,6 +4,9 @@ status: active
 private_vault: true
 created: 2026-05-20
 ---
+> Legacy MOC. Current authoritative MOC: [[10_Maps_Of_Content/Body_MOC]]
+
+
 
 # Health and Physique MOC
 

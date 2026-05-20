@@ -5,7 +5,7 @@ domain: body
 
 # Body MOC
 
-## Areas
+## Key notes
 
 - Sleep
 - Exercise

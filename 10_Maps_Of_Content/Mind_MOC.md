@@ -5,7 +5,7 @@ domain: mind
 
 # Mind MOC
 
-## Areas
+## Key notes
 
 - Reflections
 - Repeating patterns
