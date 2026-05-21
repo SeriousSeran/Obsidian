@@ -22,7 +22,7 @@ review_needed: true
 
 ## Core Stations
 
-- Cardiovascular examination
+- [[02_Medicine/OSCE/Cardiovascular_Examination_Station]]
 - Respiratory examination
 - Abdominal examination
 - Neurological screening
