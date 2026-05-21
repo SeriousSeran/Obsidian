@@ -19,6 +19,8 @@ Hold reflections, decisions, values, emotional patterns, and personal meaning wi
 - [[04_Mind]]
 - [[04_Mind/Reflections]]
 - [[04_Mind/Learning]]
+- [[04_Mind/Reflections/Pattern_Library]]
+- [[04_Mind/Reflections/Decision_Journal]]
 
 ## Important Notes
 

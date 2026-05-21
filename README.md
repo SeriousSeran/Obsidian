@@ -12,6 +12,7 @@ It uses Obsidian as the interface, GitHub as the source of truth, Markdown as me
 - [[10_Maps_Of_Content/Life_OS_Command_Center.canvas]]
 - [[99_System/Obsidian_Plugin_Setup]]
 - [[99_System/LIFE_OS_SPEC]]
+- [[99_System/Repo_Inventory]]
 
 ## Core Loop
 
@@ -33,4 +34,6 @@ python 99_System/scripts/life_os.py refresh-dashboards
 Enable the CSS snippet at `.obsidian/snippets/life-os.css` for the intended dashboard polish.
 
 Learning resources use official, open, library, or publisher links only. See [[99_System/learning_resources/Legal_Resource_Policy]].
+
+The repo boundary is documented in [[99_System/Repo_Inventory]] so the vault stays clean and only contains the Life OS base plus active vault content.
 

@@ -30,6 +30,10 @@ Start with [[10_Maps_Of_Content/Life_OS_Home]]. Plugin-powered dashboards use Da
 
 The legal learning layer starts at [[10_Maps_Of_Content/Learning_Resource_Hub]]. It links to official/open resources and avoids pirated textbook mirrors. Policy: [[99_System/learning_resources/Legal_Resource_Policy]].
 
+## Repo Boundary
+
+Use [[99_System/Repo_Inventory]] to keep the repository clean. The root should contain the Life OS vault folders, GitHub/Obsidian config, `README.md`, and `AGENTS.md` only.
+
 ## Plugins
 
 Setup docs live in:

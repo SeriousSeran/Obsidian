@@ -56,6 +56,22 @@ path includes 06_Content
 sort by due
 ```
 
+## Relationship Tasks
+
+```tasks
+not done
+path includes 08_Relationships
+sort by due
+```
+
+## Bucket List Tasks
+
+```tasks
+not done
+path includes 09_Bucket_List
+sort by due
+```
+
 ## Review-Needed Tasks
 
 ```tasks
@@ -67,6 +83,6 @@ sort by due
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T05:08:12+05:30
+- Last refresh: 2026-05-21T06:14:59+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

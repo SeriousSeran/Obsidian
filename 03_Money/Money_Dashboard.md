@@ -12,6 +12,8 @@ review_needed: true
 
 - [[10_Maps_Of_Content/Money_MOC]]
 - [[03_Money/Learning/Money_Learning_Library]]
+- [[03_Money/Financial_Map/Financial_Command_Center]]
+- [[03_Money/Business_Ideas/Business_Model_Lab]]
 - [[90_Templates/Financial_Idea_Template]]
 
 ## Key Folders
@@ -69,10 +71,11 @@ LIMIT 15
 
 - [ ] Create a current cash flow note.
 - [ ] List active business experiments.
+- [ ] Fill the financial command center with facts, not guesses.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T05:08:12+05:30
+- Last refresh: 2026-05-21T06:14:59+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

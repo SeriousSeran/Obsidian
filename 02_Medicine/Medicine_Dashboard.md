@@ -12,6 +12,9 @@ review_needed: true
 
 - [[10_Maps_Of_Content/Medicine_MOC]]
 - [[02_Medicine/Learning/Medicine_Learning_Library]]
+- [[02_Medicine/OSCE/OSCE_Command_Center]]
+- [[02_Medicine/Viva/Viva_Question_Bank]]
+- [[02_Medicine/Topics/Clinical_Reasoning_Framework]]
 - [[02_Medicine/Kanban/Medicine_Study_Pipeline]]
 - [[90_Templates/Medical_Topic_Template]]
 - [[90_Templates/Clinical_Case_Template]]
@@ -20,6 +23,8 @@ review_needed: true
 
 - [[02_Medicine/Topics]]
 - [[02_Medicine/Clinical_Cases]]
+- [[02_Medicine/OSCE]]
+- [[02_Medicine/Viva]]
 - [[02_Medicine/Learning]]
 
 ## Current Focus
@@ -73,10 +78,11 @@ LIMIT 15
 
 - [ ] Add first medical topic.
 - [ ] Add first deidentified clinical case.
+- [ ] Practice one OSCE station.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T05:08:12+05:30
+- Last refresh: 2026-05-21T06:14:59+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

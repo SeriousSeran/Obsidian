@@ -47,6 +47,8 @@ REQUIRED_FOLDERS = [
     "02_Medicine/Clinical_Cases",
     "02_Medicine/Kanban",
     "02_Medicine/Learning",
+    "02_Medicine/OSCE",
+    "02_Medicine/Viva",
     "03_Money",
     "03_Money/Financial_Map",
     "03_Money/Business_Ideas",
@@ -95,6 +97,8 @@ REQUIRED_DASHBOARDS = [
     "05_Body/Body_Dashboard.md",
     "06_Content/Content_Dashboard.md",
     "07_Projects/Project_Dashboards/Active_Project_Dashboard.md",
+    "08_Relationships/Relationship_Dashboard.md",
+    "09_Bucket_List/Bucket_List_Dashboard.md",
 ]
 
 REQUIRED_MOCS = [
@@ -104,6 +108,8 @@ REQUIRED_MOCS = [
     "10_Maps_Of_Content/Body_MOC.md",
     "10_Maps_Of_Content/Content_MOC.md",
     "10_Maps_Of_Content/Projects_MOC.md",
+    "10_Maps_Of_Content/Relationships_MOC.md",
+    "10_Maps_Of_Content/Bucket_List_MOC.md",
 ]
 
 TEMPLATE_FILES = [
@@ -154,6 +160,22 @@ REQUIRED_LEARNING_RESOURCES = [
     "06_Content/Learning/Content_Learning_Library.md",
     "07_Projects/Learning/Projects_Learning_Library.md",
     "99_System/learning_resources/Legal_Resource_Policy.md",
+]
+
+REQUIRED_BASE_NOTES = [
+    "02_Medicine/OSCE/OSCE_Command_Center.md",
+    "02_Medicine/Viva/Viva_Question_Bank.md",
+    "02_Medicine/Topics/Clinical_Reasoning_Framework.md",
+    "03_Money/Financial_Map/Financial_Command_Center.md",
+    "03_Money/Business_Ideas/Business_Model_Lab.md",
+    "04_Mind/Reflections/Pattern_Library.md",
+    "04_Mind/Reflections/Decision_Journal.md",
+    "05_Body/Body_Operating_System.md",
+    "06_Content/Content_Operating_System.md",
+    "07_Projects/Active/Life_OS_Project.md",
+    "07_Projects/Product_Idea_Lab.md",
+    "08_Relationships/People/People_Index.md",
+    "09_Bucket_List/Experiences/Experience_Index.md",
 ]
 
 OBSIDIAN_LINK_RE = re.compile(r"!?\[\[([^\]#|]+)(?:[#|][^\]]*)?\]\]")
@@ -455,6 +477,7 @@ def validate_notes(_args: argparse.Namespace) -> Path:
     missing_schemas = [item for item in SCHEMA_FILES if not (ROOT / "99_System" / "schemas" / item).is_file()]
     missing_templates = [item for item in TEMPLATE_FILES if not (ROOT / "90_Templates" / item).is_file()]
     missing_learning = [item for item in REQUIRED_LEARNING_RESOURCES if not (ROOT / item).is_file()]
+    missing_base_notes = [item for item in REQUIRED_BASE_NOTES if not (ROOT / item).is_file()]
     missing_reports = [item for item in REPORT_FILES if not (ROOT / "99_System" / "reports" / item).is_file()]
     root_clutter = [
         p.name
@@ -473,8 +496,8 @@ def validate_notes(_args: argparse.Namespace) -> Path:
         "life_os_validation_report.md",
         "Life OS Validation Report",
         [
-            ("Summary", [f"- Missing folders: {len(missing_folders)}", f"- Missing dashboards: {len(missing_dashboards)}", f"- Missing templates: {len(missing_templates)}", f"- Missing learning resources: {len(missing_learning)}"]),
-            ("What needs attention", [*(f"- {item}" for item in missing_folders), *(f"- {item}" for item in missing_dashboards), *(f"- {item}" for item in missing_mocs), *(f"- {item}" for item in missing_schemas), *(f"- {item}" for item in missing_templates), *(f"- {item}" for item in missing_learning), *(f"- {item}" for item in missing_reports)] or ["- System structure is complete."]),
+            ("Summary", [f"- Missing folders: {len(missing_folders)}", f"- Missing dashboards: {len(missing_dashboards)}", f"- Missing templates: {len(missing_templates)}", f"- Missing learning resources: {len(missing_learning)}", f"- Missing base notes: {len(missing_base_notes)}"]),
+            ("What needs attention", [*(f"- {item}" for item in missing_folders), *(f"- {item}" for item in missing_dashboards), *(f"- {item}" for item in missing_mocs), *(f"- {item}" for item in missing_schemas), *(f"- {item}" for item in missing_templates), *(f"- {item}" for item in missing_learning), *(f"- {item}" for item in missing_base_notes), *(f"- {item}" for item in missing_reports)] or ["- System structure is complete."]),
             ("Safe changes made", ["- Created missing required folders.", "- Ensured report files exist."]),
             ("Human review needed", [*(f"- Root clutter: {item}" for item in root_clutter), *review_flags] or ["- No obvious review blockers."]),
             ("Suggested next actions", ["- Open [[10_Maps_Of_Content/Life_OS_Home]].", "- Enable the Life OS CSS snippet.", "- Configure QuickAdd and Periodic Notes."]),

@@ -30,6 +30,8 @@ review_needed: false
 | Body | [[05_Body/Body_Dashboard]] | Sleep, energy, health |
 | Content | [[06_Content/Content_Dashboard]] | Scripts, brand, publishing |
 | Projects | [[07_Projects/Project_Dashboards/Active_Project_Dashboard]] | Active builds and product ideas |
+| Relationships | [[08_Relationships/Relationship_Dashboard]] | People, follow-ups, conversation patterns |
+| Bucket List | [[09_Bucket_List/Bucket_List_Dashboard]] | Long-term experiences and quests |
 
 ## Learning Libraries
 
@@ -41,6 +43,21 @@ review_needed: false
 | Body | [[05_Body/Learning/Body_Learning_Library]] |
 | Content | [[06_Content/Learning/Content_Learning_Library]] |
 | Projects | [[07_Projects/Learning/Projects_Learning_Library]] |
+
+## Base Systems
+
+- [[02_Medicine/OSCE/OSCE_Command_Center]]
+- [[02_Medicine/Viva/Viva_Question_Bank]]
+- [[02_Medicine/Topics/Clinical_Reasoning_Framework]]
+- [[03_Money/Financial_Map/Financial_Command_Center]]
+- [[03_Money/Business_Ideas/Business_Model_Lab]]
+- [[04_Mind/Reflections/Pattern_Library]]
+- [[05_Body/Body_Operating_System]]
+- [[06_Content/Content_Operating_System]]
+- [[07_Projects/Active/Life_OS_Project]]
+- [[07_Projects/Product_Idea_Lab]]
+- [[08_Relationships/Relationship_Dashboard]]
+- [[09_Bucket_List/Bucket_List_Dashboard]]
 
 ## Live Review Queue
 
@@ -94,6 +111,6 @@ LIMIT 20
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T05:08:12+05:30
+- Last refresh: 2026-05-21T06:14:59+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

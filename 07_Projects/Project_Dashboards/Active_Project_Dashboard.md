@@ -11,6 +11,8 @@ review_needed: false
 ## Start Here
 
 - [[10_Maps_Of_Content/Projects_MOC]]
+- [[07_Projects/Active/Life_OS_Project]]
+- [[07_Projects/Product_Idea_Lab]]
 - [[07_Projects/Learning/Projects_Learning_Library]]
 - [[07_Projects/Kanban/Life_OS_Roadmap]]
 - [[90_Templates/Project_Template]]
@@ -73,6 +75,6 @@ LIMIT 15
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T05:08:12+05:30
+- Last refresh: 2026-05-21T06:14:59+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

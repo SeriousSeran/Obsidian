@@ -22,6 +22,7 @@ Track health, physique, energy, sleep, training, and routines.
 ## Important Notes
 
 - [[05_Body/Body_Dashboard]]
+- [[05_Body/Body_Operating_System]]
 - [[05_Body/Learning/Body_Learning_Library]]
 
 ## Active Questions
