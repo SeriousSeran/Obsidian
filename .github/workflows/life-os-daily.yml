@@ -1,0 +1,32 @@
+name: Life OS Daily
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 18 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run daily Life OS maintenance
+        run: |
+          python 99_System/scripts/life_os.py inbox-report
+          python 99_System/scripts/life_os.py process-voice-dumps
+          python 99_System/scripts/life_os.py create-daily-note
+      - name: Open generated changes PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: daily Life OS maintenance"
+          title: "Daily Life OS maintenance"
+          body: "Automated daily Life OS maintenance. Review generated files before merging."
+          branch: automation/life-os-daily
+          delete-branch: true

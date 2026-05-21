@@ -1,0 +1,44 @@
+/* Life OS: subtle dashboard polish for Obsidian Minimal. */
+
+.life-os-dashboard {
+  --life-os-border: var(--background-modifier-border);
+  --life-os-card: var(--background-secondary);
+}
+
+.life-os-dashboard .markdown-preview-section > h1 {
+  margin-top: 0.4rem;
+  letter-spacing: 0;
+}
+
+.life-os-dashboard table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.life-os-dashboard th,
+.life-os-dashboard td {
+  padding: 0.55rem 0.65rem;
+  vertical-align: top;
+}
+
+.life-os-dashboard tbody tr {
+  background: var(--life-os-card);
+}
+
+.life-os-dashboard tbody tr + tr td {
+  border-top: 1px solid var(--life-os-border);
+}
+
+.life-os-dashboard blockquote {
+  border-left: 3px solid var(--interactive-accent);
+  color: var(--text-muted);
+}
+
+.life-os-dashboard .callout {
+  border-radius: 8px;
+}
+
+.life-os-dashboard code {
+  font-size: 0.9em;
+}

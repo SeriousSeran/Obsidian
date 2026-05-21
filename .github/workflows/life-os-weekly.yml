@@ -1,0 +1,33 @@
+name: Life OS Weekly
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 0"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run weekly Life OS maintenance
+        run: |
+          python 99_System/scripts/life_os.py link-health
+          python 99_System/scripts/life_os.py create-weekly-review
+          python 99_System/scripts/life_os.py validate-notes
+          python 99_System/scripts/life_os.py refresh-dashboards
+      - name: Open generated changes PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: weekly Life OS maintenance"
+          title: "Weekly Life OS maintenance"
+          body: "Automated weekly Life OS maintenance. Review generated files before merging."
+          branch: automation/life-os-weekly
+          delete-branch: true
