@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {"id": "home", "type": "file", "file": "10_Maps_Of_Content/Life_OS_Home.md", "x": 0, "y": 0, "width": 360, "height": 240},
+    {"id": "inbox", "type": "file", "file": "00_Inbox", "x": -460, "y": -160, "width": 300, "height": 160},
+    {"id": "daily", "type": "file", "file": "01_Daily/Daily_Notes", "x": -460, "y": 60, "width": 300, "height": 160},
+    {"id": "tasks", "type": "file", "file": "10_Maps_Of_Content/Task_Dashboard.md", "x": 420, "y": -160, "width": 320, "height": 180},
+    {"id": "projects", "type": "file", "file": "07_Projects/Project_Dashboards/Active_Project_Dashboard.md", "x": 420, "y": 80, "width": 320, "height": 180},
+    {"id": "medicine", "type": "file", "file": "02_Medicine/Medicine_Dashboard.md", "x": -380, "y": 340, "width": 300, "height": 180},
+    {"id": "money", "type": "file", "file": "03_Money/Money_Dashboard.md", "x": -40, "y": 340, "width": 300, "height": 180},
+    {"id": "mind", "type": "file", "file": "04_Mind/Mind_Dashboard.md", "x": 300, "y": 340, "width": 300, "height": 180},
+    {"id": "body", "type": "file", "file": "05_Body/Body_Dashboard.md", "x": -380, "y": 580, "width": 300, "height": 180},
+    {"id": "content", "type": "file", "file": "06_Content/Content_Dashboard.md", "x": -40, "y": 580, "width": 300, "height": 180},
+    {"id": "weekly", "type": "file", "file": "01_Daily/Weekly_Reviews", "x": 300, "y": 580, "width": 300, "height": 180},
+    {"id": "reports", "type": "file", "file": "99_System/reports/life_os_validation_report.md", "x": 780, "y": 340, "width": 320, "height": 180},
+    {"id": "learning", "type": "file", "file": "10_Maps_Of_Content/Learning_Resource_Hub.md", "x": 780, "y": 580, "width": 320, "height": 180}
+  ],
+  "edges": [
+    {"id": "e-home-inbox", "fromNode": "home", "fromSide": "left", "toNode": "inbox", "toSide": "right"},
+    {"id": "e-home-daily", "fromNode": "home", "fromSide": "left", "toNode": "daily", "toSide": "right"},
+    {"id": "e-home-tasks", "fromNode": "home", "fromSide": "right", "toNode": "tasks", "toSide": "left"},
+    {"id": "e-home-projects", "fromNode": "home", "fromSide": "right", "toNode": "projects", "toSide": "left"},
+    {"id": "e-projects-tasks", "fromNode": "projects", "fromSide": "top", "toNode": "tasks", "toSide": "bottom"},
+    {"id": "e-home-medicine", "fromNode": "home", "fromSide": "bottom", "toNode": "medicine", "toSide": "top"},
+    {"id": "e-home-money", "fromNode": "home", "fromSide": "bottom", "toNode": "money", "toSide": "top"},
+    {"id": "e-home-mind", "fromNode": "home", "fromSide": "bottom", "toNode": "mind", "toSide": "top"},
+    {"id": "e-mind-body", "fromNode": "mind", "fromSide": "bottom", "toNode": "body", "toSide": "top"},
+    {"id": "e-money-content", "fromNode": "money", "fromSide": "bottom", "toNode": "content", "toSide": "top"},
+    {"id": "e-weekly-reports", "fromNode": "weekly", "fromSide": "right", "toNode": "reports", "toSide": "left"},
+    {"id": "e-reports-learning", "fromNode": "reports", "fromSide": "bottom", "toNode": "learning", "toSide": "top"},
+    {"id": "e-home-learning", "fromNode": "home", "fromSide": "right", "toNode": "learning", "toSide": "left"}
+  ]
+}
+
