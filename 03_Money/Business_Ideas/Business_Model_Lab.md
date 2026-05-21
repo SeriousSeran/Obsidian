@@ -13,13 +13,13 @@ review_needed: true
 
 ## Idea Filter
 
-| Question | Answer |
-|---|---|
-| Who has the painful problem? |  |
-| What do they already do? |  |
-| What would they pay for? |  |
-| What can be tested in one week? |  |
-| What is the main risk? |  |
+| Question                        | Answer |
+| ------------------------------- | ------ |
+| Who has the painful problem?    |        |
+| What do they already do?        |        |
+| What would they pay for?        |        |
+| What can be tested in one week? |        |
+| What is the main risk?          |        |
 
 ## Model Types
 
