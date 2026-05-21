@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check for new files and create issues
         run: |
-          # Use gh api to create an issue
-          gh issue create --title "Transcribe New Voice Dumps" --body "New voice dumps have been added. Please review and transcribe."
+          # Create an issue. The user said issues might be disabled, so we fallback
+          gh issue create --title "Transcribe New Voice Dumps" --body "New voice dumps have been added. Please review and transcribe." || echo "Issues disabled or failed, proceeding."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
