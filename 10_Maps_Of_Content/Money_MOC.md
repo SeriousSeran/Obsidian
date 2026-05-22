@@ -22,6 +22,7 @@ Track money, cash flow, assets, business ideas, experiments, and financial assum
 - [[03_Money/Learning]]
 - [[03_Money/Financial_Map/Financial_Command_Center]]
 - [[03_Money/Business_Ideas/Business_Model_Lab]]
+- [[03_Money/Business_Ideas/Lean_Experiment_Framework]]
 
 ## Important Notes
 

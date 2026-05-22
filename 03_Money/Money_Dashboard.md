@@ -14,6 +14,7 @@ review_needed: true
 - [[03_Money/Learning/Money_Learning_Library]]
 - [[03_Money/Financial_Map/Financial_Command_Center]]
 - [[03_Money/Business_Ideas/Business_Model_Lab]]
+- [[03_Money/Business_Ideas/Lean_Experiment_Framework]]
 - [[90_Templates/Financial_Idea_Template]]
 
 ## Key Folders

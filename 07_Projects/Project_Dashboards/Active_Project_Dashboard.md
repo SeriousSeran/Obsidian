@@ -13,6 +13,7 @@ review_needed: false
 - [[10_Maps_Of_Content/Projects_MOC]]
 - [[07_Projects/Active/Life_OS_Project]]
 - [[07_Projects/Product_Idea_Lab]]
+- [[07_Projects/Project_Dashboards/Project_Review_Framework]]
 - [[07_Projects/Learning/Projects_Learning_Library]]
 - [[07_Projects/Kanban/Life_OS_Roadmap]]
 - [[90_Templates/Project_Template]]
