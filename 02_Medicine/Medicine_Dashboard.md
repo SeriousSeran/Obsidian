@@ -22,7 +22,7 @@ review_needed: true
 ## Key Folders
 
 - [[02_Medicine/Topics]]
-- [[02_Medicine/Clinical_Cases]]
+- 02_Medicine/Clinical_Cases
 - [[02_Medicine/OSCE]]
 - [[02_Medicine/Viva]]
 - [[02_Medicine/Learning]]

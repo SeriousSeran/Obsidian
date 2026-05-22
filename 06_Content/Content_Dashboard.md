@@ -18,7 +18,7 @@ review_needed: false
 
 ## Key Folders
 
-- [[06_Content/Ideas]]
+- 06_Content/Ideas
 - [[06_Content/Learning]]
 
 ## Current Focus
