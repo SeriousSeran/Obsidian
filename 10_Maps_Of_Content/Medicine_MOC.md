@@ -29,7 +29,9 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 - [[02_Medicine/Medicine_Dashboard]]
 - [[02_Medicine/Learning/Medicine_Learning_Library]]
 - [[02_Medicine/OSCE/Cardiovascular_Examination_Station]]
+- [[02_Medicine/OSCE/Respiratory_Examination_Station]]
 - [[02_Medicine/Topics/Heart_Failure_Core]]
+- [[02_Medicine/Clinical_Cases/Exertional_Chest_Pain_Case]]
 - [[99_System/schemas/medical_topic.schema]]
 - [[99_System/schemas/clinical_case.schema]]
 

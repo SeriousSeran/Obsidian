@@ -23,7 +23,7 @@ review_needed: true
 ## Core Stations
 
 - [[02_Medicine/OSCE/Cardiovascular_Examination_Station]]
-- Respiratory examination
+- [[02_Medicine/OSCE/Respiratory_Examination_Station]]
 - Abdominal examination
 - Neurological screening
 - Cranial nerve examination
