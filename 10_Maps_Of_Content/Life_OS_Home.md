@@ -12,7 +12,7 @@ review_needed: false
 ## Start Here
 
 - [[01_Daily/Daily_Notes|Daily Notes]]
-- [[00_Inbox|Inbox]]
+- [Inbox](00_Inbox/)
 - [[10_Maps_Of_Content/Task_Dashboard|Task Dashboard]]
 - [[07_Projects/Project_Dashboards/Active_Project_Dashboard|Active Projects]]
 - [[10_Maps_Of_Content/Learning_Resource_Hub|Learning Resource Hub]]
@@ -89,8 +89,8 @@ LIMIT 20
 ## Reviews
 
 - [[01_Daily/Weekly_Reviews|Weekly Reviews]]
-- [[01_Daily/Monthly_Reviews|Monthly Reviews]]
-- [[01_Daily/Quarterly_Reviews|Quarterly Reviews]]
+- [Monthly Reviews](01_Daily/Monthly_Reviews/)
+- [Quarterly Reviews](01_Daily/Quarterly_Reviews/)
 
 ## System Reports
 

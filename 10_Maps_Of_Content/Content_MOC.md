@@ -17,7 +17,7 @@ Turn ideas into useful writing, scripts, posts, and publishing experiments.
 ## Key Folders
 
 - [[06_Content]]
-- [[06_Content/Ideas]]
+- 06_Content/Ideas
 - [[06_Content/Learning]]
 
 ## Important Notes

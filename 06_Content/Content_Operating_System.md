@@ -14,7 +14,7 @@ review_needed: false
 
 | Stage | What Happens |
 |---|---|
-| Capture | Raw idea goes to [[06_Content/Ideas]] |
+| Capture | Raw idea goes to 06_Content/Ideas |
 | Clarify | Define audience, pain, promise |
 | Draft | Write the simplest useful version |
 | Edit | Remove vagueness and private details |

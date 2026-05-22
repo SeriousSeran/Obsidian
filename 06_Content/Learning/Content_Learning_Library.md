@@ -20,7 +20,7 @@ review_needed: false
 
 ## Content Practice
 
-- [ ] Capture raw idea in [[06_Content/Ideas]].
+- [ ] Capture raw idea in 06_Content/Ideas.
 - [ ] Create [[90_Templates/Content_Idea_Template]].
 - [ ] Draft hook, audience, and core point.
 - [ ] Turn one idea per week into a publishable draft.

@@ -18,7 +18,7 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 
 - [[02_Medicine]]
 - [[02_Medicine/Topics]]
-- [[02_Medicine/Clinical_Cases]]
+- 02_Medicine/Clinical_Cases
 - [[02_Medicine/OSCE/OSCE_Command_Center]]
 - [[02_Medicine/Viva/Viva_Question_Bank]]
 - [[02_Medicine/Topics/Clinical_Reasoning_Framework]]
