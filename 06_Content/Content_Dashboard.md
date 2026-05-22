@@ -12,6 +12,7 @@ review_needed: false
 
 - [[10_Maps_Of_Content/Content_MOC]]
 - [[06_Content/Content_Operating_System]]
+- [[06_Content/Audience_Value_Framework]]
 - [[06_Content/Learning/Content_Learning_Library]]
 - [[06_Content/Kanban/Content_Pipeline]]
 - [[90_Templates/Content_Idea_Template]]
