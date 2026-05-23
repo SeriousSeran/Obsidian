@@ -4,29 +4,31 @@ domain: money
 status: active
 cssclasses:
   - life-os-dashboard
-review_needed: true
+review_needed: false
 ---
-# Money Dashboard
 
-## Start Here
+# 💰 Money
 
-- [[10_Maps_Of_Content/Money_MOC]]
-- [[03_Money/Learning/Money_Learning_Library]]
-- [[03_Money/Financial_Map/Financial_Command_Center]]
-- [[03_Money/Business_Ideas/Business_Model_Lab]]
-- [[90_Templates/Financial_Idea_Template]]
+> *"Do not save what is left after spending; spend what is left after saving."* — Warren Buffett
 
-## Key Folders
+---
 
-- [[03_Money/Financial_Map]]
-- [[03_Money/Business_Ideas]]
-- [[03_Money/Learning]]
+## Command 🗺️
 
-## Current Focus
+| Hub | Purpose |
+|---|---|
+| [[03_Money/Financial_Map/Financial_Command_Center\|📊 Financial Command]] | Cash flow, assets, liabilities |
+| [[03_Money/Business_Ideas/Business_Model_Lab\|💡 Business Lab]] | Ideas, experiments, income engines |
+| [[03_Money/Learning/Money_Learning_Library\|📚 Learning Library]] | Finance books & resources |
 
-- Stabilize cash flow.
-- Separate assumptions from evidence.
-- Track business experiments.
+---
+
+> [!goal] Current Priorities
+> - Stabilize cash flow — facts, not guesses
+> - Track one active business experiment
+> - Separate income streams clearly
+
+---
 
 ## Open Tasks
 

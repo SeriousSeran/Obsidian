@@ -4,28 +4,31 @@ domain: mind
 status: active
 cssclasses:
   - life-os-dashboard
-review_needed: true
+review_needed: false
 ---
-# Mind Dashboard
 
-## Start Here
+# 🧠 Mind
 
-- [[10_Maps_Of_Content/Mind_MOC]]
-- [[04_Mind/Learning/Mind_Learning_Library]]
-- [[04_Mind/Reflections/Pattern_Library]]
-- [[04_Mind/Reflections/Decision_Journal]]
-- [[90_Templates/Reflection_Template]]
+> *"Know thyself."* — Socrates
 
-## Key Folders
+---
 
-- [[04_Mind/Reflections]]
-- [[04_Mind/Learning]]
+## Command 🗺️
 
-## Current Focus
+| Hub | Purpose |
+|---|---|
+| [[04_Mind/Reflections/Pattern_Library\|🪞 Pattern Library]] | Recurring themes & personal patterns |
+| [[04_Mind/Reflections/Decision_Journal\|📖 Decision Journal]] | Key decisions & outcomes |
+| [[04_Mind/Learning/Mind_Learning_Library\|📚 Learning Library]] | Psychology, philosophy, mental models |
 
-- Preserve reflection without overinterpreting it.
-- Notice patterns.
-- Turn insight into kind next actions.
+---
+
+> [!review] Current Priorities
+> - Preserve reflection without over-interpreting
+> - Notice patterns, don't judge them
+> - Turn insight into a kind next action
+
+---
 
 ## Open Tasks
 

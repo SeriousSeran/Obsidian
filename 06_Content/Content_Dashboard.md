@@ -6,26 +6,29 @@ cssclasses:
   - life-os-dashboard
 review_needed: false
 ---
-# Content Dashboard
 
-## Start Here
+# 📹 Content
 
-- [[10_Maps_Of_Content/Content_MOC]]
-- [[06_Content/Content_Operating_System]]
-- [[06_Content/Learning/Content_Learning_Library]]
-- [[06_Content/Kanban/Content_Pipeline]]
-- [[90_Templates/Content_Idea_Template]]
+> *"Teach what you know. Share what you learn."*
 
-## Key Folders
+---
 
-- [[06_Content/Ideas]]
-- [[06_Content/Learning]]
+## Command 🗺️
 
-## Current Focus
+| Hub | Purpose |
+|---|---|
+| [[06_Content/Kanban/Content_Pipeline\|🏗️ Content Pipeline]] | Ideas → Outline → Script → Record → Publish |
+| [[06_Content/Content_Operating_System\|⚙️ Content OS]] | Brand, voice, strategy |
+| [[06_Content/Learning/Content_Learning_Library\|📚 Learning Library]] | Storytelling, editing, growth |
 
-- Capture ideas.
-- Shape useful pieces.
-- Keep private content private.
+---
+
+> [!study] Current Priorities
+> - Capture ideas raw — process later
+> - Shape one piece per week
+> - Keep private content private
+
+---
 
 ## Open Tasks
 

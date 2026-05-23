@@ -6,26 +6,26 @@ cssclasses:
   - life-os-dashboard
 review_needed: false
 ---
-# Body Dashboard
 
-## Start Here
+# 💪 Body
 
-- [[10_Maps_Of_Content/Body_MOC]]
-- [[05_Body/Learning/Body_Learning_Library]]
-- [[05_Body/Body_Operating_System]]
-- [[90_Templates/Daily_Note_Template]]
+> *"Take care of your body — it's the only place you have to live."* — Jim Rohn
 
-## Key Folders
+---
 
-- [[05_Body]]
-- [[05_Body/Learning]]
+## Command 🗺️
 
-## Current Focus
+| Hub | Purpose |
+|---|---|
+| [[05_Body/Body_Operating_System\|⚙️ Body OS]] | Sleep, energy, training system |
+| [[05_Body/Learning/Body_Learning_Library\|📚 Learning Library]] | Health, fitness, nutrition resources |
 
-- Energy.
-- Training.
-- Sleep.
-- Food.
+---
+
+> [!capture] Track Daily in Your Daily Note
+> → **Sleep quality** · **Energy level** · **Exercise** · **Food**
+
+---
 
 ## Open Tasks
 

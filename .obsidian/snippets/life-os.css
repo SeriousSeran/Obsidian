@@ -1,0 +1,303 @@
+/* ═══════════════════════════════════════════════════════════════
+   LIFE OS — Dark Academia Visual System
+   Obsidian Vault | Seran's Second Brain
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── GLOBAL PALETTE ─────────────────────────────────────────── */
+:root {
+  --academia-gold:       #c8a96e;
+  --academia-gold-dim:   #9a7a45;
+  --academia-cream:      #e8dcc8;
+  --academia-ink:        #1a1512;
+  --academia-parchment:  #2a2318;
+  --academia-border:     #3d3020;
+  --academia-text:       #d4c5a9;
+  --academia-muted:      #8a7560;
+
+  /* Domain accent colours */
+  --col-medicine:  #c0392b;
+  --col-money:     #27ae60;
+  --col-mind:      #8e44ad;
+  --col-body:      #e67e22;
+  --col-content:   #2980b9;
+  --col-projects:  #16a085;
+  --col-people:    #d35400;
+  --col-bucket:    #f39c12;
+  --col-daily:     #7f8c8d;
+  --col-system:    #576574;
+}
+
+/* ── DASHBOARD BASE ──────────────────────────────────────────── */
+.life-os-dashboard {
+  --life-os-border: var(--academia-border);
+  --life-os-card:   var(--academia-parchment);
+}
+
+/* ── H1 HERO TITLE ───────────────────────────────────────────── */
+.life-os-dashboard .markdown-preview-section > h1:first-child,
+.life-os-dashboard h1 {
+  font-family: "Georgia", "Palatino Linotype", serif !important;
+  font-size: 2rem !important;
+  font-weight: 700;
+  color: var(--academia-gold) !important;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--academia-border);
+  padding-bottom: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+/* ── H2 SECTION HEADERS ──────────────────────────────────────── */
+.life-os-dashboard h2 {
+  font-family: "Georgia", serif !important;
+  font-size: 1.1rem !important;
+  color: var(--academia-cream) !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--academia-border);
+  padding-bottom: 0.2rem;
+  margin-top: 1.8rem;
+}
+
+/* ── H3 ──────────────────────────────────────────────────────── */
+.life-os-dashboard h3 {
+  color: var(--academia-gold-dim) !important;
+  font-style: italic;
+  font-size: 1rem !important;
+}
+
+/* ── BLOCKQUOTE (tagline / motto) ────────────────────────────── */
+.life-os-dashboard blockquote {
+  border-left: 3px solid var(--academia-gold);
+  background: var(--academia-parchment);
+  color: var(--academia-text);
+  padding: 0.6rem 1rem;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  margin: 0.8rem 0;
+}
+
+/* ── TABLES ──────────────────────────────────────────────────── */
+.life-os-dashboard table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--academia-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0.8rem 0;
+}
+
+.life-os-dashboard th {
+  background: var(--academia-parchment);
+  color: var(--academia-gold);
+  font-family: "Georgia", serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--academia-border);
+}
+
+.life-os-dashboard td {
+  padding: 0.55rem 0.9rem;
+  vertical-align: top;
+  color: var(--academia-text);
+  border-top: 1px solid var(--academia-border);
+  font-size: 0.92rem;
+}
+
+.life-os-dashboard tbody tr:hover td {
+  background: rgba(200, 169, 110, 0.06);
+}
+
+/* ── INLINE CODE ─────────────────────────────────────────────── */
+.life-os-dashboard code {
+  font-size: 0.85em;
+  background: var(--academia-parchment);
+  color: var(--academia-gold-dim);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--academia-border);
+}
+
+/* ── HORIZONTAL RULE ─────────────────────────────────────────── */
+.life-os-dashboard hr {
+  border: none;
+  border-top: 1px solid var(--academia-border);
+  margin: 1.4rem 0;
+  opacity: 0.7;
+}
+
+/* ── CALLOUTS ────────────────────────────────────────────────── */
+.callout {
+  border-radius: 8px !important;
+  border-left-width: 4px !important;
+}
+
+/* Medicine */
+.callout[data-callout="medicine"],
+.callout[data-callout="clinical"] {
+  --callout-color: 192, 57, 43;
+  border-color: var(--col-medicine) !important;
+}
+
+/* Study / Learning */
+.callout[data-callout="study"],
+.callout[data-callout="learn"] {
+  --callout-color: 142, 68, 173;
+  border-color: var(--col-mind) !important;
+}
+
+/* Warning / Red flag */
+.callout[data-callout="warning"],
+.callout[data-callout="redflag"] {
+  --callout-color: 231, 76, 60;
+}
+
+/* Pearl (clinical pearl) */
+.callout[data-callout="pearl"] {
+  --callout-color: 200, 169, 110;
+  border-color: var(--academia-gold) !important;
+}
+.callout[data-callout="pearl"] .callout-icon::after { content: "💎"; }
+
+/* Viva */
+.callout[data-callout="viva"] {
+  --callout-color: 192, 57, 43;
+  border-color: var(--col-medicine) !important;
+}
+.callout[data-callout="viva"] .callout-icon::after { content: "🎯"; }
+
+/* Goal */
+.callout[data-callout="goal"] {
+  --callout-color: 39, 174, 96;
+  border-color: var(--col-money) !important;
+}
+.callout[data-callout="goal"] .callout-icon::after { content: "🎯"; }
+
+/* Capture */
+.callout[data-callout="capture"] {
+  --callout-color: 127, 140, 141;
+  border-color: var(--col-daily) !important;
+}
+.callout[data-callout="capture"] .callout-icon::after { content: "📥"; }
+
+/* Review */
+.callout[data-callout="review"] {
+  --callout-color: 243, 156, 18;
+  border-color: var(--col-bucket) !important;
+}
+
+/* ── DOMAIN COLOUR BADGES ────────────────────────────────────── */
+/* Tag: medicine */
+.tag[href="#medicine"] { background: var(--col-medicine) !important; color: #fff !important; }
+.tag[href="#money"]    { background: var(--col-money)    !important; color: #fff !important; }
+.tag[href="#mind"]     { background: var(--col-mind)     !important; color: #fff !important; }
+.tag[href="#body"]     { background: var(--col-body)     !important; color: #fff !important; }
+.tag[href="#content"]  { background: var(--col-content)  !important; color: #fff !important; }
+.tag[href="#projects"] { background: var(--col-projects) !important; color: #fff !important; }
+
+/* ── TASK CHECKBOXES ─────────────────────────────────────────── */
+input[type="checkbox"] {
+  accent-color: var(--academia-gold);
+}
+
+/* ── NOTE TYPE ICONS IN FILE EXPLORER ────────────────────────── */
+/* These inject icons next to specific file paths using CSS content */
+
+/* Daily notes */
+.nav-file-title[data-path*="Daily_Notes"] .nav-file-title-content::before,
+.nav-file-title[data-path*="2026-"] .nav-file-title-content::before {
+  content: "📅 ";
+}
+
+/* Weekly reviews */
+.nav-file-title[data-path*="Weekly_Review"] .nav-file-title-content::before,
+.nav-file-title[data-path*="-W"] .nav-file-title-content::before {
+  content: "🗓️ ";
+}
+
+/* Monthly reviews */
+.nav-file-title[data-path*="Monthly_Review"] .nav-file-title-content::before {
+  content: "📆 ";
+}
+
+/* Dashboards */
+.nav-file-title[data-path*="Dashboard"] .nav-file-title-content::before {
+  content: "🗺️ ";
+}
+
+/* Kanban boards */
+.nav-file-title[data-path*="Kanban"] .nav-file-title-content::before,
+.nav-file-title[data-path*="Pipeline"] .nav-file-title-content::before,
+.nav-file-title[data-path*="Roadmap"] .nav-file-title-content::before {
+  content: "🏗️ ";
+}
+
+/* Home */
+.nav-file-title[data-path*="Home"] .nav-file-title-content::before,
+.nav-file-title[data-path*="Life_OS_Home"] .nav-file-title-content::before {
+  content: "🏠 ";
+}
+
+/* Templates */
+.nav-file-title[data-path*="Template"] .nav-file-title-content::before {
+  content: "📋 ";
+}
+
+/* ── FOLDER ICONS IN SIDEBAR ─────────────────────────────────── */
+/* Inbox */
+.nav-folder-title[data-path="00_Inbox"] .nav-folder-title-content::before { content: "📥 "; }
+/* Daily */
+.nav-folder-title[data-path="01_Daily"] .nav-folder-title-content::before { content: "🗓️ "; }
+/* Medicine */
+.nav-folder-title[data-path="02_Medicine"] .nav-folder-title-content::before { content: "🩺 "; }
+/* Money */
+.nav-folder-title[data-path="03_Money"] .nav-folder-title-content::before { content: "💰 "; }
+/* Mind */
+.nav-folder-title[data-path="04_Mind"] .nav-folder-title-content::before { content: "🧠 "; }
+/* Body */
+.nav-folder-title[data-path="05_Body"] .nav-folder-title-content::before { content: "💪 "; }
+/* Content */
+.nav-folder-title[data-path="06_Content"] .nav-folder-title-content::before { content: "📹 "; }
+/* Projects */
+.nav-folder-title[data-path="07_Projects"] .nav-folder-title-content::before { content: "🔧 "; }
+/* Relationships */
+.nav-folder-title[data-path="08_Relationships"] .nav-folder-title-content::before { content: "🤝 "; }
+/* Bucket List */
+.nav-folder-title[data-path="09_Bucket_List"] .nav-folder-title-content::before { content: "🌍 "; }
+/* MOCs */
+.nav-folder-title[data-path="10_Maps_Of_Content"] .nav-folder-title-content::before { content: "🗺️ "; }
+/* Templates */
+.nav-folder-title[data-path="90_Templates"] .nav-folder-title-content::before { content: "📋 "; }
+/* System */
+.nav-folder-title[data-path="99_System"] .nav-folder-title-content::before { content: "⚙️ "; }
+/* Dashboard folder */
+.nav-folder-title[data-path="00 Dashboard"] .nav-folder-title-content::before { content: "🏠 "; }
+
+/* Sub-folders */
+.nav-folder-title[data-path*="OSCE"] .nav-folder-title-content::before { content: "🏥 "; }
+.nav-folder-title[data-path*="Kanban"] .nav-folder-title-content::before { content: "🏗️ "; }
+.nav-folder-title[data-path*="Templates"] .nav-folder-title-content::before { content: "📋 "; }
+.nav-folder-title[data-path*="Learning"] .nav-folder-title-content::before { content: "📚 "; }
+.nav-folder-title[data-path*="Topics"] .nav-folder-title-content::before { content: "🔬 "; }
+.nav-folder-title[data-path*="Viva"] .nav-folder-title-content::before { content: "🎯 "; }
+.nav-folder-title[data-path*="Daily_Notes"] .nav-folder-title-content::before { content: "📅 "; }
+.nav-folder-title[data-path*="Weekly_Reviews"] .nav-folder-title-content::before { content: "📆 "; }
+.nav-folder-title[data-path*="People"] .nav-folder-title-content::before { content: "👥 "; }
+.nav-folder-title[data-path*="Business_Ideas"] .nav-folder-title-content::before { content: "💡 "; }
+.nav-folder-title[data-path*="Financial_Map"] .nav-folder-title-content::before { content: "📊 "; }
+.nav-folder-title[data-path*="Reflections"] .nav-folder-title-content::before { content: "🪞 "; }
+.nav-folder-title[data-path*="Clinical_Cases"] .nav-folder-title-content::before { content: "📁 "; }
+.nav-folder-title[data-path*="Active"] .nav-folder-title-content::before { content: "▶️ "; }
+.nav-folder-title[data-path*="reports"] .nav-folder-title-content::before { content: "📊 "; }
+.nav-folder-title[data-path*="schemas"] .nav-folder-title-content::before { content: "📐 "; }
+
+/* ── SCROLLBAR ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--academia-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--academia-gold-dim); }
