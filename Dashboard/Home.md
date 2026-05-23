@@ -17,12 +17,12 @@ review_needed: false
 
 > Use **QuickAdd** (`Ctrl+Alt+D`) to instantly log ideas, tasks, voice dumps, or new notes.
 
-| Capture | Shortcut | Target |
-|---|---|---|
-| Raw Idea | `Ctrl+Alt+I` | `Inbox/Ideas` |
+| Capture    | Shortcut     | Targe               |
+| ---------- | ------------ | ------------------- |
+| Raw Idea   | `Ctrl+Alt+I` | `Inbox/Ideas`       |
 | Voice Dump | `Ctrl+Alt+V` | `Inbox/Voice_Dumps` |
-| Quick Task | `Ctrl+Alt+T` | `Inbox` |
-| Full Menu | `Ctrl+Alt+O` | Life OS Menu |
+| Quick Task | `Ctrl+Alt+T` | `Inbox`             |
+| Full Menu  | `Ctrl+Alt+O` | Life OS Menu        |
 
 ---
 
