@@ -1,22 +1,34 @@
 ---
-type: dashboard
+kanban-plugin: board
+type: kanban
 domain: content
 status: active
 review_needed: false
 ---
-# Content Pipeline
 
-## Ideas
+## Ideas 💡
 
-- [ ] Add first content idea
+- [ ] How I use Obsidian as a medical student
+- [ ] Building a Life OS with AI
+- [ ] Clinical reasoning frameworks explained
+- [ ] How to study smarter (not harder) in medicine
 
-## Outlines
+## Outline ✍️
 
-## Scripts
+- [ ] Obsidian for medical students — outline in progress
 
-## Recorded
+## Scripting 📜
 
-## Edited
+- [ ] Draft script: Obsidian for medicine — scene 1
 
-## Published
+## Recording 🎙️
 
+## Editing 🎞️
+
+## Published 🚀
+
+%% kanban:settings
+```
+{"kanban-plugin":"board","list-collapse":[false,false,false,false,false,false]}
+```
+%%

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Obsidian workspace / session files
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Plugin data files — may contain tokens or API keys
+.obsidian/plugins/easy-git/data.json
+.obsidian/plugins/*/data.json
+
+# Plugin binaries — large JS files (track manifests only)
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+
+# Claudian session data (auto-generated)
+.claudian/sessions/
