@@ -6,13 +6,13 @@ It uses Obsidian as the interface, GitHub as the source of truth, Markdown as me
 
 ## Start Here
 
-- [[10_Maps_Of_Content/Life_OS_Home]]
-- [[10_Maps_Of_Content/Task_Dashboard]]
-- [[10_Maps_Of_Content/Learning_Resource_Hub]]
-- [[10_Maps_Of_Content/Life_OS_Command_Center.canvas]]
-- [[99_System/Obsidian_Plugin_Setup]]
-- [[99_System/LIFE_OS_SPEC]]
-- [[99_System/Repo_Inventory]]
+- [[Maps/Life_OS_Home]]
+- [[Maps/Task_Dashboard]]
+- [[Maps/Learning_Resource_Hub]]
+- [[Maps/Life_OS_Command_Center.canvas]]
+- [[System/Obsidian_Plugin_Setup]]
+- [[System/LIFE_OS_SPEC]]
+- [[System/Repo_Inventory]]
 
 ## Core Loop
 
@@ -21,19 +21,19 @@ Raw input -> processed insight -> linked notes -> tasks -> projects -> reviews -
 ## Commands
 
 ```bash
-python 99_System/scripts/life_os.py inbox-report
-python 99_System/scripts/life_os.py link-health
-python 99_System/scripts/life_os.py root-triage
-python 99_System/scripts/life_os.py create-daily-note
-python 99_System/scripts/life_os.py create-weekly-review
-python 99_System/scripts/life_os.py process-voice-dumps
-python 99_System/scripts/life_os.py validate-notes
-python 99_System/scripts/life_os.py refresh-dashboards
+python System/scripts/life_os.py inbox-report
+python System/scripts/life_os.py link-health
+python System/scripts/life_os.py root-triage
+python System/scripts/life_os.py create-daily-note
+python System/scripts/life_os.py create-weekly-review
+python System/scripts/life_os.py process-voice-dumps
+python System/scripts/life_os.py validate-notes
+python System/scripts/life_os.py refresh-dashboards
 ```
 
 Enable the CSS snippet at `.obsidian/snippets/life-os.css` for the intended dashboard polish.
 
-Learning resources use official, open, library, or publisher links only. See [[99_System/learning_resources/Legal_Resource_Policy]].
+Learning resources use official, open, library, or publisher links only. See [[System/learning_resources/Legal_Resource_Policy]].
 
-The repo boundary is documented in [[99_System/Repo_Inventory]] so the vault stays clean and only contains the Life OS base plus active vault content.
+The repo boundary is documented in [[System/Repo_Inventory]] so the vault stays clean and only contains the Life OS base plus active vault content.
 

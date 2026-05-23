@@ -1,0 +1,10 @@
+{
+  "id": "easy-git",
+  "name": "Easy Git",
+  "version": "0.4.1",
+  "minAppVersion": "1.0.0",
+  "description": "A secure, plug-and-play way to sync individual vault folders or sections with GitHub. Private repos supported, multiple folder mappings, bidirectional sync, and conflict resolution.",
+  "author": "Saiki77",
+  "authorUrl": "https://github.com/Saiki77",
+  "isDesktopOnly": false
+}

@@ -247,33 +247,33 @@ input[type="checkbox"] {
 
 /* ── FOLDER ICONS IN SIDEBAR ─────────────────────────────────── */
 /* Inbox */
-.nav-folder-title[data-path="00_Inbox"] .nav-folder-title-content::before { content: "📥 "; }
+.nav-folder-title[data-path="Inbox"] .nav-folder-title-content::before { content: "📥 "; }
 /* Daily */
-.nav-folder-title[data-path="01_Daily"] .nav-folder-title-content::before { content: "🗓️ "; }
+.nav-folder-title[data-path="Daily"] .nav-folder-title-content::before { content: "🗓️ "; }
 /* Medicine */
-.nav-folder-title[data-path="02_Medicine"] .nav-folder-title-content::before { content: "🩺 "; }
+.nav-folder-title[data-path="Medicine"] .nav-folder-title-content::before { content: "🩺 "; }
 /* Money */
-.nav-folder-title[data-path="03_Money"] .nav-folder-title-content::before { content: "💰 "; }
+.nav-folder-title[data-path="Money"] .nav-folder-title-content::before { content: "💰 "; }
 /* Mind */
-.nav-folder-title[data-path="04_Mind"] .nav-folder-title-content::before { content: "🧠 "; }
+.nav-folder-title[data-path="Mind"] .nav-folder-title-content::before { content: "🧠 "; }
 /* Body */
-.nav-folder-title[data-path="05_Body"] .nav-folder-title-content::before { content: "💪 "; }
+.nav-folder-title[data-path="Body"] .nav-folder-title-content::before { content: "💪 "; }
 /* Content */
-.nav-folder-title[data-path="06_Content"] .nav-folder-title-content::before { content: "📹 "; }
+.nav-folder-title[data-path="Content"] .nav-folder-title-content::before { content: "📹 "; }
 /* Projects */
-.nav-folder-title[data-path="07_Projects"] .nav-folder-title-content::before { content: "🔧 "; }
+.nav-folder-title[data-path="Projects"] .nav-folder-title-content::before { content: "🔧 "; }
 /* Relationships */
-.nav-folder-title[data-path="08_Relationships"] .nav-folder-title-content::before { content: "🤝 "; }
+.nav-folder-title[data-path="Relationships"] .nav-folder-title-content::before { content: "🤝 "; }
 /* Bucket List */
-.nav-folder-title[data-path="09_Bucket_List"] .nav-folder-title-content::before { content: "🌍 "; }
+.nav-folder-title[data-path="Bucket_List"] .nav-folder-title-content::before { content: "🌍 "; }
 /* MOCs */
-.nav-folder-title[data-path="10_Maps_Of_Content"] .nav-folder-title-content::before { content: "🗺️ "; }
+.nav-folder-title[data-path="Maps"] .nav-folder-title-content::before { content: "🗺️ "; }
 /* Templates */
-.nav-folder-title[data-path="90_Templates"] .nav-folder-title-content::before { content: "📋 "; }
+.nav-folder-title[data-path="Templates"] .nav-folder-title-content::before { content: "📋 "; }
 /* System */
-.nav-folder-title[data-path="99_System"] .nav-folder-title-content::before { content: "⚙️ "; }
+.nav-folder-title[data-path="System"] .nav-folder-title-content::before { content: "⚙️ "; }
 /* Dashboard folder */
-.nav-folder-title[data-path="00 Dashboard"] .nav-folder-title-content::before { content: "🏠 "; }
+.nav-folder-title[data-path="Dashboard"] .nav-folder-title-content::before { content: "🏠 "; }
 
 /* Sub-folders */
 .nav-folder-title[data-path*="OSCE"] .nav-folder-title-content::before { content: "🏥 "; }
