@@ -49,6 +49,18 @@ LIMIT 10
 
 ---
 
+## 🎙️ Recent Voice Study Sessions
+
+```dataview
+TABLE status, created AS "Date", file.mtime AS "Updated"
+FROM "Inbox/Voice_Dumps"
+WHERE contains(domain, "medicine") OR contains(domains, "medicine")
+SORT created DESC
+LIMIT 5
+```
+
+---
+
 ## Open Tasks
 
 ```tasks

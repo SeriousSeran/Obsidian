@@ -51,6 +51,21 @@ sort by priority
 
 ---
 
+## 🎙️ Voice Dumps — Pending Processing
+
+```dataview
+TABLE status, domain, created AS "Spoken"
+FROM "Inbox/Voice_Dumps"
+WHERE file.name != ".gitkeep" AND status = "raw"
+SORT created DESC
+LIMIT 8
+```
+
+> Say **"Process my voice dump"** to Claudian → notes + flashcards + explore paths auto-created.  
+> [[System/Android_Voice_Study_Guide|📱 Android Guide]] | [[System/Voice_Dump_Processing_Protocol|⚙️ Protocol]]
+
+---
+
 ## Inbox — Needs Processing 📥
 
 ```dataview

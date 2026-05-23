@@ -64,6 +64,8 @@ sort by priority
 
 ## Medicine 🩺
 
+**Voice dump today?** `yes / no`  → If yes: [[System/Android_Voice_Study_Guide|voice → vault guide]]
+
 **Studied:**
 - 
 
@@ -72,6 +74,8 @@ sort by priority
 
 **OSCE notes:**
 - 
+
+**📇 SR cards reviewed?** `yes / no` — Cards due: open 📇 ribbon
 
 ---
 

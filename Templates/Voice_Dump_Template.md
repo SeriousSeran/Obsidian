@@ -1,23 +1,53 @@
 ---
 type: voice-dump
 status: raw
-domain: mind
+domain: inbox
 domains:
-  - mind
-source:
-needs_transcription: false
+  - inbox
+source: android-voice
+topic: ""
+created: "<% tp.date.now("YYYY-MM-DD") %>"
+time: "<% tp.date.now("HH:mm") %>"
 review_needed: true
-created: "{{date}}"
+tags:
+  - voice-dump
+  - unprocessed
+icon: "🎙️"
 ---
-# Voice Dump {{date}}
 
-## Context
+# 🎙️ Voice Dump — <% tp.date.now("ddd D MMM YYYY, HH:mm") %>
 
-## Raw Transcript
+> **Status:** RAW — not yet processed by Claudian  
+> **Source:** Android voice → ChatGPT transcription
 
-## Immediate Signals
+---
 
-## Follow-Up Tasks
+## 📝 Raw Transcript
 
-- [ ] Process this voice dump.
+> Paste your transcription here exactly as it came from ChatGPT.
 
+---
+
+## 🏷️ Quick Tags (fill before saving)
+
+**Rough domain:** `medicine` / `money` / `mind` / `body` / `content` / `projects` / `mixed`
+
+**Key topic in one line:**
+
+---
+
+## ⚡ Instant Captures (optional)
+
+> Any quick tasks, names, or links you noticed while reading. Don't think — just dump.
+
+- 
+
+---
+
+## ✅ Next Step
+
+- [ ] Open Claudian (Agent Client panel or desktop) and say: **"Process my latest voice dump"**
+
+---
+
+*[[Inbox|← Inbox]] | [[Dashboard/Home|Home →]]*
