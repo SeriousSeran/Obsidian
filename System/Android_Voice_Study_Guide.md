@@ -9,149 +9,218 @@ icon: "📱"
 
 # 📱 Android Voice Study Guide
 
-> **The complete path**: You read aloud → vault captures it → Claudian processes it → you get notes + flashcards + explore map.
+> **The complete path**: You speak → vault captures it → Claudian processes it → notes + flashcards + explore map.
 
 ---
 
-## 🗺️ The Pipeline at a Glance
+## 🗺️ The Pipeline (two direct paths — no ChatGPT needed)
+
+### Path A — Obsidian Mobile mic (fastest, zero friction)
 
 ```
-📱 You read aloud (Android)
+📱 Open Obsidian Mobile → Inbox/Voice_Dumps/ → new note
        ↓
-🤖 ChatGPT transcribes
+🎤 Tap keyboard mic → speak directly → text types itself
        ↓
-📥 Paste into Obsidian Mobile → Inbox/Voice_Dumps/
+💾 Save note (syncs to desktop via git/Obsidian Sync)
        ↓
-🖥️ Open desktop + say "Process my voice dump"
+🖥️ On desktop → say "Process my voice dump" to Claudian
        ↓
-🧠 Claudian creates: domain notes + flashcards + explore paths
+🧠 Notes + flashcards + explore paths created automatically
+```
+
+### Path B — Claude Android → copy to vault (adds AI pre-processing)
+
+```
+📱 Open Claude app → tap mic → speak your study notes
        ↓
-📇 SR deck has new cards → review tomorrow
+🤖 Claude transcribes + understands context as you talk
        ↓
-🔭 Explore Further list → next study session rabbit holes
+💬 Say: "Format this as a vault voice dump note"
+       ↓
+📋 Copy the markdown Claude gives you
+       ↓
+📱 Paste into Obsidian Mobile (Inbox/Voice_Dumps/) or GitHub app
+       ↓
+🖥️ On desktop → say "Process my voice dump" to Claudian
 ```
 
 ---
 
-## 📲 Step-by-Step: On Your Android Phone
+## Why Claude Android Can't Write Directly to Your Vault
 
-### Method A — ChatGPT Voice (Recommended)
+> *"Why can't Claude just add it straight to the vault?"*
 
-1. Open **ChatGPT** on Android
-2. Tap the 🎤 voice button (or hold mic icon)
-3. Read your notes / textbook / lecture aloud — speak naturally
-4. ChatGPT transcribes as you talk
-5. When done, type: **"Clean up this transcript — fix grammar, keep all medical terms exact"**
-6. Copy the cleaned text
+The Claude app on Android (claude.ai) and Claude Code on your desktop are two separate systems:
 
-**Then choose how to get it into the vault:**
+| | Claude Android App | Claude Code (Claudian) |
+|---|---|---|
+| **Lives on** | Cloud / claude.ai | Your PC, inside Obsidian |
+| **File access** | ❌ Cannot touch your PC files | ✅ Full vault read/write |
+| **Can transcribe voice** | ✅ Yes | ✅ Yes (if you paste it) |
+| **Can process + format** | ✅ Yes (you copy the output) | ✅ Yes (runs automatically) |
+| **Can write to vault** | ❌ No — the gap | ✅ Yes — the power |
+
+**The gap**: Android Claude can prepare the note perfectly formatted — but you're the bridge who pastes it into Obsidian Mobile or GitHub. One paste, then Claudian takes over on desktop.
+
+**Future option**: When the Agent Client plugin on desktop is running, it listens — but Android Claude can't call it remotely yet. This is a tooling limitation, not a conceptual one.
 
 ---
 
-### 📂 Getting it into the Vault
+## 📲 Method A — Direct Dictation into Obsidian Mobile
 
-#### Option 1 — Obsidian Mobile (Best)
-> Install Obsidian on Android, sync via iCloud/Git
+**What you need**: Obsidian app on Android + vault synced (see setup below)
 
-1. Open Obsidian Mobile
-2. Press `+` → new note
-3. Title: `Voice Dump YYYY-MM-DD` (e.g., `Voice Dump 2026-05-23`)
-4. Save to folder: **`Inbox/Voice_Dumps/`**
-5. Paste transcript under `## Raw Transcript`
-6. Tag domain (medicine / mind / etc.)
-7. Done — syncs automatically
+1. Open **Obsidian** on Android
+2. Navigate to `Inbox/Voice_Dumps/`
+3. Tap **`+`** → new note
+4. Title: `Voice Dump 2026-05-23` *(today's date)*
+5. In the note body — **tap the 🎤 microphone on your keyboard**
+6. Speak your study notes — Android voice-to-text types as you talk
+7. Tap mic again to stop
+8. Add one line at the top: `domain: medicine` (or whichever domain)
+9. Save — it auto-syncs to your desktop vault
 
-#### Option 2 — GitHub Mobile (No Obsidian needed)
-1. Open **GitHub** app on Android
-2. Go to `SeriousSeran/Obsidian`
-3. Navigate to `Inbox/Voice_Dumps/`
-4. Tap `+` (top right) → "Create new file"
-5. Filename: `Voice Dump YYYY-MM-DD.md`
-6. Paste this header:
-```
+> **Tip**: Android's keyboard mic (Google voice input) is surprisingly accurate for medical terms. Say terms slowly the first time if it struggles — it learns.
+
+---
+
+## 📲 Method B — Claude Android → Formatted Note → Paste
+
+**Best for**: When you want Claude to already structure your thoughts before Claudian processes them
+
+1. Open **Claude** on Android
+2. Tap the mic (or type if you prefer)
+3. Speak your study notes naturally — stream of consciousness is fine
+4. When done, send this message:
+
+> *"Format everything I just said as an Obsidian voice dump note. Use this exact structure:*
+> ```
+> ---
+> type: voice-dump
+> status: raw
+> domain: medicine
+> tags: [voice-dump, unprocessed]
+> ---
+> # Voice Dump [TODAY'S DATE]
+>
+> ## Raw Transcript
+> [cleaned transcript]
+>
+> ## Key Topics
+> [bullet list of main concepts]
+> ```"*
+
+5. Copy Claude's response
+6. Open **Obsidian Mobile** → `Inbox/Voice_Dumps/` → new note → paste → save
+
+---
+
+## 📲 Method C — GitHub Mobile (No Obsidian Mobile needed)
+
+**Best for**: Quick capture when Obsidian isn't installed, you have a transcript ready
+
+1. Open **GitHub** app → `SeriousSeran/Obsidian`
+2. Navigate to `Inbox/Voice_Dumps/`
+3. Tap **`+`** → "Create new file"
+4. Filename: `Voice Dump 2026-05-23.md`
+5. Paste content with basic header:
+
+```markdown
 ---
 type: voice-dump
 status: raw
 domain: medicine
 tags: [voice-dump, unprocessed]
 ---
-# Voice Dump YYYY-MM-DD
+# Voice Dump 2026-05-23
 
 ## Raw Transcript
 
-[PASTE YOUR TEXT HERE]
+[YOUR TEXT HERE]
 ```
-7. Tap "Commit new file"
 
-#### Option 3 — Send to Claude (This Chat)
-1. Open **Claude** on Android (claude.ai)
-2. Paste your transcript
-3. Say: **"Store this as a voice dump and process it into my vault"**
-4. Claude will respond with the processed content
-5. On desktop, create the note manually from Claude's output
+6. Tap **"Commit new file"** → appears in vault immediately
+
+---
+
+## 🔧 Sync Setup (one-time, so mobile → desktop works)
+
+For Method A to auto-sync, you need one of:
+
+| Method | Cost | Effort |
+|---|---|---|
+| **Easy-git (already installed)** | Free | Tap "Pull" in Obsidian Mobile after creating note |
+| **Obsidian Sync** | $4/month | Zero friction, instant |
+| **Syncthing** | Free | One-time setup, works offline |
+
+> **Quickest workaround without sync**: After saving the note on mobile, use GitHub app to commit it (Method C), then on desktop: `easy-git → Pull`. Takes 30 seconds.
 
 ---
 
 ## 🖥️ Back on Desktop — Trigger Claudian
 
-When you're back at your desk, open the **Agent Client panel** in Obsidian (ribbon 🤖) or this terminal and say:
+Open the **Agent Client panel** (ribbon 🤖) or this terminal and say:
 
 > **"Process my voice dump"**
 
 Claudian runs the [[System/Voice_Dump_Processing_Protocol|7-step protocol]] and creates:
-- ✅ Clean domain note in the right folder
-- 📇 Flashcards in SR deck  
-- 🔭 "Explore Further" list (3-5 rabbit holes)
-- ✅ Tasks with due dates (review tomorrow, explore in 3 days, deep dive in 7 days)
+- ✅ Clean domain note in the right folder (`Medicine/Topics/` etc.)
+- 📇 Flashcards ready in SR deck
+- 🔭 "Explore Further" — 3–5 rabbit holes for your next session
+- ✅ Tasks with due dates (+1 day SR review, +3 days explore #1, +7 days explore #2)
 
 ---
 
-## 📇 Flashcard Integration
+## 📇 After Processing — SR Review
 
-After processing, your SR deck automatically has new cards. To review:
-- Click the **📇 ribbon icon** in Obsidian
-- Or: `Ctrl+P` → "SR: Study Flashcards"
-- Cards due: shown in status bar at the bottom
+New flashcards are in your deck immediately. To review:
+- Click **📇 ribbon icon** in Obsidian
+- Status bar shows: "X cards due"
 
-**SR tells you**: "Again / Hard / Good / Easy" — answer honestly, it schedules the next review.
+**SR grades**: Again / Hard / Good / Easy — be honest, the algorithm schedules next review accordingly.
 
 ---
 
 ## 🔭 The Explore Further System
 
-Every processed dump generates **3–5 rabbit holes** like:
+Every processed dump generates a list like:
 
-> *"You talked about ACE inhibitors — explore next: (1) ARBs and the difference, (2) how RAAS connects to heart failure, (3) renal protection in diabetes, (4) OSCE: managing hypertensive emergency"*
+> *"You studied ACE inhibitors → explore next:*
+> *1. ARBs — how they differ and when to use each*
+> *2. RAAS pathway — connect to heart failure management*
+> *3. Renal protection in diabetic nephropathy*
+> *4. OSCE: managing hypertensive emergency step-by-step"*
 
-These become **Tasks with due dates** so you don't lose them:
+These become **due-dated tasks** so they survive into your next sessions:
 ```
 - [ ] Explore: ARBs vs ACE inhibitors 📅 2026-05-26
 - [ ] Explore: RAAS in heart failure 📅 2026-05-30
 ```
 
-They appear on your **daily note** → **home dashboard** → SR queue.
+They appear on your daily note, home dashboard, and Tasks query.
 
 ---
 
 ## ⏰ Reminder Loop
 
-| When | What happens |
+| Day | What happens |
 |---|---|
-| Day of dump | Process → notes + cards created |
-| Day +1 | SR: review new flashcards |
-| Day +3 | Task: explore rabbit hole #1 |
-| Day +7 | Task: explore rabbit hole #2 |
-| Weekly Review | All processed dumps summarised |
+| Dump day | Claudian processes → notes + cards created |
+| +1 day | SR: review new flashcards (📇 ribbon) |
+| +3 days | Task: read Explore Further #1 |
+| +7 days | Task: read Explore Further #2 |
+| Weekly Review | All processed dumps surface in review |
 
 ---
 
-## 💡 Tips for Reading Aloud
+## 💡 Tips for Speaking
 
-- **Read slowly** — pause between concepts so transcription catches it
-- **Say key terms clearly**: "ACE inhibitor... angiotensin converting enzyme"
-- **Narrate what you're thinking**: "I'm not sure why X happens — I need to look up Y"
-- **Include questions**: "Wait, does this mean Z?" — these become great flashcards
-- **No need to be perfect** — Claudian cleans it up
+- **Pause between concepts** — gives transcription time to catch up
+- **Spell out abbreviations once**: "MI — myocardial infarction"
+- **Narrate your confusion**: *"I don't understand why X causes Y"* → becomes a flashcard question
+- **Ask questions out loud**: *"Wait, what's the difference between A and B?"* → Claudian answers these in Explore Further
+- **No need to be clean** — Claudian strips filler words
 
 ---
 

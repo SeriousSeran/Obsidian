@@ -1,4 +1,4 @@
-﻿---
+---
 type: dashboard
 domain: bucket-list
 domains:

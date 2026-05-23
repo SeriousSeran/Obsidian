@@ -1,4 +1,4 @@
-﻿---
+---
 type: dashboard
 domain: relationships
 domains:

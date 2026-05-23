@@ -1,4 +1,4 @@
-﻿---
+---
 type: dashboard
 domain: body
 status: active

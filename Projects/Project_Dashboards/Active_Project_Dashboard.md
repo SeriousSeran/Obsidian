@@ -1,4 +1,4 @@
-﻿---
+---
 type: dashboard
 domain: projects
 status: active
