@@ -1,9 +1,10 @@
----
+﻿---
 type: dashboard
 domain: body
 status: active
 cssclasses:
   - life-os-dashboard
+icon: "💪"
 review_needed: false
 ---
 

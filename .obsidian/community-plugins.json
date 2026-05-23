@@ -9,5 +9,13 @@
   "quickadd",
   "obsidian-tasks-plugin",
   "templater-obsidian",
-  "realclaudian"
+  "realclaudian",
+  "make-md",
+  "table-editor-obsidian",
+  "homepage",
+  "obsidian-icon-folder",
+  "obsidian-spaced-repetition",
+  "pretty-properties",
+  "google-calendar",
+  "agent-client"
 ]

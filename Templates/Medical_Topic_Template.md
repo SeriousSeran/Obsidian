@@ -8,7 +8,9 @@ topic: "<% tp.file.title %>"
 created: "<% tp.date.now("YYYY-MM-DD") %>"
 tags:
   - medicine
+  - "#flashcards"
 review_needed: true
+icon: "🔬"
 ---
 
 # <% tp.file.title %>
@@ -21,11 +23,15 @@ review_needed: true
 
 > What is this condition/concept in one clear sentence?
 
+**Definition ::** 
+
 ---
 
 ## Pathophysiology 🔬
 
 > Mechanism — what goes wrong at the cellular or physiological level?
+
+**Pathophysiology ::** 
 
 ---
 
@@ -42,12 +48,16 @@ review_needed: true
 |---|---|---|
 | | | |
 
+**Key investigation ::** 
+
 ---
 
 ## Diagnosis
 
 **Gold standard:**
 > 
+
+**Gold standard investigation ::** 
 
 **Clinical criteria / scoring:**
 - 
@@ -69,11 +79,15 @@ review_needed: true
 |---|---|---|---|
 | | | | |
 
+**First-line treatment ::** 
+
 ---
 
 ## Complications ⚠️
 
 - 
+
+**Most serious complication ::** 
 
 ---
 
@@ -81,9 +95,27 @@ review_needed: true
 
 > What examiners love to ask about this topic.
 
-- 
-- 
-- 
+**Viva Q — Classic presentation ::** 
+
+**Viva Q — Why this investigation? ::** 
+
+**Viva Q — Management priority ::** 
+
+---
+
+## 📇 Flashcards
+#flashcards
+
+> These cards auto-load into Spaced Repetition. Use `::` for Q→A.  
+> Edit below to add topic-specific cards.
+
+**What is <% tp.file.title %>? ::** 
+
+**Pathophysiology of <% tp.file.title %> ::** 
+
+**Classic triad/presentation of <% tp.file.title %> ::** 
+
+**Management of <% tp.file.title %> ::** 
 
 ---
 

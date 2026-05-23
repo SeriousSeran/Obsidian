@@ -1,9 +1,10 @@
----
+﻿---
 type: dashboard
 domain: content
 status: active
 cssclasses:
   - life-os-dashboard
+icon: "📹"
 review_needed: false
 ---
 

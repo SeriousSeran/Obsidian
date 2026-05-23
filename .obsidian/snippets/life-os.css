@@ -301,3 +301,162 @@ input[type="checkbox"] {
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--academia-gold-dim); }
+
+/* ═══════════════════════════════════════════════════════════════
+   SPACED REPETITION — Dark Academia Flash Cards
+   ═══════════════════════════════════════════════════════════════ */
+
+/* SR flashcard modal */
+.sr-flashcard {
+  background: var(--academia-parchment) !important;
+  border: 1px solid var(--academia-border) !important;
+  border-radius: 12px !important;
+  color: var(--academia-text) !important;
+}
+
+/* SR card question area */
+.sr-flashcard-front {
+  font-family: "Georgia", serif !important;
+  font-size: 1.1rem !important;
+  color: var(--academia-cream) !important;
+  padding: 1.2rem !important;
+}
+
+/* SR card answer area */
+.sr-flashcard-back {
+  color: var(--academia-text) !important;
+  border-top: 1px solid var(--academia-border) !important;
+  padding: 1rem !important;
+}
+
+/* SR response buttons */
+.sr-response-buttons button {
+  font-family: "Georgia", serif;
+  border-radius: 6px !important;
+  border: 1px solid var(--academia-border) !important;
+  background: var(--academia-parchment) !important;
+  color: var(--academia-text) !important;
+  transition: all 0.15s ease;
+}
+
+.sr-response-buttons button:hover { background: var(--academia-border) !important; }
+
+/* Again → red tint */
+.sr-response-buttons button:nth-child(1):hover { border-color: var(--col-medicine) !important; color: var(--col-medicine) !important; }
+/* Hard → orange */
+.sr-response-buttons button:nth-child(2):hover { border-color: var(--col-body) !important; color: var(--col-body) !important; }
+/* Good → green */
+.sr-response-buttons button:nth-child(3):hover { border-color: var(--col-money) !important; color: var(--col-money) !important; }
+/* Easy → gold */
+.sr-response-buttons button:nth-child(4):hover { border-color: var(--academia-gold) !important; color: var(--academia-gold) !important; }
+
+/* SR deck tree in sidebar */
+.sr-tree-item { color: var(--academia-text) !important; }
+.sr-tree-item:hover { color: var(--academia-gold) !important; }
+
+/* ── Flashcard section in notes ──────────────────────────────── */
+/* Style the #flashcards heading area */
+.markdown-preview-view h2:has(+ p > a[href="#flashcards"]) {
+  color: var(--academia-gold-dim) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PRETTY PROPERTIES — Banner & Icon Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Banner gradient overlay — academic parchment fade */
+.pretty-properties-banner::after {
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    var(--academia-ink) 100%
+  ) !important;
+}
+
+/* Icon circle below banner */
+.pretty-properties-icon-container {
+  background: var(--academia-parchment) !important;
+  border: 2px solid var(--academia-border) !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   AGENT CLIENT — AI Chat Notes
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Notes exported from Agent Client */
+.nav-file-title[data-path*="Agent Client"] .nav-file-title-content::before {
+  content: "🤖 ";
+}
+
+/* Agent Client panel styling */
+.agent-client-container {
+  background: var(--academia-parchment) !important;
+  color: var(--academia-text) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GOOGLE CALENDAR — Event Note Styling
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Calendar event notes */
+.nav-file-title[data-path*="Calendar"] .nav-file-title-content::before {
+  content: "📅 ";
+}
+
+/* ── GOOGLE CALENDAR CALLOUT ──────────────────────────────────── */
+.callout[data-callout="calendar"],
+.callout[data-callout="event"] {
+  --callout-color: 41, 128, 185;
+  border-color: var(--col-content) !important;
+}
+.callout[data-callout="calendar"] .callout-icon::after { content: "📅"; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ICONIZE — Enhanced File Explorer Icons
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Ensure Iconize emojis align nicely */
+.iconize-icon {
+  vertical-align: middle !important;
+  margin-right: 3px !important;
+}
+
+/* Tab icons */
+.workspace-tab-header .iconize-icon {
+  font-size: 0.9em !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAKE.MD — Spaces Sidebar
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Make.md space row hover */
+.mk-tree-wrapper .mk-tree-item:hover {
+  background: rgba(200, 169, 110, 0.08) !important;
+}
+
+/* Sticker size in Spaces */
+.mk-space-icon { font-size: 1rem !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ANDROID CAPTURE — Inbox Capture Notes
+   ═══════════════════════════════════════════════════════════════ */
+
+.callout[data-callout="android"],
+.callout[data-callout="capture-android"] {
+  --callout-color: 52, 152, 219;
+  border-color: #3498db !important;
+}
+.callout[data-callout="android"] .callout-icon::after { content: "📱"; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SPACED REPETITION STATUS BAR
+   ═══════════════════════════════════════════════════════════════ */
+
+/* SR status bar items — make them gold-tinted */
+.status-bar-item[data-section="spaced-repetition"] {
+  color: var(--academia-gold-dim) !important;
+}
+

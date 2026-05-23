@@ -7,9 +7,16 @@ __pycache__/
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 
-# Plugin data files — may contain tokens or API keys
+# Plugin data files — SENSITIVE (contain tokens or API keys)
+# Only exclude plugins that store credentials
 .obsidian/plugins/easy-git/data.json
-.obsidian/plugins/*/data.json
+.obsidian/plugins/realclaudian/data.json
+
+# Safe plugin data (icons, settings, etc.) — intentionally NOT excluded:
+# obsidian-icon-folder/data.json  → stores folder icon assignments
+# obsidian-spaced-repetition/data.json → stores SR settings
+# pretty-properties/data.json → stores banner/icon config
+# agent-client/data.json → stores agent config (no secrets)
 
 # Plugin binaries — large JS files (track manifests only)
 .obsidian/plugins/*/main.js
@@ -26,3 +33,7 @@ Desktop.ini
 
 # Claudian session data (auto-generated)
 .claudian/sessions/
+
+# Make.md internal data (large, auto-generated)
+.makemd/
+.space/

@@ -7,6 +7,7 @@ domains:
 date: <% tp.date.now("YYYY-MM-DD") %>
 created: "<% tp.date.now("YYYY-MM-DD") %>"
 review_needed: false
+icon: "📅"
 ---
 
 # <% tp.date.now("dddd, MMMM D YYYY") %> 🗓️
@@ -24,6 +25,22 @@ review_needed: false
 1. 
 2. 
 3. 
+
+---
+
+## 📅 Today's Calendar
+
+> *(Google Calendar plugin — auto-populates after auth)*
+
+```gEvent
+date: <% tp.date.now("YYYY-MM-DD") %>
+```
+
+---
+
+## 📇 SR Review
+
+> Open ribbon **📇** to review due flashcards before starting study.
 
 ---
 

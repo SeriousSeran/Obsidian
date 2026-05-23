@@ -3,6 +3,7 @@ type: homepage
 status: active
 cssclasses:
   - life-os-dashboard
+icon: "🏠"
 review_needed: false
 ---
 
@@ -97,6 +98,51 @@ LIMIT 12
 
 ---
 
+## 🤖 AI Agents
+
+| Agent | Access | Purpose |
+|---|---|---|
+| **Claudian** (Claude Code) | Agent Client panel or this terminal | Vault design, writing, analysis |
+| **Gemini CLI** | Agent Client → switch agent | Research, multimodal, long context |
+| **Jules (Google)** | jules.google.com → SeriousSeran/Obsidian | Scheduled maintenance, GitHub Actions |
+
+> Open **Agent Client** panel (ribbon `🤖`) to chat with Claudian directly inside Obsidian.  
+> [[Agent Client/Agent_Client_Index|→ Agent Client Hub]]
+
+---
+
+## 📱 Android → Vault
+
+> Found something interesting on Android Claude? Do this:
+> 1. Copy the insight / note
+> 2. Create a new note in [[Inbox]] titled `📱 [topic]`
+> 3. Paste content + add tag `#android-capture`
+> 4. Claudian or Jules will process it into the right domain
+
+```dataview
+TABLE file.ctime AS "Captured"
+FROM "Inbox"
+WHERE contains(file.tags, "#android-capture")
+SORT file.ctime DESC
+LIMIT 8
+```
+
+---
+
+## 📅 Google Calendar
+
+> Connect once: `Ctrl+P` → "Google Calendar: Sign in with Google"  
+> After auth, events appear here automatically.
+
+```dataview
+TABLE file.ctime AS "Date"
+FROM "Daily/Daily_Notes"
+SORT file.ctime DESC
+LIMIT 5
+```
+
+---
+
 ## Navigation 🧭
 
 - [[Maps/Life_OS_Home|Life OS Home]] — Full system map
@@ -106,6 +152,7 @@ LIMIT 12
 - [[Daily/Weekly_Reviews|Weekly Reviews]] — Weekly reflections
 - [[Templates|Templates]] — All Templater templates
 - [[System/Obsidian_Plugin_Setup|Plugin Setup Guide]] — Plugin reference
+- [[Agent Client/Agent_Client_Index|Agent Client Hub]] — AI agent chat
 
 ---
 

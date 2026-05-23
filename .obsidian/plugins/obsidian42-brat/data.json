@@ -1,0 +1,34 @@
+{
+  "pluginList": [
+    "st3v3nmw/obsidian-spaced-repetition",
+    "RAIT-09/obsidian-agent-client",
+    "Make-md/makemd"
+  ],
+  "pluginSubListFrozenVersion": [
+    {
+      "repo": "st3v3nmw/obsidian-spaced-repetition",
+      "version": "latest"
+    },
+    {
+      "repo": "RAIT-09/obsidian-agent-client",
+      "version": "latest"
+    },
+    {
+      "repo": "Make-md/makemd",
+      "version": "latest"
+    }
+  ],
+  "themesList": [],
+  "updateAtStartup": true,
+  "updateThemesAtStartup": true,
+  "enableAfterInstall": true,
+  "loggingEnabled": false,
+  "loggingPath": "BRAT-log",
+  "loggingVerboseEnabled": false,
+  "debuggingMode": false,
+  "notificationsEnabled": true,
+  "globalTokenName": "",
+  "personalAccessToken": "",
+  "selectLatestPluginVersionByDefault": false,
+  "allowIncompatiblePlugins": false
+}

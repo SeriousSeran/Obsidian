@@ -1,4 +1,4 @@
----
+﻿---
 type: dashboard
 domain: relationships
 domains:
@@ -8,6 +8,7 @@ review_needed: false
 cssclasses:
   - life-os-dashboard
 ---
+icon: "🤝"
 
 # 🤝 Relationships
 

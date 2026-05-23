@@ -4,6 +4,7 @@ domain: medicine
 status: active
 cssclasses:
   - life-os-dashboard
+icon: "🩺"
 review_needed: false
 ---
 
@@ -25,10 +26,26 @@ review_needed: false
 
 ---
 
+## Spaced Repetition 📇
+
+> Open **Spaced Repetition** (ribbon icon or `Ctrl+P` → "SR: Study flashcards") to review due cards.
+> Cards auto-extracted from notes tagged `#flashcards` inside `Medicine/`.
+
+```dataview
+TABLE length(filter(file.tags, (t) => t = "#flashcards")) AS "Flashcard Tags", file.mtime AS "Updated"
+FROM "Medicine"
+WHERE contains(file.tags, "#flashcards")
+SORT file.mtime DESC
+LIMIT 10
+```
+
+---
+
 > [!viva] Current Priorities
 > - Build high-yield topic notes (Templater → Medical Topic Template)
 > - Practice one OSCE station per week
 > - Link every topic to a viva question
+> - Review SR due cards daily (ribbon icon → 📇)
 
 ---
 
