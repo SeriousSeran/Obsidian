@@ -262,7 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
-    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    return [m.group(1).removesuffix('\\').strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
 def note_index() -> dict[str, list[Path]]:

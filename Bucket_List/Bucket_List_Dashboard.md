@@ -56,3 +56,10 @@ LIMIT 30
 ---
 
 *[[Maps/Life_OS_Home|← Life OS Home]]*
+
+<!-- life-os-generated:start -->
+## Generated System Snapshot
+
+- Last refresh: 2026-05-23T19:25:52+05:30
+- Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
+<!-- life-os-generated:end -->
