@@ -6,30 +6,32 @@ cssclasses:
   - life-os-dashboard
 review_needed: false
 ---
-# Active Project Dashboard
 
-## Start Here
+# 🔧 Projects
 
-- [[10_Maps_Of_Content/Projects_MOC]]
-- [[07_Projects/Active/Life_OS_Project]]
-- [[07_Projects/Product_Idea_Lab]]
-- [[07_Projects/Learning/Projects_Learning_Library]]
-- [[07_Projects/Kanban/Life_OS_Roadmap]]
-- [[90_Templates/Project_Template]]
+> *"A goal without a plan is just a wish."* — Antoine de Saint-Exupéry
 
-## Key Folders
+---
 
-- [[07_Projects/Active]]
-- [[07_Projects/Project_Dashboards]]
-- [[07_Projects/Learning]]
+## Command 🗺️
 
-## Current Focus
+| Hub | Purpose |
+|---|---|
+| [[07_Projects/Kanban/Life_OS_Roadmap\|🏗️ Life OS Roadmap]] | Visual board — Inbox → Next → In Progress → Done |
+| [[07_Projects/Active/Life_OS_Project\|▶️ Life OS Project]] | Primary active build |
+| [[07_Projects/Product_Idea_Lab\|💡 Product Idea Lab]] | Future income engines and product concepts |
+| [[07_Projects/Learning/Projects_Learning_Library\|📚 Learning Library]] | Building, shipping, execution resources |
 
-- Keep every active project tied to a next action.
-- Separate product ideas from active commitments.
-- Review active projects weekly.
+---
 
-## Open Tasks
+> [!goal] Current Priorities
+> - Every active project must have a **next action** attached
+> - Separate product *ideas* from active *commitments*
+> - Review all active projects every Friday
+
+---
+
+## Open Tasks ✅
 
 ```tasks
 not done
@@ -37,7 +39,19 @@ path includes 07_Projects
 sort by due
 ```
 
-## Needs Review
+---
+
+## Active Projects
+
+```dataview
+TABLE status, next_action, file.mtime AS "Updated"
+FROM "07_Projects/Active"
+SORT file.mtime DESC
+```
+
+---
+
+## Needs Review 🔁
 
 ```dataview
 TABLE type, status, file.mtime AS "Updated"
@@ -46,7 +60,9 @@ WHERE review_needed = true
 SORT file.mtime DESC
 ```
 
-## Recent Notes
+---
+
+## Recent Notes 📝
 
 ```dataview
 TABLE type, status, file.mtime AS "Updated"
@@ -54,6 +70,8 @@ FROM "07_Projects"
 SORT file.mtime DESC
 LIMIT 15
 ```
+
+---
 
 ## Related Templates
 
@@ -64,13 +82,9 @@ LIMIT 15
 - [[07_Projects/Learning/Projects_Learning_Library]]
 - [[10_Maps_Of_Content/Learning_Resource_Hub]]
 
-## Related Reports
+## System Reports
 
 - [[99_System/reports/life_os_validation_report]]
-
-## Next Actions
-
-- [ ] Define the first active project.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
@@ -78,3 +92,7 @@ LIMIT 15
 - Last refresh: 2026-05-21T20:38:48+05:30
 - Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->
+
+---
+
+*[[10_Maps_Of_Content/Life_OS_Home|← Life OS Home]]*

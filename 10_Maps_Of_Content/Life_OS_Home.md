@@ -5,9 +5,29 @@ cssclasses:
   - life-os-dashboard
 review_needed: false
 ---
-# Life OS
 
-> A calm command center for capture, learning, projects, money, content, reflection, and direction.
+# 🏠 Life OS
+
+> *"The secret of getting ahead is getting started."* — Mark Twain
+
+---
+
+## Command Centers 🗺️
+
+| Domain | Dashboard | Kanban |
+|---|---|---|
+| 🩺 Medicine | [[02_Medicine/Medicine_Dashboard\|Medicine]] | [[02_Medicine/Kanban/Medicine_Study_Pipeline\|Study Pipeline]] |
+| 💰 Money | [[03_Money/Money_Dashboard\|Money]] | — |
+| 🧠 Mind | [[04_Mind/Mind_Dashboard\|Mind]] | — |
+| 💪 Body | [[05_Body/Body_Dashboard\|Body]] | — |
+| 📹 Content | [[06_Content/Content_Dashboard\|Content]] | [[06_Content/Kanban/Content_Pipeline\|Content Pipeline]] |
+| 🔧 Projects | [[07_Projects/Project_Dashboards/Active_Project_Dashboard\|Projects]] | [[07_Projects/Kanban/Life_OS_Roadmap\|Roadmap]] |
+| 🤝 Relationships | [[08_Relationships/Relationship_Dashboard\|Relationships]] | — |
+| 🌍 Bucket List | [[09_Bucket_List/Bucket_List_Dashboard\|Bucket List]] | — |
+
+---
+
+> [!capture] A calm command center
 
 ## Start Here
 

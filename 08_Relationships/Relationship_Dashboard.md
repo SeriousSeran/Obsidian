@@ -4,26 +4,34 @@ domain: relationships
 domains:
   - relationships
 status: active
-review_needed: true
+review_needed: false
 cssclasses:
   - life-os-dashboard
 ---
-# Relationship Dashboard
 
-> A quiet place to remember people, patterns, and conversations with care.
+# 🤝 Relationships
 
-## Start Here
+> *"You are the average of the five people you spend the most time with."* — Jim Rohn
 
-- [[08_Relationships/People/People_Index]]
-- [[90_Templates/Person_Note_Template]]
+---
 
-## Current Focus
+## Command 🗺️
 
-- Remember important context.
-- Track follow-ups without making people into tasks.
-- Reflect on conversation patterns gently.
+| Hub | Purpose |
+|---|---|
+| [[08_Relationships/People/People_Index\|👥 People Index]] | All person notes — context, patterns, follow-ups |
+| [[90_Templates/Person_Note_Template\|📋 Person Template]] | Create a new person note |
 
-## Open Tasks
+---
+
+> [!pearl] How to use this domain
+> - Remember important context about people you care about
+> - Track follow-ups **without** turning people into tasks
+> - Reflect on conversation patterns gently — no judgement
+
+---
+
+## Open Follow-ups ✅
 
 ```tasks
 not done
@@ -31,7 +39,9 @@ path includes 08_Relationships
 sort by due
 ```
 
-## People Notes
+---
+
+## People Notes 👥
 
 ```dataview
 TABLE status, review, file.mtime AS "Updated"
@@ -40,14 +50,17 @@ SORT file.mtime DESC
 LIMIT 20
 ```
 
-## Next Actions
+---
 
-- [ ] Create important person notes only when useful.
-- [ ] Add follow-ups from daily notes.
+## Recent Notes 📝
 
-<!-- life-os-generated:start -->
-## Generated System Snapshot
+```dataview
+TABLE type, status, file.mtime AS "Updated"
+FROM "08_Relationships"
+SORT file.mtime DESC
+LIMIT 10
+```
 
-- Last refresh: 2026-05-21T20:38:48+05:30
-- Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
-<!-- life-os-generated:end -->
+---
+
+*[[10_Maps_Of_Content/Life_OS_Home|← Life OS Home]]*

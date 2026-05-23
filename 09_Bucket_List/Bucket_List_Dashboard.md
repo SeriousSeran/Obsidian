@@ -8,40 +8,50 @@ review_needed: false
 cssclasses:
   - life-os-dashboard
 ---
-# Bucket List Dashboard
 
-> Long-range experiences, skills, places, and quests worth making real.
+# 🌍 Bucket List
+
+> *"Life is either a daring adventure or nothing at all."* — Helen Keller
+
+---
+
+## Command 🗺️
+
+| Hub | Purpose |
+|---|---|
+| [[09_Bucket_List/Experiences/Experience_Index\|✨ Experience Index]] | All experiences — places, skills, people, work, body |
+
+---
 
 ## Experience Areas
 
-- [[09_Bucket_List/Experiences/Experience_Index]]
-
 | Area | Examples |
 |---|---|
-| Places | Countries, cities, nature |
-| Skills | Music, languages, sport, craft |
-| People | Trips, gifts, shared memories |
-| Work | Projects, products, teaching |
-| Body | Strength, endurance, health milestones |
+| 🌏 Places | Countries, cities, hidden nature spots |
+| 🎸 Skills | Music, languages, sport, crafts |
+| 🤝 People | Trips, gifts, shared memories |
+| 🔨 Work | Projects, products, things you taught |
+| 💪 Body | Strength goals, endurance, health milestones |
 
-## Active Dreams
+---
+
+> [!goal] How to use this
+> - Add one experience you still genuinely care about
+> - Attach one **tiny next action** to it so it's not just a dream
+> - Review once a month — cross one off or get closer to one
+
+---
+
+## Active Dreams ✨
 
 ```dataview
-TABLE status, next_action, review, file.mtime AS "Updated"
+TABLE status, next_action, file.mtime AS "Updated"
 FROM "09_Bucket_List"
 WHERE file.name != "Bucket_List_Dashboard"
 SORT file.mtime DESC
 LIMIT 30
 ```
 
-## Next Actions
+---
 
-- [ ] Add one experience you still care about.
-- [ ] Attach one tiny next action to it.
-
-<!-- life-os-generated:start -->
-## Generated System Snapshot
-
-- Last refresh: 2026-05-21T20:38:48+05:30
-- Reports: [[99_System/reports/life_os_validation_report|Validation]], [[99_System/reports/link_health|Link Health]], [[99_System/reports/inbox_report|Inbox]]
-<!-- life-os-generated:end -->
+*[[10_Maps_Of_Content/Life_OS_Home|← Life OS Home]]*
