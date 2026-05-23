@@ -11,6 +11,7 @@ __pycache__/
 # Only exclude plugins that store credentials
 .obsidian/plugins/easy-git/data.json
 .obsidian/plugins/realclaudian/data.json
+.obsidian/plugins/google-calendar/data.json
 
 # Safe plugin data (icons, settings, etc.) — intentionally NOT excluded:
 # obsidian-icon-folder/data.json  → stores folder icon assignments
