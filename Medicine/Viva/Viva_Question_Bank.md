@@ -24,6 +24,7 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What is the CURB-65 score? | Confusion, Urea >7, Respiratory rate >=30, Blood pressure <90 systolic or <=60 diastolic, Age >=65 |
 
 ## Abdomen
 
