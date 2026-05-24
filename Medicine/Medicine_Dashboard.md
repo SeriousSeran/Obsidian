@@ -104,9 +104,9 @@ LIMIT 15
 
 ## Next Actions
 
-- [ ] Add first medical topic.
-- [ ] Add first deidentified clinical case.
-- [ ] Practice one OSCE station.
+- [x] Add first medical topic.
+- [x] Add first deidentified clinical case.
+- [x] Practice one OSCE station.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
