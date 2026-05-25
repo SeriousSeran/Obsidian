@@ -105,7 +105,7 @@ LIMIT 15
 ## Next Actions
 
 - [ ] Add first medical topic.
-- [ ] Add first deidentified clinical case.
+- [x] Add first deidentified clinical case: [[Medicine/Clinical_Cases/Asthma_Exacerbation]]
 - [ ] Practice one OSCE station.
 
 <!-- life-os-generated:start -->
