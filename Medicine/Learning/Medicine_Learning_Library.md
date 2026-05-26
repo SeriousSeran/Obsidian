@@ -19,6 +19,8 @@ review_needed: true
 | StatPearls via NCBI | [StatPearls](https://www.ncbi.nlm.nih.gov/books/n/statpearls/) | Quick condition overviews and clinical review | Make one-page condition notes |
 | Merck Manual Professional | [Merck Manual Professional](https://www.merckmanuals.com/professional/) | Concise clinical reference for students/professionals | Use to check clinical patterns |
 | NICE Clinical Knowledge Summaries | [NICE CKS](https://www.nice.org.uk/about/what-we-do/evidence-services/clinical-knowledge-summaries) | Evidence-based primary care summaries | Use for guideline-aware review |
+| BMJ Best Practice | [BMJ Best Practice](https://bestpractice.bmj.com/) | Point of care clinical decision support | Use for evidence-based condition summaries |
+| Cochrane Library | [Cochrane Library](https://www.cochranelibrary.com/) | High-quality systematic reviews | Use for deep evidence checks |
 
 ## Paid / Library Books to Learn From Legally
 
