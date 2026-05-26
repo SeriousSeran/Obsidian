@@ -52,4 +52,4 @@ LIMIT 20
 
 ---
 
-*[[Dashboard/Home|← Home]] | [[System/Obsidian_Plugin_Setup|Plugin Setup →]]*
+*[[Maps/Home|← Home]] | [[System/Obsidian_Plugin_Setup|Plugin Setup →]]*

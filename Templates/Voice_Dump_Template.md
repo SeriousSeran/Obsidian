@@ -50,4 +50,4 @@ icon: "🎙️"
 
 ---
 
-*[[Inbox|← Inbox]] | [[Dashboard/Home|Home →]]*
+*[[Inbox|← Inbox]] | [[Maps/Home|Home →]]*
