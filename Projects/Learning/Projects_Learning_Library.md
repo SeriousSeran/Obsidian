@@ -20,6 +20,8 @@ review_needed: false
 | OpenStax Entrepreneurship | [OpenStax Entrepreneurship](https://openstax.org/books/entrepreneurship/pages/index) | Free legal entrepreneurship textbook | Map projects from opportunity to experiment |
 | The Mom Test | [Simon & Schuster official page](https://www.simonandschuster.com/books/The-Mom-Test/Rob-Fitzpatrick/9798893312560) | Customer discovery conversations | Build interview scripts |
 | Obviously Awesome | [Bookshop official listing](https://bookshop.org/p/books/obviously-awesome-how-to-nail-product-positioning-so-customers-get-it-buy-it-love-it-april-dunford/23776309) | Product positioning | Use for positioning reviews |
+| The Lean Startup | [Penguin Random House](https://www.penguinrandomhouse.com/books/214151/the-lean-startup-by-eric-ries/) | MVP and validated learning | Design small product experiments |
+| Zero to One | [Penguin Random House](https://www.penguinrandomhouse.com/books/236109/zero-to-one-by-peter-thiel-with-blake-masters/) | Startup strategy and uniqueness | Add to project framing questions |
 
 ## Study Workflow
 
