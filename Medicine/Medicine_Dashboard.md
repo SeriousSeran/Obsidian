@@ -26,6 +26,15 @@ review_needed: false
 
 ---
 
+## Core Topics & OSCE Stations 📚
+
+- [[Medicine/Topics/Heart_Failure_Core|🫀 Heart Failure Core]]
+- [[Medicine/OSCE/Cardiovascular_Examination_Station|🫀 Cardiovascular Examination OSCE]]
+- [[Medicine/Topics/Asthma_Core|🫁 Asthma Core]]
+- [[Medicine/OSCE/Respiratory_Examination_Station|🫁 Respiratory Examination OSCE]]
+
+---
+
 ## Spaced Repetition 📇
 
 > Open **Spaced Repetition** (ribbon icon or `Ctrl+P` → "SR: Study flashcards") to review due cards.
