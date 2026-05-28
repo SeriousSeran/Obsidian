@@ -386,7 +386,7 @@ input[type="checkbox"] {
    ═══════════════════════════════════════════════════════════════ */
 
 /* Notes exported from Agent Client */
-.nav-file-title[data-path*="Agent Client"] .nav-file-title-content::before {
+.nav-file-title[data-path*="System/Agent Client"] .nav-file-title-content::before {
   content: "🤖 ";
 }
 
