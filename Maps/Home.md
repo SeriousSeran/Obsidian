@@ -122,7 +122,7 @@ LIMIT 12
 | **Jules (Google)** | jules.google.com → SeriousSeran/Obsidian | Scheduled maintenance, GitHub Actions |
 
 > Open **Agent Client** panel (ribbon `🤖`) to chat with Claudian directly inside Obsidian.  
-> [[Agent Client/Agent_Client_Index|→ Agent Client Hub]]
+> [[System/Agent Client/Agent_Client_Index|→ Agent Client Hub]]
 
 ---
 
@@ -167,7 +167,7 @@ LIMIT 5
 - [[Daily/Weekly_Reviews|Weekly Reviews]] — Weekly reflections
 - [[Templates|Templates]] — All Templater templates
 - [[System/Obsidian_Plugin_Setup|Plugin Setup Guide]] — Plugin reference
-- [[Agent Client/Agent_Client_Index|Agent Client Hub]] — AI agent chat
+- [[System/Agent Client/Agent_Client_Index|Agent Client Hub]] — AI agent chat
 
 ---
 

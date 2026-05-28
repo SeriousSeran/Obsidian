@@ -236,4 +236,4 @@ LIMIT 10
 
 ---
 
-*[[Dashboard/Home|← Home]] | [[System/Voice_Dump_Processing_Protocol|Processing Protocol →]] | [[Medicine/Medicine_Dashboard|Medicine →]]*
+*[[Maps/Home|← Home]] | [[System/Voice_Dump_Processing_Protocol|Processing Protocol →]] | [[Medicine/Medicine_Dashboard|Medicine →]]*
