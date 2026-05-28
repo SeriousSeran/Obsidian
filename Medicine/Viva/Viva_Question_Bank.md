@@ -24,6 +24,8 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What are the signs of a life-threatening asthma attack? | Silent chest, cyanosis, poor respiratory effort, exhaustion, confusion, SpO2 < 92%, PEF < 33% |
+| What are the classic clinical signs of a pleural effusion? | Stony dull percussion, reduced breath sounds, reduced vocal resonance, reduced chest expansion |
 
 ## Abdomen
 
