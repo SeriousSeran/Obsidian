@@ -92,6 +92,10 @@ LIMIT 15
 - [[Templates/Medical_Topic_Template]]
 - [[Templates/Clinical_Case_Template]]
 
+## Key Topics
+- [[Medicine/Topics/Heart_Failure_Core|Heart Failure]]
+- [[Medicine/Topics/Asthma_Core|Asthma]]
+
 ## Learning Resources
 
 - [[Medicine/Learning/Medicine_Learning_Library]]
