@@ -77,6 +77,7 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Project_Template]]
+- [[Projects/Project_Dashboards/Project_Evaluation_Framework|Project Evaluation Framework]]
 
 ## Learning Resources
 
