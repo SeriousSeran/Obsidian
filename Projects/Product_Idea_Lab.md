@@ -13,10 +13,10 @@ review_needed: true
 
 ## Idea Table
 
-| Idea | User | Problem | Smallest Test | Status |
-|---|---|---|---|---|
-| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | active |
-| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | draft |
+| Idea | User | Problem | Smallest Test | Status | Next Action |
+|---|---|---|---|---|---|
+| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | active | Setup vault |
+| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | draft | Write outline |
 
 ## Product Questions
 

@@ -33,3 +33,4 @@ review_needed: true
 - [[Money/Learning/Money_Learning_Library]]
 - [[Money/Business_Ideas/Business_Model_Lab]]
 - [[Templates/Financial_Idea_Template]]
+- [[Money/Financial_Map/Monthly_Cash_Flow_Review|Monthly Cash Flow Review]]

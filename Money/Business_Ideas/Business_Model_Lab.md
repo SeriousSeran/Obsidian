@@ -33,6 +33,6 @@ review_needed: true
 ## Experiments
 
 - [ ] Write one customer/problem note.
-- [ ] Create one tiny offer.
+- [ ] Create one tiny offer using the [[Money/Business_Ideas/Offer_Creation_Framework|Offer Creation Framework]].
 - [ ] Ask for feedback before building too much.
 - [ ] Link viable ideas to [[Projects/Product_Idea_Lab]].
