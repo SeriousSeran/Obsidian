@@ -97,6 +97,10 @@ LIMIT 15
 - [[Medicine/Learning/Medicine_Learning_Library]]
 - [[Maps/Learning_Resource_Hub]]
 
+## Clinical Cases
+
+- [[Medicine/Clinical_Cases/Chest_Pain_Case_1]]
+
 ## Related Reports
 
 - [[System/reports/life_os_validation_report]]

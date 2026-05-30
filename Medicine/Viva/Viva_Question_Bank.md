@@ -24,6 +24,9 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What are the common causes of clubbing? | Respiratory: Lung cancer, bronchiectasis, cystic fibrosis, pulmonary fibrosis, lung abscess. Cardiac: Cyanotic congenital heart disease, infective endocarditis. GI: IBD, cirrhosis. |
+
+Related Station: [[Medicine/OSCE/Respiratory_Examination_Station]]
 
 ## Abdomen
 
