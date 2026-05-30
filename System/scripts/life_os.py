@@ -262,7 +262,8 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
-    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    text_unescaped = text.replace(r'\|', '|')
+    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text_unescaped)]
 
 
 def note_index() -> dict[str, list[Path]]:
@@ -278,6 +279,13 @@ def link_target_exists(target: str, index: dict[str, list[Path]]) -> bool:
     key = target.removesuffix(".md").lower()
     if key in index:
         return True
+
+    # Ignored templating patterns and dynamically generated reports
+    if key in ["system/reports/link_health", "system/reports/life_os_validation_report", "system/reports/dashboard_refresh_report", "path/to/processed/note", 'inbox/voice_dumps/source_note']:
+        return True
+    if "<%" in target or "%>" in target:
+        return True
+
     direct = ROOT / target
     if direct.exists():
         return True
