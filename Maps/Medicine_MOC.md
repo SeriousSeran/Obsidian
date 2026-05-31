@@ -49,7 +49,7 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 ## Reports
 
 - [[System/reports/life_os_validation_report]]
-- [[System/reports/link_health]]
+- [System/reports/link_health](System/reports/link_health.md)
 
 ## Review Rhythm
 
