@@ -17,6 +17,7 @@ review_needed: true
 | What are the causes of a systolic murmur? | Flow murmur, aortic stenosis, mitral regurgitation, tricuspid regurgitation, hypertrophic cardiomyopathy |
 | How do you assess heart failure severity? | Symptoms, exercise tolerance, fluid overload signs, oxygenation, renal function, precipitating cause |
 | What makes chest pain high risk? | Exertional pain, radiation, sweating, dyspnoea, syncope, abnormal ECG, unstable observations |
+| What are the key features of Atrial Fibrillation on an ECG? | Absent P waves, irregularly irregular QRS complexes, fibrillatory waves |
 
 ## Respiratory
 
@@ -24,6 +25,7 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What are the signs of a pleural effusion on examination? | Stony dull percussion, decreased vocal resonance, absent breath sounds |
 
 ## Abdomen
 
