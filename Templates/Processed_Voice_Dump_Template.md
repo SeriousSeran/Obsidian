@@ -93,4 +93,4 @@ LIMIT 5
 
 ---
 
-*[[Inbox|← Inbox]] | [[Medicine/Medicine_Dashboard|Medicine →]] | [[Dashboard/Home|Home →]]*
+*[[Inbox|← Inbox]] | [[Medicine/Medicine_Dashboard|Medicine →]] | [[Maps/Home|Home →]]*
