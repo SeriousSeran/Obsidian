@@ -25,6 +25,9 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 - [[Medicine/Learning]]
 
 ## Important Notes
+- [[Medicine/Topics/Atrial_Fibrillation]]
+- [[Medicine/Clinical_Cases/Case_01_Chest_Pain]]
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
 
 - [[Medicine/Medicine_Dashboard]]
 - [[Medicine/Learning/Medicine_Learning_Library]]
