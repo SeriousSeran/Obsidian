@@ -87,6 +87,11 @@ SORT file.mtime DESC
 LIMIT 15
 ```
 
+## Key Notes
+
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+- [[Medicine/Topics/Asthma_Core]]
+
 ## Related Templates
 
 - [[Templates/Medical_Topic_Template]]
