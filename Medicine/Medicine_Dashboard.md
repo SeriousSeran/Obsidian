@@ -107,6 +107,8 @@ LIMIT 15
 - [ ] Add first medical topic.
 - [ ] Add first deidentified clinical case.
 - [ ] Practice one OSCE station.
+- [ ] Review [[Medicine/Topics/Heart_Failure|Heart Failure]] topic.
+- [ ] Practice [[Medicine/OSCE/Respiratory_Examination_Station|Respiratory Examination OSCE]] station.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
