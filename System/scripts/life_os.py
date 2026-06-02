@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r'\|', '|')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -351,9 +352,21 @@ def link_health(_args: argparse.Namespace) -> Path:
     inbound: Counter[str] = Counter()
     broken: list[str] = []
     old_links: list[str] = []
+
+    # Delete old report to avoid parsing it
+    report_file = ROOT / "System/reports/link_health.md"
+    if report_file.exists():
+        report_file.unlink()
+
     for path in markdown_files():
+        if path.name == "link_health.md":
+            continue
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "<%" in target and "%>" in target:
+                continue
+            if "system/reports/" in target.lower():
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
