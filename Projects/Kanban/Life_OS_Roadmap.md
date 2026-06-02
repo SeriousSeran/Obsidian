@@ -11,7 +11,7 @@ review_needed: false
 - [ ] Set up QuickAdd choices manually in Obsidian
 - [ ] Test Templater templates on each template type
 - [ ] Configure Calendar plugin to link to `Daily/Daily_Notes`
-- [ ] Set Homepage plugin to open `Dashboard/Home`
+- [ ] Set Homepage plugin to open `Maps/Home`
 - [ ] Set Periodic Notes paths in plugin settings
 
 ## Next 🔜
