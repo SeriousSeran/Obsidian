@@ -16,6 +16,7 @@ review_needed: true
 |---|---|---|---|
 | OpenStax Anatomy & Physiology 2e | [OpenStax A&P 2e](https://openstax.org/books/anatomy-and-physiology-2e/pages/preface) | Free legal foundation for anatomy and physiology | Convert weak systems into [[Templates/Medical_Topic_Template]] notes |
 | NCBI Bookshelf | [NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/) | Free life science and healthcare books/documents | Use for background reading and source links |
+| WHO ICD-11 | [WHO ICD-11](https://icd.who.int/en) | Official medical classification and coding | Link condition notes to ICD codes |
 | StatPearls via NCBI | [StatPearls](https://www.ncbi.nlm.nih.gov/books/n/statpearls/) | Quick condition overviews and clinical review | Make one-page condition notes |
 | Merck Manual Professional | [Merck Manual Professional](https://www.merckmanuals.com/professional/) | Concise clinical reference for students/professionals | Use to check clinical patterns |
 | NICE Clinical Knowledge Summaries | [NICE CKS](https://www.nice.org.uk/about/what-we-do/evidence-services/clinical-knowledge-summaries) | Evidence-based primary care summaries | Use for guideline-aware review |

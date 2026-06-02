@@ -16,6 +16,7 @@ review_needed: true
 |---|---|---|---|
 | WHO Physical Activity Fact Sheet | [WHO Physical Activity](https://www.who.int/news-room/fact-sheets/detail/physical-activity%E2%80%AF) | Public-health overview of movement benefits | Convert into a simple weekly movement checklist |
 | WHO Physical Activity Guidelines | [WHO Guidelines at a Glance](https://www.who.int/publications/i/item/9789240014886) | Evidence-based activity recommendations | Use for baseline habit targets |
+| OpenStax Anatomy & Physiology | [OpenStax Anatomy & Physiology](https://openstax.org/books/anatomy-and-physiology-2e/pages/24-introduction) | Free legal foundation for metabolism | Track nutrition experiments safely |
 | WHO Guidelines on NCBI Bookshelf | [NCBI Bookshelf Recommendations](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | Accessible guideline recommendations | Link specific recommendations to body notes |
 | Sleep Foundation Sleep Hygiene | [Sleep Hygiene](https://www.sleepfoundation.org/sleep-hygiene) | Practical sleep environment and behaviour guidance | Create one sleep experiment at a time |
 
