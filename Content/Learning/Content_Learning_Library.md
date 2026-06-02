@@ -23,6 +23,7 @@ review_needed: false
 - [ ] Capture raw idea in [[Content/Ideas]].
 - [ ] Create [[Templates/Content_Idea_Template]].
 - [ ] Draft hook, audience, and core point.
+- [ ] Run the draft through a structural edit using Purdue OWL guidelines.
 - [ ] Turn one idea per week into a publishable draft.
 
 ## Safety
