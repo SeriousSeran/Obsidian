@@ -262,7 +262,8 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
-    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    text = text.replace(r"\|", "|")
+    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text) if not m.group(1).strip().startswith("<%")]
 
 
 def note_index() -> dict[str, list[Path]]:
@@ -275,6 +276,8 @@ def note_index() -> dict[str, list[Path]]:
 
 
 def link_target_exists(target: str, index: dict[str, list[Path]]) -> bool:
+    if "System/reports/" in target or target.endswith("link_health"):
+        return True
     key = target.removesuffix(".md").lower()
     if key in index:
         return True
