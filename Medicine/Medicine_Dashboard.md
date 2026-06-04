@@ -104,13 +104,13 @@ LIMIT 15
 
 ## Next Actions
 
-- [ ] Add first medical topic.
-- [ ] Add first deidentified clinical case.
+- [x] Add first medical topic: [[Medicine/Topics/Asthma_Core|Asthma Core]]
+- [x] Add first deidentified clinical case: [[Medicine/Clinical_Cases/Case_001_Shortness_of_Breath|Case 001]]
 - [ ] Practice one OSCE station.
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T20:38:48+05:30
+- Last refresh: 2026-06-04T20:53:06+05:30
 - Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->
