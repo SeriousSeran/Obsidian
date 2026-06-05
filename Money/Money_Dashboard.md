@@ -21,6 +21,8 @@ review_needed: false
 | [[Money/Financial_Map/Financial_Command_Center\|📊 Financial Command]] | Cash flow, assets, liabilities |
 | [[Money/Business_Ideas/Business_Model_Lab\|💡 Business Lab]] | Ideas, experiments, income engines |
 | [[Money/Learning/Money_Learning_Library\|📚 Learning Library]] | Finance books & resources |
+| [[Money/Financial_Map/Cash_Flow_Review\|📉 Cash Flow Review]] | Monthly tracking framework |
+| [[Money/Business_Ideas/Lean_Canvas\|📋 Lean Canvas]] | One-page business plan |
 
 ---
 
@@ -79,6 +81,6 @@ LIMIT 15
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T20:38:48+05:30
+- Last refresh: 2026-06-05T19:21:49+05:30
 - Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->
