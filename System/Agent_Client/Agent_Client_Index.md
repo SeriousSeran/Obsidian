@@ -36,7 +36,7 @@ icon: "🤖"
 
 ```dataview
 TABLE file.ctime AS "Date", file.size AS "Size"
-FROM "Agent Client"
+FROM "System/Agent_Client"
 WHERE type != "index"
 SORT file.ctime DESC
 LIMIT 20
@@ -52,4 +52,4 @@ LIMIT 20
 
 ---
 
-*[[Dashboard/Home|← Home]] | [[System/Obsidian_Plugin_Setup|Plugin Setup →]]*
+*[[Maps/Home|← Home]] | [[System/Obsidian_Plugin_Setup|Plugin Setup →]]*
