@@ -28,7 +28,6 @@
     "debugMode": false,
     "useInternalPlugins": false
   },
-  "Dashboard": "🏠",
   "Inbox": "📥",
   "Daily": "🗓️",
   "Daily/Daily_Notes": "📅",
@@ -64,8 +63,7 @@
   "System/reports": "📊",
   "System/schemas": "📐",
   "System/quickadd": "⚡",
-  "Tags": "🏷️",
-  "Agent Client": "🤖",
-  "Dashboard/Home.md": "🏠",
+  "System/Agent_Client": "🤖",
+  "Maps/Home.md": "🏠",
   "Maps/Life_OS_Home.md": "🗺️"
 }
