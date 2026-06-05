@@ -24,6 +24,7 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What are the indications for admitting an asthma patient? | Life-threatening features (exhaustion, silent chest, cyanosis), poor response to initial bronchodilators, persisting hypoxemia, or significant comorbidities. |
 
 ## Abdomen
 

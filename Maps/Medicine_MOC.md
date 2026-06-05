@@ -30,6 +30,7 @@ Turn medical learning into reviewable concepts, clinical cases, OSCE practice, a
 - [[Medicine/Learning/Medicine_Learning_Library]]
 - [[Medicine/OSCE/Cardiovascular_Examination_Station]]
 - [[Medicine/Topics/Heart_Failure_Core]]
+- [[Medicine/Topics/Asthma_Core]]
 - [[System/schemas/medical_topic.schema]]
 - [[System/schemas/clinical_case.schema]]
 
