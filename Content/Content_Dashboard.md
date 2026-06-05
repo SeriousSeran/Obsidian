@@ -21,6 +21,7 @@ review_needed: false
 | [[Content/Kanban/Content_Pipeline\|🏗️ Content Pipeline]] | Ideas → Outline → Script → Record → Publish |
 | [[Content/Content_Operating_System\|⚙️ Content OS]] | Brand, voice, strategy |
 | [[Content/Learning/Content_Learning_Library\|📚 Learning Library]] | Storytelling, editing, growth |
+| [[Content/Content_Strategy_Framework\|📋 Strategy Framework]] | Audience, pillars, formats |
 
 ---
 
@@ -77,6 +78,6 @@ LIMIT 15
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T20:38:48+05:30
+- Last refresh: 2026-06-05T19:21:49+05:30
 - Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->

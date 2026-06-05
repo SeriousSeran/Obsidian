@@ -22,6 +22,7 @@ review_needed: false
 | [[Projects/Active/Life_OS_Project\|▶️ Life OS Project]] | Primary active build |
 | [[Projects/Product_Idea_Lab\|💡 Product Idea Lab]] | Future income engines and product concepts |
 | [[Projects/Learning/Projects_Learning_Library\|📚 Learning Library]] | Building, shipping, execution resources |
+| [[Projects/Project_Prioritization_Framework\|⚖️ Prioritization]] | ICE scoring framework for evaluating ideas |
 
 ---
 
@@ -90,7 +91,7 @@ LIMIT 15
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T20:38:48+05:30
+- Last refresh: 2026-06-05T19:21:49+05:30
 - Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->
 
