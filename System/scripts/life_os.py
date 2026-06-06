@@ -262,7 +262,10 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
-    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
+    # Filter out templatng logic to avoid reporting them as broken
+    links = [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    return [link for link in links if "<%" not in link and "%>" not in link]
 
 
 def note_index() -> dict[str, list[Path]]:
@@ -357,6 +360,11 @@ def link_health(_args: argparse.Namespace) -> Path:
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
+
+            # Skip dynamically generated report files to prevent self-referential false positives
+            if "system/reports/" in target.lower() or "system/reports/" in key:
+                continue
+
             if not link_target_exists(target, index):
                 broken.append(f"| {rel(path)} | [[{target}]] |")
             if any(prefix in target for prefix in ["00 - ", "02 - ", "03 - ", "05 - ", "06 - ", "07 - ", "08 - ", "09 - ", "10 - ", "11 - "]):
