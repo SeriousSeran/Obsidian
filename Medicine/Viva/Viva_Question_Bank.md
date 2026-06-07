@@ -24,6 +24,8 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| What are the target oxygen saturations in an acute COPD exacerbation? | 88-92% until ABG is available to check for hypercapnia |
+| What are the criteria for considering Non-Invasive Ventilation (NIV) in COPD? | Type 2 respiratory failure (respiratory acidosis: pH < 7.35 and pCO2 > 6.0 kPa) despite maximal medical therapy |
 
 ## Abdomen
 
