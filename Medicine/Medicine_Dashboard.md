@@ -105,8 +105,8 @@ LIMIT 15
 ## Next Actions
 
 - [ ] Add first medical topic.
-- [ ] Add first deidentified clinical case.
-- [ ] Practice one OSCE station.
+- [x] Add first deidentified clinical case: [[Medicine/Clinical_Cases/COPD_Exacerbation|COPD Exacerbation]]
+- [x] Practice one OSCE station: [[Medicine/OSCE/Respiratory_Examination_Station|Respiratory Examination]]
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
