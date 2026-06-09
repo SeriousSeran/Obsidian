@@ -17,6 +17,7 @@ review_needed: false
 | OpenStax Writing Guide with Handbook | [OpenStax Writing Guide](https://openstax.org/books/writing-guide/pages/index) | Free legal writing textbook | Build editing checklists |
 | Purdue OWL | [Purdue OWL](https://owl.purdue.edu/owl/) | Free writing, citation, and style support | Use for citation and structure questions |
 | Writing Commons | [Writing Commons](https://writingcommons.org/about-us) | Open-access writing textbook/resource | Use for composition and revision ideas |
+| Google Search Central Documentation | [Search Central](https://developers.google.com/search/docs) | Official SEO guidelines | Use for technical SEO checklists |
 
 ## Content Practice
 
