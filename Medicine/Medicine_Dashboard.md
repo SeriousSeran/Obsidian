@@ -78,6 +78,11 @@ WHERE review_needed = true
 SORT file.mtime DESC
 ```
 
+## Recently Added
+
+- [[Medicine/Topics/Asthma_Core]]
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+
 ## Recent Notes
 
 ```dataview

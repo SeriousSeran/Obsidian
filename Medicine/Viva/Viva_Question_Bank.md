@@ -23,6 +23,8 @@ review_needed: true
 | Question | Answer Skeleton |
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
+| How do you differentiate asthma from COPD? | Age of onset, reversibility with bronchodilators on spirometry, smoking history, atopy |
+| What are the key findings in a patient with severe acute asthma? | Inability to complete sentences, peak flow 33-50% of best, RR > 25, heart rate > 110 |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
 
 ## Abdomen
