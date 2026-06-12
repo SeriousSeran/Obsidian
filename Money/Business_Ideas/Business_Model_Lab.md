@@ -36,3 +36,7 @@ review_needed: true
 - [ ] Create one tiny offer.
 - [ ] Ask for feedback before building too much.
 - [ ] Link viable ideas to [[Projects/Product_Idea_Lab]].
+
+## Frameworks
+
+- [[Money/Business_Ideas/Lean_Canvas_Framework|Lean Canvas Framework]]

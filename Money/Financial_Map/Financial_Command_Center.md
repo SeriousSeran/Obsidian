@@ -32,4 +32,5 @@ review_needed: true
 
 - [[Money/Learning/Money_Learning_Library]]
 - [[Money/Business_Ideas/Business_Model_Lab]]
+- [[Money/Financial_Map/Cash_Flow_Planning_Framework|Cash Flow Planning Framework]]
 - [[Templates/Financial_Idea_Template]]

@@ -33,4 +33,5 @@ review_needed: false
 
 - [[Content/Kanban/Content_Pipeline]]
 - [[Content/Learning/Content_Learning_Library]]
+- [[Content/Content_Repurposing_Framework|Content Repurposing Framework]]
 - [[Templates/Content_Idea_Template]]

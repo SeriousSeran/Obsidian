@@ -27,6 +27,7 @@ Track active projects, project decisions, next actions, and review status.
 - [[Projects/Active/Life_OS_Project]]
 - [[Projects/Product_Idea_Lab]]
 - [[Projects/Learning/Projects_Learning_Library]]
+- [[Projects/Project_Execution_Framework]]
 - [[System/schemas/project.schema]]
 
 ## Active Questions
