@@ -108,6 +108,11 @@ LIMIT 15
 - [ ] Add first deidentified clinical case.
 - [ ] Practice one OSCE station.
 
+## Recently added or moved
+
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+- [[Medicine/Clinical_Cases/Case_001_Shortness_Of_Breath]]
+
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
