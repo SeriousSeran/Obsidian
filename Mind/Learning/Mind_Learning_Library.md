@@ -16,6 +16,7 @@ review_needed: true
 |---|---|---|---|
 | OpenStax Psychology 2e | [OpenStax Psychology 2e](https://openstax.org/books/psychology-2e/pages/index) | Free legal introduction to psychology concepts | Link concepts to reflections carefully |
 | OpenStax Psychology 2e Preface | [License and Preface](https://openstax.org/books/psychology-2e/pages/preface) | Confirms open textbook use | Keep source attribution in learning notes |
+| NIMH Health Topics | [NIMH Health Topics](https://www.nimh.nih.gov/health/topics) | Official mental health and behavior overviews | Use to ground psychology concepts in established frameworks |
 
 ## Reflection Practice
 
@@ -27,6 +28,7 @@ Use psychology resources for vocabulary and pattern recognition, not self-diagno
 - [ ] Create a [[Templates/Reflection_Template]] note.
 - [ ] Add `What Not To Overinterpret`.
 - [ ] Link to one psychology concept only if it clarifies, not if it labels.
+- [ ] Compare reflection pattern to established vocabulary without diagnosing.
 
 ## Safety
 

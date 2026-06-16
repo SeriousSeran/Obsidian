@@ -19,6 +19,7 @@ review_needed: true
 | StatPearls via NCBI | [StatPearls](https://www.ncbi.nlm.nih.gov/books/n/statpearls/) | Quick condition overviews and clinical review | Make one-page condition notes |
 | Merck Manual Professional | [Merck Manual Professional](https://www.merckmanuals.com/professional/) | Concise clinical reference for students/professionals | Use to check clinical patterns |
 | NICE Clinical Knowledge Summaries | [NICE CKS](https://www.nice.org.uk/about/what-we-do/evidence-services/clinical-knowledge-summaries) | Evidence-based primary care summaries | Use for guideline-aware review |
+| MedlinePlus | [MedlinePlus](https://medlineplus.gov/) | Trusted health information for patients and professionals | Build clear explanations for complex conditions |
 
 ## Paid / Library Books to Learn From Legally
 
@@ -36,6 +37,7 @@ review_needed: true
 - [ ] Create a medical-topic note.
 - [ ] Add five viva questions.
 - [ ] Add one deidentified clinical-case pattern if relevant.
+- [ ] Verify deidentified cases against standard patterns.
 
 ## Note Types to Create
 

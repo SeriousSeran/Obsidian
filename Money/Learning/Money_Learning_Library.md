@@ -17,6 +17,7 @@ review_needed: true
 | OpenStax Principles of Finance | [OpenStax Principles of Finance](https://openstax.org/books/principles-finance/pages/index) | Free legal foundation for finance concepts | Build notes on cash flow, risk, time value of money |
 | Bogleheads Getting Started | [Bogleheads Getting Started](https://www.bogleheads.org/wiki/Getting_started) | Plain-language personal investing orientation | Create personal principles, not predictions |
 | Bogleheads Investment Philosophy | [Investment Philosophy](https://www.bogleheads.org/wiki/Bogleheads%C2%AE_investment_philosophy) | Diversification, low cost, discipline | Add to money review checklist |
+| OpenStax Introduction to Business | [OpenStax Intro to Business](https://openstax.org/books/introduction-business/pages/1-introduction) | Free legal foundation for business operations | Explore business models and basic commerce |
 
 ## Paid / Library Books to Learn From Legally
 
@@ -33,6 +34,7 @@ review_needed: true
 - [ ] Separate fact, assumption, and wish.
 - [ ] Create one [[Templates/Financial_Idea_Template]] note per experiment.
 - [ ] Review risk before action.
+- [ ] Identify one new business model concept and its core mechanism.
 
 ## Safety
 
