@@ -18,6 +18,8 @@ review_needed: true
 | WHO Physical Activity Guidelines | [WHO Guidelines at a Glance](https://www.who.int/publications/i/item/9789240014886) | Evidence-based activity recommendations | Use for baseline habit targets |
 | WHO Guidelines on NCBI Bookshelf | [NCBI Bookshelf Recommendations](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | Accessible guideline recommendations | Link specific recommendations to body notes |
 | Sleep Foundation Sleep Hygiene | [Sleep Hygiene](https://www.sleepfoundation.org/sleep-hygiene) | Practical sleep environment and behaviour guidance | Create one sleep experiment at a time |
+| CDC Sleep Basics | [CDC Sleep Basics](https://www.cdc.gov/sleep/about/index.html) | Official public health guidelines on sleep | Reference for healthy sleep hygiene practices |
+| NIDDK Weight Management | [NIDDK Weight](https://www.niddk.nih.gov/health-information/weight-management) | Evidence-based nutrition and weight management | Use for core nutrition principles |
 
 ## Study Workflow
 
@@ -25,6 +27,7 @@ review_needed: true
 - [ ] Pick one movement target.
 - [ ] Pick one sleep experiment.
 - [ ] Review body data weekly.
+- [ ] Note the relationship between sleep hygiene and energy levels.
 
 ## Safety
 

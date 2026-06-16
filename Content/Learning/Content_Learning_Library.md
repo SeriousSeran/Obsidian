@@ -17,6 +17,8 @@ review_needed: false
 | OpenStax Writing Guide with Handbook | [OpenStax Writing Guide](https://openstax.org/books/writing-guide/pages/index) | Free legal writing textbook | Build editing checklists |
 | Purdue OWL | [Purdue OWL](https://owl.purdue.edu/owl/) | Free writing, citation, and style support | Use for citation and structure questions |
 | Writing Commons | [Writing Commons](https://writingcommons.org/about-us) | Open-access writing textbook/resource | Use for composition and revision ideas |
+| Google SEO Starter Guide | [Google SEO Guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) | Official search engine optimization fundamentals | Use for structuring web content effectively |
+| NN/g Articles | [NN/g Articles](https://www.nngroup.com/articles/) | Evidence-based user experience research | Apply UX principles to content design |
 
 ## Content Practice
 
@@ -24,6 +26,7 @@ review_needed: false
 - [ ] Create [[Templates/Content_Idea_Template]].
 - [ ] Draft hook, audience, and core point.
 - [ ] Turn one idea per week into a publishable draft.
+- [ ] Review structure and headings against SEO/UX guidelines.
 
 ## Safety
 

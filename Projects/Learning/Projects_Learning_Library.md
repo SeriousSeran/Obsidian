@@ -20,6 +20,8 @@ review_needed: false
 | OpenStax Entrepreneurship | [OpenStax Entrepreneurship](https://openstax.org/books/entrepreneurship/pages/index) | Free legal entrepreneurship textbook | Map projects from opportunity to experiment |
 | The Mom Test | [Simon & Schuster official page](https://www.simonandschuster.com/books/The-Mom-Test/Rob-Fitzpatrick/9798893312560) | Customer discovery conversations | Build interview scripts |
 | Obviously Awesome | [Bookshop official listing](https://bookshop.org/p/books/obviously-awesome-how-to-nail-product-positioning-so-customers-get-it-buy-it-love-it-april-dunford/23776309) | Product positioning | Use for positioning reviews |
+| OpenStax Principles of Management | [OpenStax Management](https://openstax.org/books/principles-management/pages/1-introduction) | Free legal foundation for organizing people and tasks | Apply to project structures and workflows |
+| Strategyzer Library | [Strategyzer Library](https://www.strategyzer.com/library) | Tools for business models and value propositions | Apply to positioning and model testing |
 
 ## Study Workflow
 
@@ -28,3 +30,4 @@ review_needed: false
 - [ ] Add five customer discovery questions.
 - [ ] Define one small experiment.
 - [ ] Review on the weekly project dashboard.
+- [ ] Evaluate current value proposition using a standard framework.
