@@ -108,9 +108,13 @@ LIMIT 15
 - [ ] Add first deidentified clinical case.
 - [ ] Practice one OSCE station.
 
+## Recently added
+- [[Medicine/Topics/Asthma_Core|Asthma Core]]
+- [[Medicine/OSCE/Respiratory_Examination_Station|Respiratory Examination Station]]
+
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
-- Last refresh: 2026-05-21T20:38:48+05:30
+- Last refresh: 2026-06-17T20:45:47+05:30
 - Reports: [[System/reports/life_os_validation_report|Validation]], [[System/reports/link_health|Link Health]], [[System/reports/inbox_report|Inbox]]
 <!-- life-os-generated:end -->
