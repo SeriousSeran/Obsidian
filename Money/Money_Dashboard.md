@@ -60,6 +60,7 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Financial_Idea_Template]]
+- [[Money/Financial_Map/Expense_Audit_Framework]]
 
 ## Learning Resources
 

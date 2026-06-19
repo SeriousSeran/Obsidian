@@ -60,6 +60,7 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Content_Idea_Template]]
+- [[Content/Storytelling_Framework]]
 
 ## Learning Resources
 
