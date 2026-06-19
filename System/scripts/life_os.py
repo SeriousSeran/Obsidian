@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -347,6 +348,11 @@ def inbox_report(_args: argparse.Namespace) -> Path:
 
 
 def link_health(_args: argparse.Namespace) -> Path:
+    # Remove previous report so it doesn't parse its own output
+    report_path = REPORTS / "link_health.md"
+    if report_path.exists():
+        report_path.unlink()
+
     index = note_index()
     inbound: Counter[str] = Counter()
     broken: list[str] = []
@@ -354,6 +360,9 @@ def link_health(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "tp.date" in target or "path/to/processed/note" in target or "SOURCE_NOTE" in target or "System/reports/" in target:
+                continue
+
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
