@@ -63,3 +63,9 @@ FROM "Medicine"
 WHERE review_needed = true
 SORT file.mtime DESC
 ```
+
+## Recently added
+
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+- [[Medicine/Topics/Asthma_Core]]
+- [[Medicine/Clinical_Cases/Case_01_Asthma_Exacerbation]]
