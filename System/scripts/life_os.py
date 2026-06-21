@@ -410,6 +410,36 @@ def link_health(_args: argparse.Namespace) -> Path:
 def root_triage(args: argparse.Namespace) -> Path:
     rows = []
     moves = []
+    changes = []
+    review = []
+
+    # Check for and clean up accidental nested vault copies
+    duplicate_names = {"Main", "SeranOS", "Seran_OS", "LifeOS"}
+    for path in sorted(ROOT.iterdir()):
+        if path.is_dir() and path.name in duplicate_names:
+            review.append(f"- Found duplicate vault directory: `{path.name}/`.")
+            duplicate_files = 0
+            for child in path.rglob("*"):
+                if child.is_file() and not child.name.startswith("."):
+                    rel_child = child.relative_to(path)
+                    if (ROOT / rel_child).exists():
+                        if args.apply:
+                            child.unlink()
+                        duplicate_files += 1
+            review.append(f"- Detected {duplicate_files} duplicate files in `{path.name}/` matching the root.")
+            if args.apply:
+                try:
+                    for child_dir in sorted(path.rglob("*"), key=lambda p: len(p.parts), reverse=True):
+                        if child_dir.is_dir() and not any(child_dir.iterdir()):
+                            child_dir.rmdir()
+                    if not any(path.iterdir()):
+                        path.rmdir()
+                        changes.append(f"- Removed empty nested vault directory: `{path.name}/`.")
+                    else:
+                        review.append(f"- Could not remove `{path.name}/` because it contains unique files.")
+                except OSError as e:
+                    review.append(f"- Error cleaning up `{path.name}/`: {e}")
+
     for path in sorted(ROOT.iterdir()):
         if path.name.startswith(".") or path.is_dir():
             continue
@@ -420,9 +450,9 @@ def root_triage(args: argparse.Namespace) -> Path:
         rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
         moves.append((path, target))
 
-    changes = ["- Dry run only. No files moved."]
-    if args.apply:
-        changes = []
+    if not args.apply and not changes:
+        changes = ["- Dry run only. No files moved."]
+    elif args.apply:
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
@@ -433,7 +463,7 @@ def root_triage(args: argparse.Namespace) -> Path:
         "Root Triage Report",
         [
             ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
-            ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
+            ("What needs attention", review + ["", "| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
