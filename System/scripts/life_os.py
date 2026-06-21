@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -357,6 +358,11 @@ def link_health(_args: argparse.Namespace) -> Path:
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
+
+            # Ignore template placeholders and dynamically generated reports
+            if target.startswith("<%") or "path/to/processed/note" in target or "SOURCE_NOTE" in target or target.startswith("System/reports/"):
+                continue
+
             if not link_target_exists(target, index):
                 broken.append(f"| {rel(path)} | [[{target}]] |")
             if any(prefix in target for prefix in ["00 - ", "02 - ", "03 - ", "05 - ", "06 - ", "07 - ", "08 - ", "09 - ", "10 - ", "11 - "]):
