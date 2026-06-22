@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -352,8 +353,12 @@ def link_health(_args: argparse.Namespace) -> Path:
     broken: list[str] = []
     old_links: list[str] = []
     for path in markdown_files():
+        if "System/reports/" in path.as_posix():
+            continue
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "path/to/processed/note" in target or "SOURCE_NOTE" in target or "<%" in target:
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -408,8 +413,30 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+
+    # Check for unapproved hidden directories
+    for path in sorted(ROOT.iterdir()):
+        if path.is_dir() and path.name.startswith(".") and path.name not in {".git", ".github", ".obsidian"}:
+            dest = "System/archive/"
+            reason = "unapproved hidden directory"
+            confidence = "high"
+            target = ROOT / dest / path.name
+            rows.append(f"| {path.name}/ | {dest}{path.name}/ | {reason} | {confidence} |")
+            moves.append((path, target))
+
+    # Check for duplicate vault copies
+    for path in sorted(ROOT.iterdir()):
+        if path.is_dir() and path.name in {"Main", "SeranOS", "LifeOS"}:
+            dest = "System/archive/"
+            reason = "duplicate vault directory"
+            confidence = "high"
+            target = ROOT / dest / path.name
+            rows.append(f"| {path.name}/ | {dest}{path.name}/ | {reason} | {confidence} |")
+            moves.append((path, target))
+
     for path in sorted(ROOT.iterdir()):
         if path.name.startswith(".") or path.is_dir():
             continue
