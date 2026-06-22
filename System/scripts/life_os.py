@@ -408,25 +408,68 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    file_deletions = []
+    duplicate_candidates = {"Main", "SeranOS", "LifeOS", "Seran_OS"}
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.is_dir():
+            if path.name.startswith(".") and path.name not in {".git", ".github", ".obsidian"}:
+                target = ROOT / "System" / "archive" / path.name
+                rows.append(f"| {path.name}/ | System/archive/{path.name}/ | unapproved hidden dir | high |")
+                moves.append((path, target))
+            elif path.name in duplicate_candidates:
+                files_to_check = [f for f in path.rglob("*") if f.is_file()]
+                unique_files_remain = False
+
+                for f in files_to_check:
+                    rel_f = f.relative_to(path)
+                    target_file = ROOT / rel_f
+                    is_identical = False
+
+                    if target_file.exists():
+                        try:
+                            if target_file.read_bytes() == f.read_bytes():
+                                is_identical = True
+                        except Exception:
+                            pass
+
+                    if is_identical:
+                        file_deletions.append(f)
+                        rows.append(f"| {rel(f)} | [DELETE] | identical sync duplicate | high |")
+                    else:
+                        unique_files_remain = True
+
+                if not unique_files_remain:
+                    rows.append(f"| {path.name}/ | [DELETE] | empty or fully duplicate vault | high |")
+                    deletions.append(path)
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+
+        if path.name in {"README.md", "AGENTS.md"} or path.name.startswith("."):
             continue
         dest, reason, confidence = classify_root_file(path)
         target = ROOT / dest / path.name
         rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
         moves.append((path, target))
 
-    changes = ["- Dry run only. No files moved."]
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
             changes.append(f"- Moved `{rel(target)}`.")
+        for f in file_deletions:
+            if f.exists():
+                f.unlink()
+                changes.append(f"- Deleted sync duplicate file `{rel(f)}`.")
+        for d in deletions:
+            if d.exists():
+                shutil.rmtree(str(d))
+                changes.append(f"- Deleted duplicate vault directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
