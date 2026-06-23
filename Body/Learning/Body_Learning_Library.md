@@ -18,6 +18,7 @@ review_needed: true
 | WHO Physical Activity Guidelines | [WHO Guidelines at a Glance](https://www.who.int/publications/i/item/9789240014886) | Evidence-based activity recommendations | Use for baseline habit targets |
 | WHO Guidelines on NCBI Bookshelf | [NCBI Bookshelf Recommendations](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | Accessible guideline recommendations | Link specific recommendations to body notes |
 | Sleep Foundation Sleep Hygiene | [Sleep Hygiene](https://www.sleepfoundation.org/sleep-hygiene) | Practical sleep environment and behaviour guidance | Create one sleep experiment at a time |
+| NIH Office of Dietary Supplements | [NIH ODS](https://ods.od.nih.gov/) | Official fact sheets on supplements | Check supplement efficacy before use |
 
 ## Study Workflow
 
