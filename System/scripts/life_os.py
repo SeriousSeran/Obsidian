@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import filecmp
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -408,8 +409,58 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    target_cache = set()
+
+    allowed_dirs = {
+        ".git", ".github", ".obsidian",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content",
+        "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System",
+        "Dashboard", "Agent Client", "Tags"
+    }
+
+    duplicate_vault_names = {"Main", "SeranOS", "Seran_OS", "LifeOS"}
+
+    for path in sorted(ROOT.iterdir()):
+        if not path.is_dir():
+            continue
+        if path.name in allowed_dirs:
+            continue
+
+        if path.name.startswith("."):
+            target = ROOT / "System" / "archive" / path.name
+            counter = 1
+            while target in target_cache or target.exists():
+                target = ROOT / "System" / "archive" / f"{path.name}_{counter}"
+                counter += 1
+            target_cache.add(target)
+            moves.append((path, target))
+            rows.append(f"| {path.name} | {rel(target)} | unapproved hidden config | high |")
+        else:
+            for f in path.rglob("*"):
+                if not f.is_file():
+                    continue
+                rel_path = f.relative_to(path)
+                if path.name == "Main" and len(f.parts) > len(path.parts) and f.parts[len(path.parts)] == "Main":
+                    rel_path = f.relative_to(path / "Main")
+
+                target = ROOT / rel_path
+                if target.exists() and filecmp.cmp(f, target, shallow=False):
+                    deletions.append(f)
+                    rows.append(f"| {rel(f)} | deleted | sync artifact | high |")
+                else:
+                    target_inbox = ROOT / "Inbox" / f.name
+                    counter = 1
+                    while target_inbox in target_cache or target_inbox.exists():
+                        target_inbox = ROOT / "Inbox" / f"{f.stem}_unique_{counter}{f.suffix}"
+                        counter += 1
+                    target_cache.add(target_inbox)
+                    moves.append((f, target_inbox))
+                    rows.append(f"| {rel(f)} | {rel(target_inbox)} | unique note preserved | high |")
+
     for path in sorted(ROOT.iterdir()):
         if path.name.startswith(".") or path.is_dir():
             continue
@@ -417,22 +468,39 @@ def root_triage(args: argparse.Namespace) -> Path:
             continue
         dest, reason, confidence = classify_root_file(path)
         target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
+        counter = 1
+        while target in target_cache or target.exists():
+            target = ROOT / dest / f"{path.stem}_{counter}{path.suffix}"
+            counter += 1
+        target_cache.add(target)
+        rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
         moves.append((path, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for f in deletions:
+            f.unlink()
+            changes.append(f"- Deleted sync artifact `{rel(f)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for path in sorted(ROOT.iterdir()):
+            if path.is_dir() and path.name not in allowed_dirs and not path.name.startswith("."):
+                for d in sorted(path.rglob("*"), key=lambda x: len(x.parts), reverse=True):
+                    if d.is_dir() and not any(d.iterdir()):
+                        d.rmdir()
+                if path.exists() and not any(path.iterdir()):
+                    path.rmdir()
+                    changes.append(f"- Removed empty nested vault directory `{rel(path)}`.")
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
