@@ -104,9 +104,15 @@ LIMIT 15
 
 ## Next Actions
 
-- [ ] Add first medical topic.
-- [ ] Add first deidentified clinical case.
-- [ ] Practice one OSCE station.
+- [x] Add first medical topic.
+- [x] Add first deidentified clinical case.
+- [x] Practice one OSCE station.
+
+## Recently added
+
+- [[Medicine/Clinical_Cases/Case_001_Dyspnea]]
+- [[Medicine/Topics/Pneumonia_Core]]
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
 
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
