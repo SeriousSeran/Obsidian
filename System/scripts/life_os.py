@@ -408,31 +408,95 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletes = []
+    import filecmp
+
+    allowlist = {
+        ".github", ".obsidian", "Inbox", "Daily", "Medicine", "Money",
+        "Mind", "Body", "Content", "Projects", "Relationships", "Bucket_List",
+        "Maps", "Templates", "System", "Dashboard", "Agent Client", "Tags"
+    }
+
+    # Handle unapproved directories
+    for path in sorted(ROOT.iterdir()):
+        if path.is_dir() and path.name not in allowlist and path.name != ".git":
+            if path.name.startswith("."):
+                # Unapproved hidden configs like .claude go to archive
+                dest = ROOT / "System" / "archive" / path.name
+                rows.append(f"| {path.name}/ | System/archive/{path.name}/ | unapproved config | high |")
+                moves.append((path, dest))
+            else:
+                # Nested vault or other unapproved dir
+                # Compare files individually
+                for subpath in path.rglob("*"):
+                    if subpath.is_file():
+                        rel_path = subpath.relative_to(path)
+                        real_target = ROOT / rel_path
+                        if real_target.exists():
+                            if filecmp.cmp(str(subpath), str(real_target), shallow=False):
+                                deletes.append(subpath)
+                                rows.append(f"| {rel(subpath)} | (deleted) | exact duplicate | high |")
+                            else:
+                                # Unique content with same name? Or preserve it? Memory says: "preserve unique notes"
+                                # We can move to System/archive/unique_notes/ to be safe
+                                dest = ROOT / "System" / "archive" / "unique_notes" / subpath.name
+                                rows.append(f"| {rel(subpath)} | System/archive/unique_notes/{subpath.name} | unique but unapproved | high |")
+                                moves.append((subpath, dest))
+                        else:
+                            # Unique note, move to archive or appropriate folder
+                            dest = ROOT / "System" / "archive" / "unique_notes" / rel_path.name
+                            rows.append(f"| {rel(subpath)} | System/archive/unique_notes/{rel_path.name} | unique note preserved | high |")
+                            moves.append((subpath, dest))
+
+    # Existing file logic
     for path in sorted(ROOT.iterdir()):
         if path.name.startswith(".") or path.is_dir():
             continue
         if path.name in {"README.md", "AGENTS.md"}:
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
+        dest_folder, reason, confidence = classify_root_file(path)
+        target = ROOT / dest_folder / path.name
+        rows.append(f"| {path.name} | {dest_folder}{path.name} | {reason} | {confidence} |")
         moves.append((path, target))
 
-    changes = ["- Dry run only. No files moved."]
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for d in deletes:
+            d.unlink()
+            changes.append(f"- Deleted exact duplicate `{rel(d)}`.")
         for source, target in moves:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            # Dynamically generate unique target path if it exists
+            final_target = target
+            counter = 1
+            while final_target.exists() and source.is_file():
+                final_target = target.with_stem(f"{target.stem}_{counter}")
+                counter += 1
+            final_target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(source), str(final_target))
+            changes.append(f"- Moved `{rel(final_target)}`.")
+
+        # Clean up empty directories from deletes/moves
+        for path in sorted(ROOT.iterdir()):
+            if path.is_dir() and path.name not in allowlist and path.name != ".git":
+                try:
+                    for p in sorted(path.rglob("*"), key=lambda x: len(x.parts), reverse=True):
+                        if p.is_dir() and not any(p.iterdir()):
+                            p.rmdir()
+                    if not any(path.iterdir()):
+                        path.rmdir()
+                        changes.append(f"- Removed empty duplicate directory `{path.name}/`.")
+                except OSError:
+                    pass
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
