@@ -108,6 +108,11 @@ LIMIT 15
 - [ ] Add first deidentified clinical case.
 - [ ] Practice one OSCE station.
 
+## Recently Added
+
+- [[Medicine/Topics/Community_Acquired_Pneumonia]]
+- [[Medicine/Clinical_Cases/Deidentified_Case_001_Pneumonia]]
+
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
