@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import filecmp
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -408,33 +409,85 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    removals = []
 
-    changes = ["- Dry run only. No files moved."]
+    allowlist = {".github", ".obsidian", "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content", "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System", "Dashboard", "Agent Client", "Tags", ".git"}
+
+    for path in sorted(ROOT.iterdir()):
+        if path.name == "README.md" or path.name == "AGENTS.md":
+            continue
+
+        if path.is_dir():
+            if path.name in allowlist:
+                continue
+
+            if path.name.startswith("."):
+                target = ROOT / "System" / "archive" / path.name
+                moves.append((path, target))
+                rows.append(f"| {path.name}/ | System/archive/{path.name}/ | unapproved config | high |")
+            else:
+                empty = True
+                for nested_path in path.rglob("*"):
+                    if nested_path.is_file():
+                        rel_path = nested_path.relative_to(path)
+                        root_equiv = ROOT / rel_path
+                        if root_equiv.exists() and root_equiv.is_file():
+                            if filecmp.cmp(nested_path, root_equiv, shallow=False):
+                                removals.append(nested_path)
+                            else:
+                                empty = False
+                        else:
+                            empty = False
+
+                if empty:
+                    removals.append(path)
+                    rows.append(f"| {path.name}/ | DELETED | duplicate vault removed | high |")
+                else:
+                    rows.append(f"| {path.name}/ | KEPT | contains unique notes | low |")
+
+        elif path.is_file():
+            if path.name.startswith("."):
+                continue
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
+            moves.append((path, target))
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for file_to_remove in removals:
+            if file_to_remove.is_dir():
+                shutil.rmtree(file_to_remove)
+                changes.append(f"- Removed duplicate directory `{rel(file_to_remove)}`.")
+            else:
+                file_to_remove.unlink()
+                changes.append(f"- Removed duplicate file `{rel(file_to_remove)}`.")
+
         for source, target in moves:
-            target.parent.mkdir(parents=True, exist_ok=True)
+            if not target.parent.exists():
+                target.parent.mkdir(parents=True, exist_ok=True)
+            if target.exists():
+                # ensure unique name
+                base = target.stem
+                suffix = target.suffix
+                counter = 1
+                while target.exists():
+                    target = target.with_name(f"{base}_{counter}{suffix}")
+                    counter += 1
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files/dirs needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
