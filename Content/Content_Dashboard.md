@@ -60,6 +60,8 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Content_Idea_Template]]
+- [[Content/Content_Repurposing_Framework]]
+- [[Content/Hook_and_Story_Framework]]
 
 ## Learning Resources
 

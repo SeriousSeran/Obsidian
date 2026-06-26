@@ -60,6 +60,8 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Financial_Idea_Template]]
+- [[Money/Financial_Map/Burn_Rate_Framework]]
+- [[Money/Business_Ideas/Lean_Canvas_Framework]]
 
 ## Learning Resources
 
