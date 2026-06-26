@@ -24,6 +24,7 @@ review_needed: true
 |---|---|
 | Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
+| How do you classify the severity of an acute asthma exacerbation? | Peak flow, respiratory rate, heart rate, speech, oxygen saturation, conscious level |
 
 ## Abdomen
 
