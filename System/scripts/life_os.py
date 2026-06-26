@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -408,13 +409,56 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletes = []
+    dir_removals = []
+    archive_moves = []
+
+    ALLOWED_ROOT_DIRS = {
+        ".git", ".github", ".obsidian", "Inbox", "Daily", "Medicine",
+        "Money", "Mind", "Body", "Content", "Projects", "Relationships",
+        "Bucket_List", "Maps", "Templates", "System", "Dashboard",
+        "Agent Client", "Tags"
+    }
+
+    ALLOWED_ROOT_FILES = {
+        "README.md", "AGENTS.md", ".gitignore", ".gitattributes"
+    }
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.is_dir():
+            if path.name in ALLOWED_ROOT_DIRS:
+                continue
+            if path.name.startswith("."):
+                target = ROOT / "System" / "archive" / path.name
+                archive_moves.append((path, target))
+                rows.append(f"| {path.name} | System/archive/{path.name} | unapproved hidden config | high |")
+            else:
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        continue
+                    rel_subpath = subpath.relative_to(path)
+                    real_root_path = ROOT / rel_subpath
+                    if real_root_path.exists() and filecmp.cmp(subpath, real_root_path, shallow=False):
+                        deletes.append(subpath)
+                        rows.append(f"| {rel(subpath)} | deleted | identical duplicate | high |")
+                    else:
+                        target = real_root_path
+                        moves.append((subpath, target))
+                        rows.append(f"| {rel(subpath)} | {rel(target)} | unique note from nested vault | high |")
+
+                # Gather all directories bottom-up to remove them if empty
+                for dirpath in sorted(path.rglob("*"), key=lambda p: len(p.parts), reverse=True):
+                    if dirpath.is_dir():
+                        dir_removals.append(dirpath)
+                dir_removals.append(path)
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+
+        if path.name in ALLOWED_ROOT_FILES or path.name.endswith(".py"):
             continue
+
         dest, reason, confidence = classify_root_file(path)
         target = ROOT / dest / path.name
         rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
@@ -423,23 +467,51 @@ def root_triage(args: argparse.Namespace) -> Path:
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
-        for source, target in moves:
+        for src, target in archive_moves:
             target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            if target.exists():
+                base = target.name
+                counter = 1
+                while target.exists():
+                    target = target.with_name(f"{base}_{counter}")
+                    counter += 1
+            shutil.move(str(src), str(target))
+            changes.append(f"- Archived `{rel(src)}` to `{rel(target)}`.")
+
+        for p in deletes:
+            p.unlink()
+            changes.append(f"- Deleted duplicate `{rel(p)}`.")
+
+        for src, target in moves:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if target.exists():
+                base = target.stem
+                ext = target.suffix
+                counter = 1
+                while target.exists():
+                    target = target.with_name(f"{base}_{counter}{ext}")
+                    counter += 1
+            shutil.move(str(src), str(target))
+            changes.append(f"- Moved `{rel(src)}` to `{rel(target)}`.")
+
+        for p in dir_removals:
+            try:
+                p.rmdir()
+                changes.append(f"- Removed empty directory `{rel(p)}`.")
+            except OSError:
+                pass
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files/dirs needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
-        ],
+        ]
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
