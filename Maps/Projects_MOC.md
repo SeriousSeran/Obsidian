@@ -28,6 +28,8 @@ Track active projects, project decisions, next actions, and review status.
 - [[Projects/Product_Idea_Lab]]
 - [[Projects/Learning/Projects_Learning_Library]]
 - [[System/schemas/project.schema]]
+- [[Projects/Project_Prioritization_Framework]]
+- [[Projects/Project_Retro_Framework]]
 
 ## Active Questions
 

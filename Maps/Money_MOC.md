@@ -28,6 +28,8 @@ Track money, cash flow, assets, business ideas, experiments, and financial assum
 - [[Money/Money_Dashboard]]
 - [[Money/Learning/Money_Learning_Library]]
 - [[System/schemas/financial_idea.schema]]
+- [[Money/Financial_Map/Burn_Rate_Framework]]
+- [[Money/Business_Ideas/Lean_Canvas_Framework]]
 
 ## Active Questions
 

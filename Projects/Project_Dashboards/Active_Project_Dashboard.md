@@ -77,6 +77,8 @@ LIMIT 15
 ## Related Templates
 
 - [[Templates/Project_Template]]
+- [[Projects/Project_Prioritization_Framework]]
+- [[Projects/Project_Retro_Framework]]
 
 ## Learning Resources
 

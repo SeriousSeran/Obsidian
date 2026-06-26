@@ -13,10 +13,10 @@ review_needed: true
 
 ## Idea Table
 
-| Idea | User | Problem | Smallest Test | Status |
-|---|---|---|---|---|
-| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | active |
-| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | draft |
+| Idea | User | Problem | Smallest Test | Status | ICE Score |
+|---|---|---|---|---|---|
+| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | active | |
+| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | draft | |
 
 ## Product Questions
 
@@ -30,3 +30,4 @@ review_needed: true
 
 - [[Projects/Learning/Projects_Learning_Library]]
 - [[Money/Business_Ideas/Business_Model_Lab]]
+- [[Projects/Project_Prioritization_Framework]]
