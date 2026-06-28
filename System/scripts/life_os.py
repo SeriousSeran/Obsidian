@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import filecmp
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -192,6 +193,22 @@ def today_text() -> str:
 
 def rel(path: Path) -> str:
     return path.relative_to(ROOT).as_posix()
+
+
+def get_unique_path(target: Path, assigned_paths: set[Path] | None = None) -> Path:
+    if assigned_paths is None:
+        assigned_paths = set()
+    if not target.exists() and target not in assigned_paths:
+        return target
+    stem = target.stem
+    suffix = target.suffix
+    directory = target.parent
+    counter = 1
+    while True:
+        candidate = directory / f"{stem}_{counter}{suffix}"
+        if not candidate.exists() and candidate not in assigned_paths:
+            return candidate
+        counter += 1
 
 
 def ensure_folders() -> None:
@@ -408,33 +425,96 @@ def link_health(_args: argparse.Namespace) -> Path:
 
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletions = []
+    dir_removals = []
+    assigned_paths: set[Path] = set()
 
-    changes = ["- Dry run only. No files moved."]
+    allowlist = {
+        "Dashboard", "Agent Client", "Tags", ".git", ".github", ".obsidian",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content",
+        "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System"
+    }
+    allowlist_files = {"README.md", "AGENTS.md", ".gitignore", ".gitattributes"}
+
+    for path in sorted(ROOT.iterdir()):
+        if path.name in allowlist_files and path.is_file():
+            continue
+        if path.name in allowlist and path.is_dir():
+            continue
+
+        if path.is_file():
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            target = get_unique_path(target, assigned_paths)
+            assigned_paths.add(target)
+            rows.append(f"| {path.name} | {dest}{target.name} | {reason} | {confidence} |")
+            moves.append((path, target))
+        elif path.is_dir():
+            if path.name.startswith("."):
+                target = ROOT / "System" / "archive" / path.name
+                target = get_unique_path(target, assigned_paths)
+                assigned_paths.add(target)
+                rows.append(f"| {path.name}/ | System/archive/{target.name}/ | unapproved hidden folder | high |")
+                moves.append((path, target))
+            else:
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        continue
+                    rel_subpath = subpath.relative_to(path)
+                    corresponding = ROOT / rel_subpath
+                    if corresponding.exists() and corresponding.is_file():
+                        if filecmp.cmp(subpath, corresponding, shallow=False):
+                            rows.append(f"| {rel(subpath)} | none (delete) | duplicate sync artifact | high |")
+                            deletions.append(subpath)
+                        else:
+                            dest, reason, confidence = classify_root_file(subpath)
+                            target = ROOT / dest / subpath.name
+                            target = get_unique_path(target, assigned_paths)
+                            assigned_paths.add(target)
+                            rows.append(f"| {rel(subpath)} | {dest}{target.name} | unique note in nested vault | {confidence} |")
+                            moves.append((subpath, target))
+                    else:
+                        dest, reason, confidence = classify_root_file(subpath)
+                        target = ROOT / dest / subpath.name
+                        target = get_unique_path(target, assigned_paths)
+                        assigned_paths.add(target)
+                        rows.append(f"| {rel(subpath)} | {dest}{target.name} | unique note in nested vault | {confidence} |")
+                        moves.append((subpath, target))
+                dir_removals.append(path)
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for file in deletions:
+            file.unlink()
+            changes.append(f"- Deleted duplicate `{rel(file)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+        for d in dir_removals:
+            for sub_d in sorted(d.rglob("*"), reverse=True):
+                if sub_d.is_dir():
+                    try:
+                        sub_d.rmdir()
+                    except OSError:
+                        pass
+            try:
+                d.rmdir()
+                changes.append(f"- Removed empty duplicate directory `{rel(d)}`.")
+            except OSError:
+                pass
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
