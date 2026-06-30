@@ -17,6 +17,7 @@ review_needed: true
 | OpenStax Principles of Finance | [OpenStax Principles of Finance](https://openstax.org/books/principles-finance/pages/index) | Free legal foundation for finance concepts | Build notes on cash flow, risk, time value of money |
 | Bogleheads Getting Started | [Bogleheads Getting Started](https://www.bogleheads.org/wiki/Getting_started) | Plain-language personal investing orientation | Create personal principles, not predictions |
 | Bogleheads Investment Philosophy | [Investment Philosophy](https://www.bogleheads.org/wiki/Bogleheads%C2%AE_investment_philosophy) | Diversification, low cost, discipline | Add to money review checklist |
+| MyMoney.gov | [MyMoney.gov](https://www.mymoney.gov/) | US government website dedicated to teaching the basics about financial education | Use for foundational financial capability concepts |
 
 ## Paid / Library Books to Learn From Legally
 
