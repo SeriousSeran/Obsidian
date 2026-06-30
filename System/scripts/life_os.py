@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import filecmp
 import re
 import shutil
 from collections import Counter, defaultdict
@@ -407,26 +408,88 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    counter = 1
+    while True:
+        new_target = target.with_name(f"{target.stem}_{counter}{target.suffix}")
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletes = []
+    dir_removes = []
+    assigned_paths: set[Path] = set()
+
+    valid_folders = {
+        ".github", ".obsidian", ".git", "Dashboard", "Agent Client", "Tags",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content",
+        "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System"
+    }
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.is_dir():
+            if path.name in valid_folders:
+                continue
+            if path.name.startswith("."):
+                target = ROOT / "System" / "archive" / path.name
+                target = get_unique_path(target, assigned_paths)
+                rows.append(f"| {path.name} | {rel(target)} | unapproved hidden config | high |")
+                moves.append((path, target))
+            else:
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        continue
+                    relative_subpath = subpath.relative_to(path)
+                    expected_root_path = ROOT / relative_subpath
+                    if expected_root_path.exists() and expected_root_path.is_file() and filecmp.cmp(subpath, expected_root_path, shallow=False):
+                        rows.append(f"| {rel(subpath)} | delete | duplicate file | high |")
+                        deletes.append(subpath)
+                    else:
+                        target = get_unique_path(expected_root_path, assigned_paths)
+                        rows.append(f"| {rel(subpath)} | {rel(target)} | preserved unique note | high |")
+                        moves.append((subpath, target))
+                dir_removes.append(path)
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+
+        if path.name.startswith("."):
+            continue
+        if path.name in {"README.md", "AGENTS.md", ".gitignore", ".gitattributes"}:
             continue
         dest, reason, confidence = classify_root_file(path)
         target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
+        target = get_unique_path(target, assigned_paths)
+        rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
         moves.append((path, target))
 
-    changes = ["- Dry run only. No files moved."]
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for file_path in deletes:
+            file_path.unlink()
+            changes.append(f"- Deleted duplicate `{rel(file_path)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
             changes.append(f"- Moved `{rel(target)}`.")
+        for d in dir_removes:
+            try:
+                for sub_d in sorted(d.rglob("*"), reverse=True):
+                    if sub_d.is_dir() and not any(sub_d.iterdir()):
+                        sub_d.rmdir()
+                if not any(d.iterdir()):
+                    d.rmdir()
+                    changes.append(f"- Removed empty duplicate directory `{rel(d)}`.")
+            except OSError:
+                pass
 
     return write_report(
         "root_triage_report.md",
