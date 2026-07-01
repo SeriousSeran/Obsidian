@@ -7,6 +7,8 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
+import os
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -262,6 +264,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r"\|", "|").replace(r"\]", "]")
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -354,6 +357,8 @@ def link_health(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "<%" in target or "System/reports/" in target or "path/to/" in target or "SOURCE_NOTE" in target:
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -407,26 +412,84 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(dest: Path, assigned_paths: set[Path]) -> Path:
+    original = dest
+    counter = 1
+    while dest in assigned_paths or dest.exists():
+        dest = original.with_name(f"{original.stem}_{counter}{original.suffix}")
+        counter += 1
+    assigned_paths.add(dest)
+    return dest
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    assigned_paths = set()
+    directories_to_check_for_empty = set()
+    allowlist = {
+        ".github", ".obsidian", ".git", "Inbox", "Daily", "Medicine", "Money",
+        "Mind", "Body", "Content", "Projects", "Relationships", "Bucket_List",
+        "Maps", "Templates", "System", "Dashboard", "Agent Client", "Tags"
+    }
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in {"README.md", "AGENTS.md", ".gitignore", ".gitattributes"}:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+        if path.is_dir():
+            if path.name not in allowlist:
+                if path.name.startswith("."):
+                    dest = ROOT / "System" / "archive" / path.name
+                    dest = get_unique_path(dest, assigned_paths)
+                    rows.append(f"| {path.name}/ | {rel(dest)}/ | unapproved hidden config | high |")
+                    moves.append((path, dest))
+                else:
+                    for subpath in path.rglob("*"):
+                        if subpath.is_file():
+                            rel_subpath = subpath.relative_to(path)
+                            expected_target = ROOT / rel_subpath
+                            if expected_target.exists() and filecmp.cmp(subpath, expected_target, shallow=False):
+                                rows.append(f"| {rel(subpath)} | (deleted) | duplicate synced file | high |")
+                                deletions.append(subpath)
+                            else:
+                                dest_folder, reason, confidence = classify_root_file(subpath)
+                                target_path = ROOT / dest_folder / subpath.name
+                                target_path = get_unique_path(target_path, assigned_paths)
+                                rows.append(f"| {rel(subpath)} | {rel(target_path)} | unique note in nested vault | high |")
+                                moves.append((subpath, target_path))
+                    directories_to_check_for_empty.add(path)
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
+
+        dest_folder, reason, confidence = classify_root_file(path)
+        target = ROOT / dest_folder / path.name
+        target = get_unique_path(target, assigned_paths)
+        rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
         moves.append((path, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for p in deletions:
+            p.unlink()
+            changes.append(f"- Deleted duplicate `{rel(p)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for d in directories_to_check_for_empty:
+            for root_dir, dirs, files in os.walk(d, topdown=False):
+                for name in dirs:
+                    try:
+                        os.rmdir(os.path.join(root_dir, name))
+                    except OSError:
+                        pass
+            try:
+                os.rmdir(d)
+                changes.append(f"- Removed empty duplicate directory `{rel(d)}`.")
+            except OSError:
+                pass
 
     return write_report(
         "root_triage_report.md",
