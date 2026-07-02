@@ -108,6 +108,10 @@ LIMIT 15
 - [ ] Add first deidentified clinical case.
 - [ ] Practice one OSCE station.
 
+## Recently added
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+- [[Medicine/Clinical_Cases/Case_001_Exertional_Dyspnoea]]
+
 <!-- life-os-generated:start -->
 ## Generated System Snapshot
 
