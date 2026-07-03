@@ -262,7 +262,8 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
-    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
+    clean_text = text.replace(r'\|', '|').replace(r'\]', ']')
+    return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(clean_text)]
 
 
 def note_index() -> dict[str, list[Path]]:
@@ -353,7 +354,11 @@ def link_health(_args: argparse.Namespace) -> Path:
     old_links: list[str] = []
     for path in markdown_files():
         text = read_text(path)
+        if path.parent.name == "reports" and path.suffix == ".md":
+            continue
         for target in extract_obsidian_links(text):
+            if any(x in target for x in ["<% tp", "SOURCE_NOTE", "path/to/processed/note"]):
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
