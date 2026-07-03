@@ -26,6 +26,8 @@ Track money, cash flow, assets, business ideas, experiments, and financial assum
 ## Important Notes
 
 - [[Money/Money_Dashboard]]
+- [[Money/Financial_Map/Cash_Flow_Framework]]
+- [[Money/Business_Ideas/Offer_Creation_Framework]]
 - [[Money/Learning/Money_Learning_Library]]
 - [[System/schemas/financial_idea.schema]]
 

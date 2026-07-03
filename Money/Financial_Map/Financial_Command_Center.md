@@ -9,6 +9,7 @@ review_needed: true
 # Financial Command Center
 
 > A simple map for stability first, upside second.
+> Note: This is for planning purposes only and is not a financial recommendation.
 
 ## Current Map
 
@@ -30,6 +31,7 @@ review_needed: true
 
 ## Related Notes
 
+- [[Money/Financial_Map/Cash_Flow_Framework]]
 - [[Money/Learning/Money_Learning_Library]]
 - [[Money/Business_Ideas/Business_Model_Lab]]
 - [[Templates/Financial_Idea_Template]]

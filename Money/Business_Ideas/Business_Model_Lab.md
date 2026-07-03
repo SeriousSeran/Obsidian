@@ -10,6 +10,7 @@ review_needed: true
 # Business Model Lab
 
 > A place to test income ideas before pretending they are plans.
+> Note: This is for planning purposes only and is not a financial recommendation.
 
 ## Idea Filter
 
@@ -29,6 +30,10 @@ review_needed: true
 - Software tool
 - Template/system
 - Community
+
+## Learning Resources
+
+- [[Money/Business_Ideas/Offer_Creation_Framework]]
 
 ## Experiments
 
