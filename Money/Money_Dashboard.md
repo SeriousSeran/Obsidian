@@ -63,6 +63,8 @@ LIMIT 15
 
 ## Learning Resources
 
+- [[Money/Financial_Map/Cash_Flow_Framework]]
+- [[Money/Business_Ideas/Offer_Creation_Framework]]
 - [[Money/Learning/Money_Learning_Library]]
 - [[Maps/Learning_Resource_Hub]]
 

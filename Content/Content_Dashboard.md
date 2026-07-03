@@ -63,6 +63,7 @@ LIMIT 15
 
 ## Learning Resources
 
+- [[Content/Learning/Content_Repurposing_Framework]]
 - [[Content/Learning/Content_Learning_Library]]
 - [[Maps/Learning_Resource_Hub]]
 

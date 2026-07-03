@@ -13,10 +13,10 @@ review_needed: true
 
 ## Idea Table
 
-| Idea | User | Problem | Smallest Test | Status |
-|---|---|---|---|---|
-| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | active |
-| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | draft |
+| Idea | User | Problem | Smallest Test | Validation | Status |
+|---|---|---|---|---|---|
+| Life OS dashboard | Personal systems user | Notes feel scattered | Use this vault for one week | using vault | active |
+| Study content system | Medical students | Revision feels fragmented | Publish one useful guide | published guide | draft |
 
 ## Product Questions
 
@@ -25,6 +25,11 @@ review_needed: true
 - What is the smallest proof?
 - What can be built in one week?
 - What should not be built yet?
+
+## Product Metrics
+
+- Are they using it?
+- Are they sharing it?
 
 ## Links
 

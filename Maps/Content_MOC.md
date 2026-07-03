@@ -24,6 +24,7 @@ Turn ideas into useful writing, scripts, posts, and publishing experiments.
 
 - [[Content/Content_Dashboard]]
 - [[Content/Content_Operating_System]]
+- [[Content/Learning/Content_Repurposing_Framework]]
 - [[Content/Learning/Content_Learning_Library]]
 - [[System/schemas/content_idea.schema]]
 

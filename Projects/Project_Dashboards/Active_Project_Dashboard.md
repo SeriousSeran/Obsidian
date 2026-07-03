@@ -80,6 +80,7 @@ LIMIT 15
 
 ## Learning Resources
 
+- [[Projects/Learning/Project_Execution_Framework]]
 - [[Projects/Learning/Projects_Learning_Library]]
 - [[Maps/Learning_Resource_Hub]]
 
