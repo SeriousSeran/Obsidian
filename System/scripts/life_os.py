@@ -407,26 +407,90 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+import filecmp
+
+ALLOWLIST = {
+    "README.md", "AGENTS.md",
+    ".github", ".obsidian", ".git", ".gitignore", ".gitattributes",
+    "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content",
+    "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System",
+    "Dashboard", "Agent Client", "Tags"
+}
+
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    stem = target.stem
+    suffix = target.suffix
+    parent = target.parent
+    counter = 1
+    while True:
+        new_target = parent / f"{stem}_{counter}{suffix}"
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    dirs_to_check_empty = set()
+    assigned_paths: set[Path] = set()
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in ALLOWLIST:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_file():
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
+
+        elif path.is_dir():
+            if path.name.startswith("."):
+                target = ROOT / "System" / "archive" / path.name
+                target = get_unique_path(target, assigned_paths)
+                rows.append(f"| {path.name} | {rel(target)} | unapproved hidden config | high |")
+                moves.append((path, target))
+            else:
+                dirs_to_check_empty.add(path)
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        dirs_to_check_empty.add(subpath)
+                        continue
+
+                    rel_to_unapproved = subpath.relative_to(path)
+                    root_equivalent = ROOT / rel_to_unapproved
+
+                    if root_equivalent.exists() and filecmp.cmp(subpath, root_equivalent, shallow=False):
+                        rows.append(f"| {rel(subpath)} | (delete) | identical duplicate | high |")
+                        deletions.append(subpath)
+                    else:
+                        target = get_unique_path(root_equivalent, assigned_paths)
+                        rows.append(f"| {rel(subpath)} | {rel(target)} | preserved unique note | high |")
+                        moves.append((subpath, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for path in deletions:
+            path.unlink()
+            changes.append(f"- Deleted duplicate `{rel(path)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for d in sorted(dirs_to_check_empty, key=lambda p: len(p.parts), reverse=True):
+            if d.exists() and not any(d.iterdir()):
+                d.rmdir()
+                changes.append(f"- Removed empty directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
@@ -434,12 +498,11 @@ def root_triage(args: argparse.Namespace) -> Path:
         [
             ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
