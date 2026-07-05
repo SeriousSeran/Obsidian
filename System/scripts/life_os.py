@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -347,13 +348,22 @@ def inbox_report(_args: argparse.Namespace) -> Path:
 
 
 def link_health(_args: argparse.Namespace) -> Path:
+    ensure_reports()
+    report_file = REPORTS / "link_health.md"
+    if report_file.exists():
+        report_file.unlink()
+
     index = note_index()
     inbound: Counter[str] = Counter()
     broken: list[str] = []
     old_links: list[str] = []
     for path in markdown_files():
+        if path.as_posix().startswith("System/reports/"):
+            continue
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "<%" in target or "%>" in target or target == "path/to/processed/note" or target == "Inbox/Voice_Dumps/SOURCE_NOTE":
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -407,34 +417,105 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    counter = 1
+    while True:
+        new_target = target.with_name(f"{target.stem}_{counter}{target.suffix}")
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
+VALID_ROOT_FOLDERS = {
+    ".github", ".obsidian", "Inbox", "Daily", "Medicine", "Money",
+    "Mind", "Body", "Content", "Projects", "Relationships", "Bucket_List",
+    "Maps", "Templates", "System", "Dashboard", "Agent Client", "Tags", ".git"
+}
+
+VALID_ROOT_FILES = {
+    "README.md", "AGENTS.md", ".gitignore", ".gitattributes"
+}
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
+    import filecmp
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletes = []
+    dir_deletes = []
+    assigned_paths: set[Path] = set()
 
-    changes = ["- Dry run only. No files moved."]
+    archive_dir = ROOT / "System" / "archive"
+
+    for path in sorted(ROOT.iterdir()):
+        if path.name in VALID_ROOT_FILES and path.is_file():
+            continue
+        if path.name in VALID_ROOT_FOLDERS and path.is_dir():
+            continue
+
+        if path.is_file():
+            dest_folder, reason, confidence = classify_root_file(path)
+            target = ROOT / dest_folder / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
+            continue
+
+        if path.is_dir():
+            if path.name.startswith("."):
+                target = archive_dir / path.name
+                target = get_unique_path(target, assigned_paths)
+                rows.append(f"| {path.name} | {rel(target)} | unapproved hidden config | high |")
+                moves.append((path, target))
+            else:
+                files_in_dir = list(path.rglob("*"))
+                files_only = [p for p in files_in_dir if p.is_file()]
+                dir_empty_after_deletes = True
+
+                for f in files_only:
+                    rel_p = f.relative_to(path)
+                    target = ROOT / rel_p
+                    if target.exists() and target.is_file() and filecmp.cmp(f, target, shallow=False):
+                        rows.append(f"| {rel(f)} | none | identical duplicate | high |")
+                        deletes.append(f)
+                    else:
+                        rows.append(f"| {rel(f)} | {rel(path)} | unique note preserved | high |")
+                        dir_empty_after_deletes = False
+
+                if dir_empty_after_deletes:
+                    rows.append(f"| {path.name} | none | duplicate directory (empty) | high |")
+                    dir_deletes.append(path)
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        if moves:
+            archive_dir.mkdir(parents=True, exist_ok=True)
+
+        for f in deletes:
+            f.unlink()
+            changes.append(f"- Deleted identical duplicate `{rel(f)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for d in dir_deletes:
+            if d.exists():
+                shutil.rmtree(d)
+                changes.append(f"- Removed empty duplicate directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
