@@ -347,13 +347,28 @@ def inbox_report(_args: argparse.Namespace) -> Path:
 
 
 def link_health(_args: argparse.Namespace) -> Path:
+    report_path = REPORTS / "link_health.md"
+    if report_path.exists():
+        report_path.unlink()
+
     index = note_index()
     inbound: Counter[str] = Counter()
     broken: list[str] = []
     old_links: list[str] = []
     for path in markdown_files():
+        path_text = rel(path)
+        if path_text.startswith("System/reports/"):
+            continue
+
         text = read_text(path)
+        # Handle escaped brackets and pipes in markdown tables by unescaping them first
+        text = text.replace(r'\|', '|').replace(r'\]', ']')
         for target in extract_obsidian_links(text):
+            if "<%" in target or "%>" in target:
+                continue
+            if target in {"path/to/processed/note", "SOURCE_NOTE", "Inbox/Voice_Dumps/SOURCE_NOTE", "System/reports/link_health"}:
+                continue
+
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -406,19 +421,89 @@ def link_health(_args: argparse.Namespace) -> Path:
         ],
     )
 
+ROOT_ALLOWLIST = {
+    ".git",
+    ".github",
+    ".obsidian",
+    "Agent Client",
+    "Body",
+    "Bucket_List",
+    "Content",
+    "Daily",
+    "Dashboard",
+    "Inbox",
+    "Maps",
+    "Medicine",
+    "Mind",
+    "Money",
+    "Projects",
+    "Relationships",
+    "System",
+    "Tags",
+    "Templates",
+    "AGENTS.md",
+    "README.md",
+    ".gitignore",
+    ".gitattributes"
+}
 
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    archive_moves = []
+    assigned_paths = set()
+    import filecmp
+    import os
+
+    def get_unique_path(target: Path, assigned: set[Path]) -> Path:
+        base = target.with_suffix("")
+        suffix = target.suffix
+        counter = 1
+        new_target = target
+        while new_target.exists() or new_target in assigned:
+            new_target = base.parent / f"{base.name}_{counter}{suffix}"
+            counter += 1
+        assigned.add(new_target)
+        return new_target
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in ROOT_ALLOWLIST:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+
+        if path.is_file():
+            dest, reason, confidence = classify_root_file(path)
+            target = get_unique_path(ROOT / dest / path.name, assigned_paths)
+            rows.append(f"| {path.name} | {dest}{target.name} | {reason} | {confidence} |")
+            moves.append((path, target))
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name.startswith("."):
+                archive_dir = ROOT / "System" / "archive"
+                target = get_unique_path(archive_dir / path.name, assigned_paths)
+                rows.append(f"| {path.name} | System/archive/{target.name} | unapproved hidden config | high |")
+                archive_moves.append((path, target))
+            else:
+                for f in path.rglob("*"):
+                    if not f.is_file():
+                        continue
+                    rel_f = f.relative_to(path)
+                    main_path = ROOT / rel_f
+
+                    if main_path.exists():
+                        if filecmp.cmp(f, main_path, shallow=False):
+                            rows.append(f"| {rel_f} (in {path.name}) | deleted | identical to main | high |")
+                            deletions.append(f)
+                        else:
+                            target = get_unique_path(main_path, assigned_paths)
+                            rows.append(f"| {rel_f} (in {path.name}) | {rel(target)} | unique note preserved | high |")
+                            moves.append((f, target))
+                    else:
+                        target = get_unique_path(main_path, assigned_paths)
+                        rows.append(f"| {rel_f} (in {path.name}) | {rel(target)} | missing in main | high |")
+                        moves.append((f, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
@@ -427,6 +512,29 @@ def root_triage(args: argparse.Namespace) -> Path:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
             changes.append(f"- Moved `{rel(target)}`.")
+
+        for f in deletions:
+            f.unlink()
+            changes.append(f"- Deleted identical duplicate `{rel(f)}`.")
+
+        for source, target in archive_moves:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(source), str(target))
+            changes.append(f"- Archived `{rel(source)}` to `{rel(target)}`.")
+
+        for path in sorted(ROOT.iterdir()):
+            if path.is_dir() and path.name not in ROOT_ALLOWLIST and not path.name.startswith("."):
+                def remove_empty_dirs(p: Path):
+                    for child in p.iterdir():
+                        if child.is_dir():
+                            remove_empty_dirs(child)
+                    try:
+                        p.rmdir()
+                    except OSError:
+                        pass
+                remove_empty_dirs(path)
+                if not path.exists():
+                    changes.append(f"- Removed empty duplicate directory `{path.name}`.")
 
     return write_report(
         "root_triage_report.md",
@@ -439,7 +547,6 @@ def root_triage(args: argparse.Namespace) -> Path:
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
@@ -489,6 +596,11 @@ def validate_notes(_args: argparse.Namespace) -> Path:
         text = read_text(path)
         fm = parse_frontmatter(text)
         path_text = rel(path)
+
+        # Skip checking for review_needed on simple folder notes that just configure a sticker
+        if fm.get("sticker") and len(fm) == 1 and not fm.get("review_needed"):
+            continue
+
         if path_text.startswith(("Medicine/", "Money/", "Mind/")) and fm.get("review_needed") not in {"true", "false"}:
             review_flags.append(f"- {path_text}")
 
@@ -503,7 +615,6 @@ def validate_notes(_args: argparse.Namespace) -> Path:
             ("Suggested next actions", ["- Open [[Maps/Life_OS_Home]].", "- Enable the Life OS CSS snippet.", "- Configure QuickAdd and Periodic Notes."]),
         ],
     )
-
 
 def process_voice_dumps(_args: argparse.Namespace) -> Path:
     ensure_folders()
