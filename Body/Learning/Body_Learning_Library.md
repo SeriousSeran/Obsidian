@@ -18,6 +18,7 @@ review_needed: true
 | WHO Physical Activity Guidelines | [WHO Guidelines at a Glance](https://www.who.int/publications/i/item/9789240014886) | Evidence-based activity recommendations | Use for baseline habit targets |
 | WHO Guidelines on NCBI Bookshelf | [NCBI Bookshelf Recommendations](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | Accessible guideline recommendations | Link specific recommendations to body notes |
 | Sleep Foundation Sleep Hygiene | [Sleep Hygiene](https://www.sleepfoundation.org/sleep-hygiene) | Practical sleep environment and behaviour guidance | Create one sleep experiment at a time |
+| NHS Sleep and Tiredness | [NHS Sleep](https://www.nhs.uk/live-well/sleep-and-tiredness/) | Practical lifestyle and sleep advice | Create actionable sleep routines |
 
 ## Study Workflow
 
