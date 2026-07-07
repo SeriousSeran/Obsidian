@@ -16,6 +16,7 @@ review_needed: true
 |---|---|---|---|
 | OpenStax Psychology 2e | [OpenStax Psychology 2e](https://openstax.org/books/psychology-2e/pages/index) | Free legal introduction to psychology concepts | Link concepts to reflections carefully |
 | OpenStax Psychology 2e Preface | [License and Preface](https://openstax.org/books/psychology-2e/pages/preface) | Confirms open textbook use | Keep source attribution in learning notes |
+| NIMH Health Topics | [NIMH Health Topics](https://www.nimh.nih.gov/health/topics) | Official expert-reviewed information on mental disorders | Use for accurate terminology and background |
 
 ## Reflection Practice
 
