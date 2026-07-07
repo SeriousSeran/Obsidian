@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,26 +408,80 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    base = target.with_suffix('')
+    suffix = target.suffix
+    counter = 1
+    new_target = target
+    while new_target.exists() or new_target in assigned_paths:
+        new_target = base.parent / f"{base.name}_{counter}{suffix}"
+        counter += 1
+    assigned_paths.add(new_target)
+    return new_target
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
+    assigned_paths: set[Path] = set()
     rows = []
-    moves = []
+    moves: list[tuple[Path, Path]] = []
+    deletes: list[Path] = []
+    dir_deletes: list[Path] = []
+
+    allowlist_dirs = {
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content", "Projects",
+        "Relationships", "Bucket_List", "Maps", "Templates", "System",
+        "Dashboard", "Agent Client", "Tags", ".github", ".obsidian", ".git"
+    }
+    allowlist_files = {"README.md", "AGENTS.md", ".gitignore", ".gitattributes"}
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+        if path.is_dir():
+            if path.name not in allowlist_dirs:
+                if path.name.startswith("."):
+                    target = ROOT / "System" / "archive" / path.name
+                    target = get_unique_path(target, assigned_paths)
+                    rows.append(f"| {path.name}/ | System/archive/{target.name}/ | hidden config | high |")
+                    moves.append((path, target))
+                else:
+                    for subpath in path.rglob("*"):
+                        if subpath.is_file():
+                            rel_subpath = subpath.relative_to(path)
+                            real_target = ROOT / rel_subpath
+                            if real_target.exists() and filecmp.cmp(subpath, real_target, shallow=False):
+                                rows.append(f"| {rel(subpath)} | (deleted) | duplicate generated/synced copy | high |")
+                                deletes.append(subpath)
+                            else:
+                                dest, reason, confidence = classify_root_file(subpath)
+                                unique_target = ROOT / dest / subpath.name
+                                unique_target = get_unique_path(unique_target, assigned_paths)
+                                rows.append(f"| {rel(subpath)} | {rel(unique_target)} | preserved unique note | {confidence} |")
+                                moves.append((subpath, unique_target))
+                    dir_deletes.append(path)
+        else:
+            if path.name not in allowlist_files:
+                dest, reason, confidence = classify_root_file(path)
+                target = ROOT / dest / path.name
+                target = get_unique_path(target, assigned_paths)
+                rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+                moves.append((path, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for p in deletes:
+            p.unlink()
+            changes.append(f"- Deleted duplicate `{rel(p)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+        for d in dir_deletes:
+            for sub_d in sorted(d.rglob("*"), key=lambda x: len(x.parts), reverse=True):
+                if sub_d.is_dir() and not any(sub_d.iterdir()):
+                    sub_d.rmdir()
+            if d.exists() and not any(d.iterdir()):
+                d.rmdir()
+                changes.append(f"- Removed empty directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
@@ -439,7 +494,6 @@ def root_triage(args: argparse.Namespace) -> Path:
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
