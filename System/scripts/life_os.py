@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,26 +408,102 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    counter = 1
+    new_target = target
+    while new_target.exists() or new_target in assigned_paths:
+        new_target = target.parent / f"{target.stem}_{counter}{target.suffix}"
+        counter += 1
+    return new_target
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+
+    allowlist = {
+        "Dashboard", "Agent Client", "Tags", ".git", ".github", ".obsidian",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body", "Content",
+        "Projects", "Relationships", "Bucket_List", "Maps", "Templates", "System"
+    }
+
+    assigned_paths = set()
+    hidden_dirs = []
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
         if path.name in {"README.md", "AGENTS.md"}:
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name not in allowlist:
+                # Exclude tooling/cache hidden directories
+                if path.name.startswith(".") or path.name.startswith("__"):
+                    hidden_dirs.append(path)
+                    continue
+
+                # Need to handle unapproved folders (e.g. Main, SeranOS)
+                for subpath in path.rglob('*'):
+                    if subpath.is_file():
+                        if subpath.name.startswith(".") or subpath.name.startswith("__"):
+                            continue
+
+                        # Try to find if duplicate exists in the root
+                        rel_path = subpath.relative_to(path)
+                        potential_dest = ROOT / rel_path
+                        if potential_dest.exists() and filecmp.cmp(subpath, potential_dest, shallow=False):
+                            # It's a duplicate, we can just mark for deletion
+                            rows.append(f"| {rel(subpath)} | {rel(potential_dest)} | duplicate generated/synced copy | high |")
+                            moves.append((subpath, potential_dest, True))
+                        else:
+                            # Unique meaningful note or missing from root
+                            dest, reason, confidence = classify_root_file(subpath)
+                            target = ROOT / dest / subpath.name
+                            target = get_unique_path(target, assigned_paths)
+                            assigned_paths.add(target)
+                            rows.append(f"| {rel(subpath)} | {rel(target)} | unique note recovered | high |")
+                            moves.append((subpath, target, False))
+        elif path.is_file():
+            if not path.name.startswith("."):
+                dest, reason, confidence = classify_root_file(path)
+                target = ROOT / dest / path.name
+                target = get_unique_path(target, assigned_paths)
+                assigned_paths.add(target)
+                rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+                moves.append((path, target, False))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
-        for source, target in moves:
-            target.parent.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+        for move in moves:
+            if len(move) == 3:
+                source, target, is_duplicate = move
+                if is_duplicate:
+                    source.unlink()
+                    changes.append(f"- Deleted duplicate `{rel(source)}`.")
+                else:
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.move(str(source), str(target))
+                    changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        # Archive hidden unapproved directories
+        for path in hidden_dirs:
+            archive_target = ROOT / "System" / "archive" / path.name
+            if not archive_target.exists():
+                shutil.move(str(path), str(archive_target))
+                changes.append(f"- Archived unapproved hidden directory `{rel(path)}` to `{rel(archive_target)}`.")
+
+        # Clean up empty directories
+        for path in sorted(ROOT.iterdir(), reverse=True):
+            if path.is_dir() and path.name not in allowlist:
+                try:
+                    path.rmdir()
+                    changes.append(f"- Removed empty directory `{rel(path)}`.")
+                except OSError:
+                    # Directory not empty, Move to archive instead
+                    archive_target = ROOT / "System" / "archive" / path.name
+                    if not archive_target.exists():
+                        shutil.move(str(path), str(archive_target))
+                        changes.append(f"- Archived unapproved directory `{rel(path)}` to `{rel(archive_target)}`.")
 
     return write_report(
         "root_triage_report.md",
