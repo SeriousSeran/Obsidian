@@ -262,8 +262,9 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    # Unescape markdown table characters so links are correctly parsed
+    text = text.replace(r'\|', '|').replace(r'\]', ']')
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
-
 
 def note_index() -> dict[str, list[Path]]:
     index: dict[str, list[Path]] = defaultdict(list)
@@ -272,7 +273,6 @@ def note_index() -> dict[str, list[Path]]:
         index[stem.lower()].append(path)
         index[rel(path.with_suffix("")).lower()].append(path)
     return index
-
 
 def link_target_exists(target: str, index: dict[str, list[Path]]) -> bool:
     key = target.removesuffix(".md").lower()
@@ -284,7 +284,6 @@ def link_target_exists(target: str, index: dict[str, list[Path]]) -> bool:
     if (ROOT / f"{target}.md").exists():
         return True
     return False
-
 
 def classify_root_file(path: Path) -> tuple[str, str, str]:
     name = path.name.lower()
@@ -354,6 +353,13 @@ def link_health(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "System/reports/" in target:
+                continue
+            if target.startswith("<%") and target.endswith("%>"):
+                continue
+            if target == "path/to/processed/note" or "SOURCE_NOTE" in target:
+                continue
+
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -407,30 +413,110 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+
+import filecmp
+
+def get_unique_path(base_path: Path, assigned_paths: set[Path]) -> Path:
+    candidate = base_path
+    counter = 1
+    while candidate.exists() or candidate in assigned_paths:
+        candidate = base_path.with_name(f"{base_path.stem}_{counter}{base_path.suffix}")
+        counter += 1
+    assigned_paths.add(candidate)
+    return candidate
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletions = []
+    cleanups = set()
+    assigned_paths = set()
+
+    ROOT_ALLOWLIST = {
+        ".git",
+        ".github",
+        ".obsidian",
+        "Agent Client",
+        "Body",
+        "Bucket_List",
+        "Content",
+        "Daily",
+        "Dashboard",
+        "Inbox",
+        "Maps",
+        "Medicine",
+        "Mind",
+        "Money",
+        "Projects",
+        "Relationships",
+        "System",
+        "Tags",
+        "Templates",
+        "README.md",
+        "AGENTS.md",
+        ".gitignore",
+        ".gitattributes"
+    }
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in ROOT_ALLOWLIST:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name.startswith("__"):
+                dest_path = ROOT / "System" / "archive" / path.name
+                dest_path = get_unique_path(dest_path, assigned_paths)
+                rows.append(f"| {path.name}/ | System/archive/{dest_path.name}/ | unapproved config | high |")
+                moves.append((path, dest_path))
+            else:
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        cleanups.add(subpath)
+                        continue
+
+                    rel_to_unapproved = subpath.relative_to(path)
+                    equivalent_root_file = ROOT / rel_to_unapproved
+
+                    if equivalent_root_file.exists() and filecmp.cmp(subpath, equivalent_root_file, shallow=False):
+                        rows.append(f"| {rel(subpath)} | none | identical duplicate | high |")
+                        deletions.append(subpath)
+                    else:
+                        dest, reason, confidence = classify_root_file(subpath)
+                        target = ROOT / dest / subpath.name
+                        target = get_unique_path(target, assigned_paths)
+                        rows.append(f"| {rel(subpath)} | {rel(target)} | unique note in nested vault | medium |")
+                        moves.append((subpath, target))
+                cleanups.add(path)
+        else:
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for file_to_delete in deletions:
+            file_to_delete.unlink()
+            changes.append(f"- Deleted identical duplicate `{rel(file_to_delete)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        # Clean up empty directories from bottom up
+        for dir_path in sorted(list(cleanups), key=lambda p: len(p.parts), reverse=True):
+            if dir_path.exists() and not any(dir_path.iterdir()):
+                dir_path.rmdir()
+                changes.append(f"- Removed empty directory `{rel(dir_path)}/`.")
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
+
         [
             ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
@@ -489,8 +575,11 @@ def validate_notes(_args: argparse.Namespace) -> Path:
         text = read_text(path)
         fm = parse_frontmatter(text)
         path_text = rel(path)
+        if "sticker" in fm:
+            continue
         if path_text.startswith(("Medicine/", "Money/", "Mind/")) and fm.get("review_needed") not in {"true", "false"}:
             review_flags.append(f"- {path_text}")
+
 
     return write_report(
         "life_os_validation_report.md",
