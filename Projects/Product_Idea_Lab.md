@@ -30,3 +30,4 @@ review_needed: true
 
 - [[Projects/Learning/Projects_Learning_Library]]
 - [[Money/Business_Ideas/Business_Model_Lab]]
+- [[Projects/Learning/Product_Validation_Framework]]
