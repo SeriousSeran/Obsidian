@@ -34,3 +34,4 @@ review_needed: false
 - [[Content/Kanban/Content_Pipeline]]
 - [[Content/Learning/Content_Learning_Library]]
 - [[Templates/Content_Idea_Template]]
+- [[Content/Learning/Content_Creation_Framework]]
