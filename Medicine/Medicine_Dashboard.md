@@ -79,6 +79,8 @@ SORT file.mtime DESC
 ```
 
 ## Recent Notes
+- [[Medicine/Topics/Asthma_Core]]
+- [[Medicine/Clinical_Cases/Case_001_Acute_Asthma]]
 
 ```dataview
 TABLE type, status, file.mtime AS "Updated"
