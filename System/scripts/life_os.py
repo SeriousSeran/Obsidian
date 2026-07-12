@@ -407,18 +407,74 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+
+import filecmp
+
+def get_unique_path(base_path: Path, assigned_paths: set[Path]) -> Path:
+    target = base_path
+    counter = 1
+    while target.exists() or target in assigned_paths:
+        target = target.with_name(f"{target.stem}_{counter}{target.suffix}")
+        counter += 1
+    assigned_paths.add(target)
+    return target
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
+    deletes = []
+    assigned_paths: set[Path] = set()
+
+    allowlist_dirs = {
+        "Dashboard", "Agent Client", "Tags", ".git", ".github", ".obsidian"
+    } | {Path(f).parts[0] for f in REQUIRED_FOLDERS}
+
+    allowlist_files = {
+        "README.md", "AGENTS.md", ".gitignore", ".gitattributes"
+    }
+
+    archive_dir = ROOT / "System" / "archive"
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in allowlist_dirs or path.name in allowlist_files:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+
+        if path.is_file():
+            dest, reason, confidence = classify_root_file(path)
+            base_target = ROOT / dest / path.name
+            target = get_unique_path(base_target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name == "__pycache__":
+                base_target = archive_dir / path.name
+                target = get_unique_path(base_target, assigned_paths)
+                rows.append(f"| {path.name}/ | {rel(target)}/ | unapproved config/cache | high |")
+                moves.append((path, target))
+            else:
+                # Potential nested vault
+                for nested_item in path.rglob("*"):
+                    if not nested_item.is_file():
+                        deletes.append(nested_item)
+                        continue
+
+                    rel_nested = nested_item.relative_to(path)
+                    real_file = ROOT / rel_nested
+                    if real_file.exists() and filecmp.cmp(nested_item, real_file, shallow=False):
+                        deletes.append(nested_item)
+                        rows.append(f"| {rel(nested_item)} | deleted | exact duplicate | high |")
+                    else:
+                        dest, reason, confidence = classify_root_file(nested_item)
+                        base_target = ROOT / dest / nested_item.name
+                        target = get_unique_path(base_target, assigned_paths)
+                        rows.append(f"| {rel(nested_item)} | {rel(target)} | preserved unique file | medium |")
+                        moves.append((nested_item, target))
+
+                # Plan to delete the dir itself if we processed it (whether we deleted all or moved some)
+                deletes.append(path)
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
@@ -428,11 +484,24 @@ def root_triage(args: argparse.Namespace) -> Path:
             shutil.move(str(source), str(target))
             changes.append(f"- Moved `{rel(target)}`.")
 
+        # Sort deletes so files are deleted before dirs, and deeply nested before shallow
+        deletes.sort(key=lambda p: len(p.parts), reverse=True)
+        for p in deletes:
+            if p.is_file():
+                p.unlink()
+                changes.append(f"- Deleted duplicate `{rel(p)}`.")
+            elif p.is_dir():
+                try:
+                    p.rmdir()
+                    changes.append(f"- Removed empty dir `{rel(p)}`.")
+                except OSError:
+                    pass
+
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
