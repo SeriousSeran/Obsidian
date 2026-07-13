@@ -22,7 +22,7 @@ review_needed: true
 
 | Question | Answer Skeleton |
 |---|---|
-| Causes of wheeze? | Asthma, COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
+| Causes of wheeze? | [[Medicine/Topics/Asthma_Core|Asthma]], COPD, heart failure, anaphylaxis, foreign body, airway obstruction |
 | How do you assess pneumonia severity? | Observations, oxygenation, confusion, hydration, comorbidities, complications |
 
 ## Abdomen
