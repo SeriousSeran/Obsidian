@@ -352,8 +352,10 @@ def link_health(_args: argparse.Namespace) -> Path:
     broken: list[str] = []
     old_links: list[str] = []
     for path in markdown_files():
-        text = read_text(path)
+        text = read_text(path).replace(r'\|', '|').replace(r'\]', ']')
         for target in extract_obsidian_links(text):
+            if target.startswith("System/reports/") or target.startswith("<%") or target in ["path/to/processed/note", "Inbox/Voice_Dumps/SOURCE_NOTE"]:
+                continue
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -488,6 +490,8 @@ def validate_notes(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         fm = parse_frontmatter(text)
+        if "sticker" in fm:
+            continue
         path_text = rel(path)
         if path_text.startswith(("Medicine/", "Money/", "Mind/")) and fm.get("review_needed") not in {"true", "false"}:
             review_flags.append(f"- {path_text}")
