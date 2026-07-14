@@ -14,6 +14,7 @@ review_needed: true
 
 | Resource | Link | Why Use It | Vault Action |
 |---|---|---|---|
+| Cochrane Library | [Cochrane](https://www.cochranelibrary.com/) | Systematic reviews and meta-analyses | Build evidence-based case studies |
 | OpenStax Anatomy & Physiology 2e | [OpenStax A&P 2e](https://openstax.org/books/anatomy-and-physiology-2e/pages/preface) | Free legal foundation for anatomy and physiology | Convert weak systems into [[Templates/Medical_Topic_Template]] notes |
 | NCBI Bookshelf | [NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/) | Free life science and healthcare books/documents | Use for background reading and source links |
 | StatPearls via NCBI | [StatPearls](https://www.ncbi.nlm.nih.gov/books/n/statpearls/) | Quick condition overviews and clinical review | Make one-page condition notes |
@@ -24,6 +25,7 @@ review_needed: true
 
 | Book | Legal Link | Best Use |
 |---|---|---|
+| Bates' Guide to Physical Examination and History Taking | [LWW Official](https://shop.lww.com/Bates--Guide-to-Physical-Examination-and-History-Taking/p/9781496398178) | Clinical history and physical examination |
 | Oxford Handbook of Clinical Medicine | [Oxford Academic](https://academic.oup.com/book/56266) | Practical bedside framing and patient-centred medicine |
 | Harrison's Principles of Internal Medicine | [NLM Catalog](https://www.ncbi.nlm.nih.gov/nlmcatalog/136621) | Deep internal medicine reference |
 | Robbins Basic Pathology | [Elsevier Robbins Pathology](https://www.elsevier.com/books-and-journals/book-series/robbins-pathology) | Pathology mechanisms and clinicopathologic links |
@@ -36,6 +38,7 @@ review_needed: true
 - [ ] Create a medical-topic note.
 - [ ] Add five viva questions.
 - [ ] Add one deidentified clinical-case pattern if relevant.
+- [ ] Test recall with a short spaced repetition block.
 
 ## Note Types to Create
 

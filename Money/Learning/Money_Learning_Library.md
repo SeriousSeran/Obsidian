@@ -14,6 +14,7 @@ review_needed: true
 
 | Resource | Link | Why Use It | Vault Action |
 |---|---|---|---|
+| Investor.gov | [Investor.gov](https://www.investor.gov/) | Official US SEC investing basics | Verify personal investment rules |
 | OpenStax Principles of Finance | [OpenStax Principles of Finance](https://openstax.org/books/principles-finance/pages/index) | Free legal foundation for finance concepts | Build notes on cash flow, risk, time value of money |
 | Bogleheads Getting Started | [Bogleheads Getting Started](https://www.bogleheads.org/wiki/Getting_started) | Plain-language personal investing orientation | Create personal principles, not predictions |
 | Bogleheads Investment Philosophy | [Investment Philosophy](https://www.bogleheads.org/wiki/Bogleheads%C2%AE_investment_philosophy) | Diversification, low cost, discipline | Add to money review checklist |
@@ -22,6 +23,7 @@ review_needed: true
 
 | Book | Legal Link | Best Use |
 |---|---|---|
+| A Random Walk Down Wall Street | [Norton](https://wwnorton.com/books/9781324051131) | Evidence for index investing |
 | The Psychology of Money | [Google Books](https://books.google.com/books/about/The_Psychology_of_Money.html?id=U3f2DwAAQBAJ) | Behavioural finance and money psychology |
 | The Bogleheads' Guide to Investing | [Wiley](https://www.wiley-vch.de/en/areas-interest/finance-economics-law/finance-investments-13fi/personal-finance-13fi2/the-bogleheads-39-guide-to-investing-978-1-119-84767-0) | Long-term investing framework |
 | The Little Book of Common Sense Investing | [Wiley](https://www.wiley-vch.de/en/areas-interest/finance-economics-law/finance-investments-13fi/general-finance-investments-13fi0/the-little-book-of-common-sense-investing-978-1-119-40450-7) | Index investing philosophy |
@@ -33,6 +35,7 @@ review_needed: true
 - [ ] Separate fact, assumption, and wish.
 - [ ] Create one [[Templates/Financial_Idea_Template]] note per experiment.
 - [ ] Review risk before action.
+- [ ] Write down one anti-goal or thing to avoid.
 
 ## Safety
 
