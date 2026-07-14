@@ -262,6 +262,7 @@ def extract_headings(text: str) -> set[str]:
 
 
 def extract_obsidian_links(text: str) -> list[str]:
+    text = text.replace(r"\|", "|").replace(r"\]", "]")
     return [m.group(1).strip() for m in OBSIDIAN_LINK_RE.finditer(text)]
 
 
@@ -352,8 +353,15 @@ def link_health(_args: argparse.Namespace) -> Path:
     broken: list[str] = []
     old_links: list[str] = []
     for path in markdown_files():
+        if "System/reports/" in rel(path):
+            continue
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            if "<%" in target or "path/to/processed/note" in target or "SOURCE_NOTE" in target:
+                continue
+            if "System/reports/" in target:
+                continue
+
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
@@ -489,8 +497,11 @@ def validate_notes(_args: argparse.Namespace) -> Path:
         text = read_text(path)
         fm = parse_frontmatter(text)
         path_text = rel(path)
+        if "sticker" in fm:
+            continue
         if path_text.startswith(("Medicine/", "Money/", "Mind/")) and fm.get("review_needed") not in {"true", "false"}:
             review_flags.append(f"- {path_text}")
+
 
     return write_report(
         "life_os_validation_report.md",
