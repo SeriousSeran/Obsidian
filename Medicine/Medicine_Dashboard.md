@@ -87,6 +87,11 @@ SORT file.mtime DESC
 LIMIT 15
 ```
 
+## Recently Added
+
+- [[Medicine/OSCE/Respiratory_Examination_Station]]
+- [[Medicine/Topics/Community_Acquired_Pneumonia]]
+
 ## Related Templates
 
 - [[Templates/Medical_Topic_Template]]
