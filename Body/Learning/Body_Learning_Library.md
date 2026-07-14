@@ -14,10 +14,17 @@ review_needed: true
 
 | Resource | Link | Why Use It | Vault Action |
 |---|---|---|---|
+| CDC Physical Activity Basics | [CDC](https://www.cdc.gov/physical-activity-basics/index.html) | Official physical activity guidelines | Check baseline movement habits |
 | WHO Physical Activity Fact Sheet | [WHO Physical Activity](https://www.who.int/news-room/fact-sheets/detail/physical-activity%E2%80%AF) | Public-health overview of movement benefits | Convert into a simple weekly movement checklist |
 | WHO Physical Activity Guidelines | [WHO Guidelines at a Glance](https://www.who.int/publications/i/item/9789240014886) | Evidence-based activity recommendations | Use for baseline habit targets |
 | WHO Guidelines on NCBI Bookshelf | [NCBI Bookshelf Recommendations](https://www.ncbi.nlm.nih.gov/books/NBK566046/) | Accessible guideline recommendations | Link specific recommendations to body notes |
 | Sleep Foundation Sleep Hygiene | [Sleep Hygiene](https://www.sleepfoundation.org/sleep-hygiene) | Practical sleep environment and behaviour guidance | Create one sleep experiment at a time |
+
+## Paid / Library Books to Learn From Legally
+
+| Book | Legal Link | Best Use |
+|---|---|---|
+| The Sports Gene | [Penguin Random House](https://www.penguinrandomhouse.com/books/310323/the-sports-gene-by-david-epstein/) | Understanding genetics and athletic performance |
 
 ## Study Workflow
 
@@ -25,6 +32,7 @@ review_needed: true
 - [ ] Pick one movement target.
 - [ ] Pick one sleep experiment.
 - [ ] Review body data weekly.
+- [ ] Plan one nutrition target based on evidence.
 
 ## Safety
 

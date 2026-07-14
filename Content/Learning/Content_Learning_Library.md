@@ -14,9 +14,16 @@ review_needed: false
 
 | Resource | Link | Why Use It | Vault Action |
 |---|---|---|---|
+| W3C Web Content Accessibility Guidelines | [W3C](https://www.w3.org/WAI/standards-guidelines/wcag/) | Official accessibility guidelines | Check content accessibility |
 | OpenStax Writing Guide with Handbook | [OpenStax Writing Guide](https://openstax.org/books/writing-guide/pages/index) | Free legal writing textbook | Build editing checklists |
 | Purdue OWL | [Purdue OWL](https://owl.purdue.edu/owl/) | Free writing, citation, and style support | Use for citation and structure questions |
 | Writing Commons | [Writing Commons](https://writingcommons.org/about-us) | Open-access writing textbook/resource | Use for composition and revision ideas |
+
+## Paid / Library Books to Learn From Legally
+
+| Book | Legal Link | Best Use |
+|---|---|---|
+| The Elements of Style | [Pearson](https://www.pearson.com/en-us/subject-catalog/p/elements-of-style-the/P200000001099) | Classic writing style guide |
 
 ## Content Practice
 
@@ -24,6 +31,7 @@ review_needed: false
 - [ ] Create [[Templates/Content_Idea_Template]].
 - [ ] Draft hook, audience, and core point.
 - [ ] Turn one idea per week into a publishable draft.
+- [ ] Run a readability and accessibility check on a draft.
 
 ## Safety
 
