@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,39 +408,119 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    counter = 1
+    while True:
+        new_target = target.with_name(f"{target.stem}_{counter}{target.suffix}")
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletes = []
+    dir_removals = []
 
-    changes = ["- Dry run only. No files moved."]
+    ALLOWED_ROOT_DIRS = {
+        ".github", ".obsidian", "Inbox", "Daily", "Medicine", "Money", "Mind", "Body",
+        "Content", "Projects", "Relationships", "Bucket_List", "Maps", "Templates",
+        "System", "Dashboard", "Agent Client", "Tags", ".git"
+    }
+    ALLOWED_ROOT_FILES = {
+        "README.md", "AGENTS.md", ".gitignore", ".gitattributes"
+    }
+
+    assigned_paths = set()
+
+    for path in sorted(ROOT.iterdir()):
+        if path.is_file():
+            if path.name in ALLOWED_ROOT_FILES:
+                continue
+            dest_folder, reason, confidence = classify_root_file(path)
+            target = ROOT / dest_folder / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
+        elif path.is_dir():
+            if path.name in ALLOWED_ROOT_DIRS:
+                continue
+
+            # If it's a hidden/cache dir, move entire dir to System/archive/
+            if path.name.startswith(".") or path.name.startswith("__"):
+                target = ROOT / "System" / "archive" / path.name
+                target = get_unique_path(target, assigned_paths)
+                rows.append(f"| {path.name}/ | {rel(target)}/ | unapproved config/cache | high |")
+                moves.append((path, target))
+            else:
+                # Nested vault or other unapproved dir
+                # Recursively process files
+                for sub in sorted(path.rglob("*")):
+                    if sub.is_dir():
+                        continue
+
+                    # Compute expected path in root
+                    rel_sub = sub.relative_to(path)
+                    expected_root_path = ROOT / rel_sub
+
+                    if expected_root_path.exists() and filecmp.cmp(sub, expected_root_path, shallow=False):
+                        # Identical duplicate, delete it
+                        rows.append(f"| {rel(sub)} | [deleted] | identical duplicate | high |")
+                        deletes.append(sub)
+                    else:
+                        # Unique note, preserve it
+                        dest_folder, reason, confidence = classify_root_file(sub)
+                        target = ROOT / dest_folder / sub.name
+                        target = get_unique_path(target, assigned_paths)
+                        rows.append(f"| {rel(sub)} | {rel(target)} | unique note preserved | {confidence} |")
+                        moves.append((sub, target))
+
+                # We will check if the directory is empty during --apply, but let's record it
+                dir_removals.append(path)
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for d in deletes:
+            d.unlink()
+            changes.append(f"- Deleted identical duplicate `{rel(d)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        # Cleanup empty directories in the unapproved dirs
+        for d in dir_removals:
+            # Recursively remove empty subdirectories within the nested vault
+            for sub_d in sorted(d.rglob("*"), reverse=True):
+                if sub_d.is_dir():
+                    try:
+                        sub_d.rmdir()
+                    except OSError:
+                        pass
+            # Remove the top-level directory if empty
+            try:
+                d.rmdir()
+                changes.append(f"- Removed empty duplicate directory `{rel(d)}/`.")
+            except OSError:
+                pass
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
