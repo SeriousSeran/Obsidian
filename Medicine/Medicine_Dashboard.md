@@ -93,6 +93,8 @@ LIMIT 15
 - [[Templates/Clinical_Case_Template]]
 
 ## Learning Resources
+- [[Medicine/Topics/Asthma_Core]]
+- [[Medicine/Clinical_Cases/Acute_Asthma_Case]]
 
 - [[Medicine/Learning/Medicine_Learning_Library]]
 - [[Maps/Learning_Resource_Hub]]
