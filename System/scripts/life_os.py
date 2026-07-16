@@ -407,26 +407,93 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+import filecmp
+
+def get_unique_path(dest: Path, assigned_paths: set[Path]) -> Path:
+    if dest not in assigned_paths and not dest.exists():
+        return dest
+    counter = 1
+    while True:
+        candidate = dest.with_name(f"{dest.stem}_{counter}{dest.suffix}")
+        if candidate not in assigned_paths and not candidate.exists():
+            return candidate
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
+
+    allowlist_dirs = {
+        ".github", ".obsidian", "Inbox", "Daily", "Medicine", "Money",
+        "Mind", "Body", "Content", "Projects", "Relationships", "Bucket_List",
+        "Maps", "Templates", "System", "Dashboard", "Agent Client", "Tags", ".git"
+    }
+    allowlist_files = {
+        "README.md", "AGENTS.md", ".gitignore", ".gitattributes"
+    }
+
     rows = []
     moves = []
+    deletes = []
+    assigned_paths = set()
+
+    archive_dir = ROOT / "System" / "archive"
+
+    def remove_empty_dirs(d: Path):
+        if not d.is_dir():
+            return
+        for sub in d.iterdir():
+            if sub.is_dir():
+                remove_empty_dirs(sub)
+        if not any(d.iterdir()):
+            d.rmdir()
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in allowlist_dirs and path.is_dir():
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
+        if path.name in allowlist_files and path.is_file():
             continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name.startswith("__"):
+                dest = get_unique_path(archive_dir / path.name, assigned_paths)
+                assigned_paths.add(dest)
+                rows.append(f"| {path.name}/ | {rel(dest)}/ | unapproved hidden/cache dir | high |")
+                moves.append((path, dest))
+            else:
+                for sub_path in path.rglob("*"):
+                    if sub_path.is_dir():
+                        continue
+                    rel_to_nested = sub_path.relative_to(path)
+                    real_dest = ROOT / rel_to_nested
+                    if real_dest.exists() and filecmp.cmp(sub_path, real_dest, shallow=False):
+                        deletes.append(sub_path)
+                        rows.append(f"| {rel(sub_path)} | (deleted) | identical duplicated file | high |")
+                    else:
+                        dest = get_unique_path(real_dest, assigned_paths)
+                        assigned_paths.add(dest)
+                        rows.append(f"| {rel(sub_path)} | {rel(dest)} | unique file preserved | high |")
+                        moves.append((sub_path, dest))
+        else:
+            dest_dir_str, reason, confidence = classify_root_file(path)
+            dest = get_unique_path(ROOT / dest_dir_str / path.name, assigned_paths)
+            assigned_paths.add(dest)
+            rows.append(f"| {path.name} | {rel(dest)} | {reason} | {confidence} |")
+            moves.append((path, dest))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for d in deletes:
+            d.unlink()
+            changes.append(f"- Deleted duplicated `{rel(d)}`.")
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for path in list(ROOT.iterdir()):
+            if path.is_dir() and path.name not in allowlist_dirs and not path.name.startswith(".") and not path.name.startswith("__"):
+                remove_empty_dirs(path)
 
     return write_report(
         "root_triage_report.md",
@@ -437,7 +504,7 @@ def root_triage(args: argparse.Namespace) -> Path:
             ("Safe changes made", changes),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
-        ],
+        ]
     )
 
 
