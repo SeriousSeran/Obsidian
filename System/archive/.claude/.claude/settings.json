@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\\\Users\\\\seran\\\\Documents\\\\Obsidian Vault\" && rmdir /S /Q \"00 - Start Here\" \"02 - Medicine\" \"03 - Exams and OSCE\" \"05 - AI and Technology\" \"06 - Commerce and Money\" \"07 - Business and Products\" \"08 - Health and Physique\" \"09 - Writing and Content\" \"10 - Projects\" \"11 - Templates\" \"Main\" \"_codex_bridge\" 2>&1 && echo \"Deleted empty folders\")"
+    ]
+  }
+}
