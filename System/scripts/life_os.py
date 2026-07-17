@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,26 +408,89 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    base = target.stem
+    ext = target.suffix
+    counter = 1
+    while True:
+        new_target = target.with_name(f"{base}_{counter}{ext}")
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletes = []
+    dir_removals = []
+    assigned_paths = set()
 
-    changes = ["- Dry run only. No files moved."]
+    allowlist = {
+        "README.md", "AGENTS.md", ".github", ".obsidian",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body",
+        "Content", "Projects", "Relationships", "Bucket_List",
+        "Maps", "Templates", "System", "Dashboard", "Agent Client",
+        "Tags", ".git", ".gitignore", ".gitattributes"
+    }
+
+    for path in sorted(ROOT.iterdir()):
+        if path.name in allowlist:
+            continue
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name == "__pycache__":
+                target_dir = ROOT / "System" / "archive" / path.name
+                rows.append(f"| {path.name}/ | System/archive/{path.name}/ | unapproved hidden dir | high |")
+                moves.append((path, target_dir))
+            else:
+                for file_path in sorted(path.rglob("*")):
+                    if not file_path.is_file():
+                        continue
+
+                    rel_path = file_path.relative_to(path)
+                    expected_target = ROOT / rel_path
+
+                    if expected_target.exists() and filecmp.cmp(str(file_path), str(expected_target), shallow=False):
+                        rows.append(f"| {file_path.relative_to(ROOT)} | delete | identical duplicate | high |")
+                        deletes.append(file_path)
+                    else:
+                        target = ROOT / "Inbox" / file_path.name
+                        target = get_unique_path(target, assigned_paths)
+                        rows.append(f"| {file_path.relative_to(ROOT)} | {target.relative_to(ROOT)} | unique note preserved | high |")
+                        moves.append((file_path, target))
+
+                dir_removals.append(path)
+        else:
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {target.relative_to(ROOT)} | {reason} | {confidence} |")
+            moves.append((path, target))
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for file_path in deletes:
+            file_path.unlink()
+            changes.append(f"- Deleted identical duplicate `{rel(file_path)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for d in dir_removals:
+            for sub_d in sorted(d.rglob("*"), reverse=True):
+                if sub_d.is_dir() and not any(sub_d.iterdir()):
+                    sub_d.rmdir()
+            if d.is_dir() and not any(d.iterdir()):
+                d.rmdir()
+                changes.append(f"- Removed empty duplicate directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
@@ -488,6 +552,8 @@ def validate_notes(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         fm = parse_frontmatter(text)
+        if "sticker" in fm:
+            continue
         path_text = rel(path)
         if path_text.startswith(("Medicine/", "Money/", "Mind/")) and fm.get("review_needed") not in {"true", "false"}:
             review_flags.append(f"- {path_text}")
