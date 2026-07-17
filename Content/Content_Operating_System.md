@@ -29,6 +29,9 @@ review_needed: false
 - Money and business experiments
 - Reflection and personal operating systems
 
+## Frameworks
+- [[Content/Storytelling_Framework]]
+
 ## Links
 
 - [[Content/Kanban/Content_Pipeline]]

@@ -30,6 +30,9 @@ review_needed: true
 - Template/system
 - Community
 
+## Frameworks
+- [[Money/Business_Ideas/Offer_Validation_Framework]]
+
 ## Experiments
 
 - [ ] Write one customer/problem note.
