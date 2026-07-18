@@ -354,6 +354,17 @@ def link_health(_args: argparse.Namespace) -> Path:
     for path in markdown_files():
         text = read_text(path)
         for target in extract_obsidian_links(text):
+            # Clean up targets that have trailing backslashes due to markdown table escaping
+            target = target.rstrip('\\')
+
+            # Ignore dynamic reports, templater tags, and placeholders
+            if target.startswith("System/reports/"):
+                continue
+            if "<%" in target or "%>" in target:
+                continue
+            if target in ("path/to/processed/note", "Inbox/Voice_Dumps/SOURCE_NOTE", "Templates/Person_Note_Template"):
+                continue
+
             key = target.removesuffix(".md").lower()
             inbound[key] += 1
             inbound[target.removesuffix(".md").lower()] += 1
