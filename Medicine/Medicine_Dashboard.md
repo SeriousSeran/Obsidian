@@ -103,6 +103,7 @@ LIMIT 15
 - [[System/reports/link_health]]
 
 ## Next Actions
+- Review [[Medicine/Topics/Asthma_Core]]
 
 - [ ] Add first medical topic.
 - [ ] Add first deidentified clinical case.
