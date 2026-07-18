@@ -407,26 +407,106 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    if not target.exists() and target not in assigned_paths:
+        assigned_paths.add(target)
+        return target
+    base = target.stem
+    ext = target.suffix
+    counter = 1
+    while True:
+        new_target = target.parent / f"{base}_{counter}{ext}"
+        if not new_target.exists() and new_target not in assigned_paths:
+            assigned_paths.add(new_target)
+            return new_target
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletes = []
+    assigned_paths = set()
 
-    changes = ["- Dry run only. No files moved."]
+    approved_root_items = {
+        "README.md", "AGENTS.md", ".github", ".obsidian", "Inbox", "Daily",
+        "Medicine", "Money", "Mind", "Body", "Content", "Projects",
+        "Relationships", "Bucket_List", "Maps", "Templates", "System",
+        "Dashboard", "Agent Client", "Tags", ".git", ".gitignore", ".gitattributes"
+    }
+
+    for path in sorted(ROOT.iterdir()):
+        if path.name in approved_root_items:
+            continue
+
+        is_nested_vault = False
+        if path.is_dir():
+            for nested_item in path.iterdir():
+                if nested_item.name in approved_root_items and nested_item.name not in {".git", ".gitignore"}:
+                    is_nested_vault = True
+                    break
+
+        if is_nested_vault:
+            for nested_path in path.rglob("*"):
+                if nested_path.is_dir():
+                    continue
+
+                rel_nested = nested_path.relative_to(path)
+                real_root_path = ROOT / rel_nested
+
+                if real_root_path.exists():
+                    import filecmp
+                    if filecmp.cmp(str(nested_path), str(real_root_path), shallow=False):
+                        rows.append(f"| {nested_path.relative_to(ROOT)} | none | Duplicate in nested vault | high |")
+                        deletes.append(nested_path)
+                    else:
+                        dest = get_unique_path(ROOT / "Inbox" / nested_path.name, assigned_paths)
+                        rows.append(f"| {nested_path.relative_to(ROOT)} | {rel(dest)} | Unique note in nested vault | medium |")
+                        moves.append((nested_path, dest))
+                else:
+                    dest = get_unique_path(ROOT / "Inbox" / nested_path.name, assigned_paths)
+                    rows.append(f"| {nested_path.relative_to(ROOT)} | {rel(dest)} | Unique note in nested vault | medium |")
+                    moves.append((nested_path, dest))
+
+            rows.append(f"| {path.name}/ | none | Unapproved/nested directory | high |")
+            deletes.append(path)
+
+        elif path.is_dir():
+            dest_dir = ROOT / "System" / "archive" / path.name
+            rows.append(f"| {path.name}/ | {rel(dest_dir)}/ | Unapproved directory | high |")
+            moves.append((path, dest_dir))
+
+        else:
+            if path.name.startswith("."):
+                continue
+            dest_folder, reason, confidence = classify_root_file(path)
+            target = get_unique_path(ROOT / dest_folder / path.name, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for target in deletes:
+            if target.is_file():
+                target.unlink()
+                changes.append(f"- Deleted `{rel(target)}`.")
+            elif target.is_dir():
+                def remove_empty_dirs(d):
+                    for item in d.iterdir():
+                        if item.is_dir():
+                            remove_empty_dirs(item)
+                    try:
+                        d.rmdir()
+                        changes.append(f"- Deleted empty directory `{rel(d)}`.")
+                    except OSError:
+                        pass
+                remove_empty_dirs(target)
 
     return write_report(
         "root_triage_report.md",
