@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,39 +408,144 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+
+def get_unique_path(target: Path, assigned_paths: set[Path]) -> Path:
+    base = target.with_suffix('')
+    suffix = target.suffix
+    counter = 1
+    current = target
+    while current in assigned_paths or current.exists():
+        current = base.with_name(f"{base.name}_{counter}{suffix}")
+        counter += 1
+    assigned_paths.add(current)
+    return current
+
+def remove_empty_dirs_recursively(directory: Path, deletes: list, args: argparse.Namespace) -> None:
+    if not directory.is_dir():
+        return
+    for child in directory.iterdir():
+        if child.is_dir():
+            remove_empty_dirs_recursively(child, deletes, args)
+    if not any(directory.iterdir()):
+        if args.apply:
+            directory.rmdir()
+        deletes.append(f"- Removed empty directory `{rel(directory)}`.")
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
     rows = []
     moves = []
-    for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
-            continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+    deletes = []
+    archive_moves = []
+    assigned_paths = set()
 
-    changes = ["- Dry run only. No files moved."]
+    ROOT_ALLOWLIST = {
+        ".git",
+        ".gitattributes",
+        ".github",
+        ".gitignore",
+        ".obsidian",
+        "AGENTS.md",
+        "Agent Client",
+        "Body",
+        "Bucket_List",
+        "Content",
+        "Daily",
+        "Dashboard",
+        "Inbox",
+        "Maps",
+        "Medicine",
+        "Mind",
+        "Money",
+        "Projects",
+        "README.md",
+        "Relationships",
+        "System",
+        "Tags",
+        "Templates",
+    }
+
+    # Scan root
+    for path in sorted(ROOT.iterdir()):
+        if path.name in ROOT_ALLOWLIST:
+            continue
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name == "__pycache__":
+                # Move to archive without processing files
+                target = ROOT / "System" / "archive" / path.name
+                archive_moves.append((path, target))
+            else:
+                # Process nested vaults
+                for subpath in sorted(path.rglob("*")):
+                    if subpath.is_dir():
+                        continue
+
+                    # Compute relative path inside the unapproved directory
+                    rel_to_unapproved = subpath.relative_to(path)
+                    potential_root_target = ROOT / rel_to_unapproved
+
+                    if potential_root_target.exists():
+                        if filecmp.cmp(str(subpath), str(potential_root_target), shallow=False):
+                            deletes.append(f"- Deleted identical duplicate file `{rel(subpath)}`.")
+                            if args.apply:
+                                subpath.unlink()
+                        else:
+                            # Unique content, move to root and classify if needed or generate unique name
+                            dest, reason, confidence = classify_root_file(subpath)
+                            target = ROOT / dest / subpath.name
+                            target = get_unique_path(target, assigned_paths)
+                            rows.append(f"| {rel(subpath)} | {rel(target)} | {reason} (conflict) | {confidence} |")
+                            moves.append((subpath, target))
+                    else:
+                        # Move to its intended root location based on classify_root_file
+                        dest, reason, confidence = classify_root_file(subpath)
+                        target = ROOT / dest / subpath.name
+                        target = get_unique_path(target, assigned_paths)
+                        rows.append(f"| {rel(subpath)} | {rel(target)} | {reason} | {confidence} |")
+                        moves.append((subpath, target))
+
+                # After processing, try to remove empty directories recursively
+                if args.apply:
+                    remove_empty_dirs_recursively(path, deletes, args)
+                else:
+                    deletes.append(f"- Would remove directory `{rel(path)}` if empty.")
+        else:
+            # File in root not in allowlist
+            dest, reason, confidence = classify_root_file(path)
+            target = ROOT / dest / path.name
+            target = get_unique_path(target, assigned_paths)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
+
+    changes = ["- Dry run only. No files moved or deleted."]
     if args.apply:
         changes = []
+        for source, target in archive_moves:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(source), str(target))
+            changes.append(f"- Archived `{rel(source)}` to `{rel(target)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for msg in deletes:
+            if "Would remove" not in msg:
+                changes.append(msg)
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files/folders needing triage: {len(rows) + len(archive_moves)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No changes needed."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
     )
-
 
 def create_daily_note(_args: argparse.Namespace) -> Path:
     ensure_folders()
