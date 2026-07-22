@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import re
 import shutil
+import filecmp
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -407,34 +408,104 @@ def link_health(_args: argparse.Namespace) -> Path:
     )
 
 
+def get_unique_path(base_path: Path, assigned_paths: set[Path]) -> Path:
+    if not base_path.exists() and base_path not in assigned_paths:
+        return base_path
+
+    counter = 1
+    while True:
+        new_path = base_path.with_name(f"{base_path.stem}_{counter}{base_path.suffix}")
+        if not new_path.exists() and new_path not in assigned_paths:
+            return new_path
+        counter += 1
+
 def root_triage(args: argparse.Namespace) -> Path:
+    ensure_folders()
+
+    allowlist = {
+        ".git", ".gitignore", ".gitattributes", ".github", ".obsidian",
+        "README.md", "AGENTS.md",
+        "Agent Client", "Dashboard", "Tags",
+        "Inbox", "Daily", "Medicine", "Money", "Mind", "Body",
+        "Content", "Projects", "Relationships", "Bucket_List",
+        "Maps", "Templates", "System"
+    }
+
     rows = []
     moves = []
+    deletions = []
+    dir_removals = []
+    assigned_paths = set()
+
     for path in sorted(ROOT.iterdir()):
-        if path.name.startswith(".") or path.is_dir():
+        if path.name in allowlist:
             continue
-        if path.name in {"README.md", "AGENTS.md"}:
-            continue
-        dest, reason, confidence = classify_root_file(path)
-        target = ROOT / dest / path.name
-        rows.append(f"| {path.name} | {dest}{path.name} | {reason} | {confidence} |")
-        moves.append((path, target))
+
+        if path.is_dir():
+            if path.name.startswith(".") or path.name == "__pycache__":
+                dest_dir = ROOT / "System" / "archive" / path.name
+                target = get_unique_path(dest_dir, assigned_paths)
+                assigned_paths.add(target)
+                rows.append(f"| {path.name}/ | System/archive/{target.name}/ | unapproved config | high |")
+                moves.append((path, target))
+            else:
+                files_to_check = [p for p in path.rglob("*") if p.is_file()]
+                for f in files_to_check:
+                    rel_f = f.relative_to(path)
+                    real_target = ROOT / rel_f
+
+                    if real_target.exists():
+                        if filecmp.cmp(f, real_target, shallow=False):
+                            rows.append(f"| {rel(f)} | (deleted) | duplicate file | high |")
+                            deletions.append(f)
+                        else:
+                            dest = ROOT / "Inbox" / f.name
+                            target = get_unique_path(dest, assigned_paths)
+                            assigned_paths.add(target)
+                            rows.append(f"| {rel(f)} | {rel(target)} | unique note conflict | medium |")
+                            moves.append((f, target))
+                    else:
+                        dest = ROOT / "Inbox" / f.name
+                        target = get_unique_path(dest, assigned_paths)
+                        assigned_paths.add(target)
+                        rows.append(f"| {rel(f)} | {rel(target)} | preserved unique note | medium |")
+                        moves.append((f, target))
+
+                dir_removals.append(path)
+        else:
+            dest_dir_str, reason, confidence = classify_root_file(path)
+            target = get_unique_path(ROOT / dest_dir_str / path.name, assigned_paths)
+            assigned_paths.add(target)
+            rows.append(f"| {path.name} | {rel(target)} | {reason} | {confidence} |")
+            moves.append((path, target))
 
     changes = ["- Dry run only. No files moved."]
     if args.apply:
         changes = []
+        for f in deletions:
+            f.unlink()
+            changes.append(f"- Deleted duplicate `{rel(f)}`.")
+
         for source, target in moves:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(source), str(target))
-            changes.append(f"- Moved `{rel(target)}`.")
+            changes.append(f"- Moved `{rel(source)}` to `{rel(target)}`.")
+
+        for d in sorted(dir_removals, key=lambda p: len(p.parts), reverse=True):
+            for sub_d in sorted(d.rglob("*"), key=lambda p: len(p.parts), reverse=True):
+                if sub_d.is_dir() and not any(sub_d.iterdir()):
+                    sub_d.rmdir()
+            if d.exists() and not any(d.iterdir()):
+                d.rmdir()
+                changes.append(f"- Removed empty duplicate vault directory `{rel(d)}`.")
 
     return write_report(
         "root_triage_report.md",
         "Root Triage Report",
         [
-            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Root files needing triage: {len(rows)}"]),
+            ("Summary", [f"- Mode: {'apply' if args.apply else 'dry run'}", f"- Items needing triage: {len(rows)}"]),
             ("What needs attention", ["| Current path | Suggested destination | Reason | Confidence |", "|---|---|---|---|", *(rows or ["| None | none | root is clean | high |"])]),
-            ("Safe changes made", changes),
+            ("Safe changes made", changes or ["- No files needed moving."]),
             ("Human review needed", ["- Review low-confidence destinations before applying moves."]),
             ("Suggested next actions", ["- Run with `--apply` only when suggested moves are obvious."]),
         ],
